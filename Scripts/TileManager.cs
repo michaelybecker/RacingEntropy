@@ -5,11 +5,17 @@ using System.Collections.Generic;
 public class TileManager : MonoBehaviour
 {
 	//Game map
-	public Tile[,] getTile;
+	public Tile[,] getTile = new Tile[100,100];
 	//Tile to game object
 	public Dictionary<Tile,GameObject> getGameObject = new Dictionary<Tile,GameObject>();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
+
+	public void Start()
+	{
+		int[,] map = new int[,]{{0,1,2,3,4},{5,6,7,6,5},{6,5,4,3,2},{1,0,0,0,0},{0,0,0,0,0}};
+		CreateMap (map);
+	}
 
 	//Adds a new tile
 	public void Add(int tileType, int X, int Y)
@@ -35,12 +41,16 @@ public class TileManager : MonoBehaviour
 
 		//Creates a collider for Jade to hit with a raycast (can't remember if a rigidbody is needed....
 		BoxCollider collider = newTile.AddComponent<BoxCollider> ();
-		//Rigidbody body = newTile.AddComponent<Rigidbody> ();
+		collider.size = worldScale;
+		//TODO get the size correct
+		collider.center = new Vector3 (0, worldScale.y / 2, 0);
+
 		//Creates the mesh holder and adds a mesh
 		MeshFilter filter = newTile.AddComponent<MeshFilter> ();
 		MeshRenderer renderer = newTile.AddComponent<MeshRenderer>();
 
 		filter.mesh = tile.mesh;
+		renderer.material = tile.material;
 		//TODO add a texture and shader
 
 		//position the gameobject
