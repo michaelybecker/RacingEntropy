@@ -10,11 +10,14 @@ public class TileManager : MonoBehaviour
 	public Dictionary<Tile,GameObject> getGameObject = new Dictionary<Tile,GameObject>();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
+	public bool buildOnStart;
 
 	public void Start()
 	{
-		int[,] map = new int[,]{{0,1,2,3,4},{5,6,7,6,5},{6,5,4,3,2},{1,0,0,0,0},{0,0,0,0,0}};
-		CreateMap (map);
+		if (buildOnStart) {
+			int[,] map = new int[,]{{0,1,2,3,4},{5,6,7,6,5},{6,5,4,3,2},{1,0,0,0,0},{0,0,0,0,0}};
+			CreateMap (map);
+		}
 	}
 
 	//Adds a new tile
