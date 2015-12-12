@@ -4,10 +4,14 @@ using System.Collections.Generic;
 
 public class TileManager : MonoBehaviour
 {
+	//Game map
 	public Tile[,] getTile;
+	//Tile to game object
 	public Dictionary<Tile,GameObject> getGameObject = new Dictionary<Tile,GameObject>();
+	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
 
+	//Adds a new tile
 	public void Add(int tileType, int X, int Y)
 	{
 		//scale to world coordinates
@@ -21,6 +25,7 @@ public class TileManager : MonoBehaviour
 		Place (newTile);
 	}
 
+	//Place a new tile in the scene
 	public void Place(Tile tile)
 	{
 		//Creates a new tile
@@ -41,6 +46,36 @@ public class TileManager : MonoBehaviour
 		//position the gameobject
 		newTile.transform.position = tile.position;
 		newTile.transform.parent = transform;
+	}
+
+	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
+	public void CreateMap(int[,] map)
+	{
+		for(int x = 0; x < map.GetLength(0); x++)
+		{
+			for(int y = 0; y < map.GetLength(1); y++)
+			{
+				Add(map[x,y],x,y);
+			}
+		}
+	}
+
+	//Change the tile object
+	public void ChangeType(Tile tile, int newType)
+	{
+
+	}
+
+	//Chang the tile based on the gameObject
+	public void ChangeType(GameObject tile, int newType)
+	{
+		
+	}
+	
+	//Add a plant to a certain tile
+	public void AddPlant(int x, int y)
+	{
+
 	}
 }
 
