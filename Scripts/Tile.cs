@@ -12,7 +12,7 @@ public class Tile
 	//Variables for growth and stuff
 	public int type;
 	public float growthFactor;
-	public float plantHealth;
+	public bool plant;
 
 	//Create a new Tile
 	public Tile(int newType, Vector3 newPosition)

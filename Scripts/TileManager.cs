@@ -24,6 +24,8 @@ public class TileManager : MonoBehaviour
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
 	public Vector2 boardSize;
+	//Plant manager
+	public PlantManager plant;
 
 	//Adds a new tile
 	public void Add(int tileType, int X, int Y)
@@ -101,6 +103,7 @@ public class TileManager : MonoBehaviour
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
+		plant.Update ();
 	}
 
 	//Chang the tile based on the gameObject
@@ -114,12 +117,13 @@ public class TileManager : MonoBehaviour
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
+		plant.Update ();
 	}
 	
 	//Add a plant to a certain tile
 	public void AddPlant(int x, int y)
 	{
-		tileFromObject [tileFromCoordinate [new intVector2(x,y)]].plantHealth = 1;
+		tileFromObject [tileFromCoordinate [new intVector2 (x, y)]].plant = true;
 	}
 }
 
