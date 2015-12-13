@@ -1,57 +1,76 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Events;
 using System.Collections;
 
 public class MenuController : MonoBehaviour 
 {
-	public Button startButton;
-	public Button continueButton;
-	public Button exitButton;
-	public Button menuButton;
-	public GameObject modalPanel;
+	
+	int MenuWidth;
+	int MenuHeight;
+	int Buffer;
+	public bool StartWindowOpen =false;
+	public bool SettingsWindowOpen = false;
 
-	void OnEnable()
+	void OnGUI()
 	{
-		transform.SetAsLastSibling ();
-	}
-
-	private static ModalPanel modalPanel;
-
-	public static ModalPanel Instance ()
-	{
-		if (!modalPanel) {
-			modalPanel = FindObjectOfType (typeof(ModalPanel)) as ModalPanel;
-			if (!modalPanel)
-				Debug.LogError ("There needs to be one active ModalPanel script on a GameObject in your scene.");
+		if (StartWindowOpen) 
+		{
+			Rect window = new Rect (0, 0, Screen.width, Screen.height);
+			window = GUI.ModalWindow (0, window, StartMenu, "");
+			Global.pause = true;
 		}
-		return modalPanel;
-	}
-		
-	public void click (UnityAction start, UnityAction cont, UnityAction exit)
-	{
-		modalPanel.setActive (true);
-
-		startButton.onClick.RemoveAllListeners ();
-		startButton.onClick.AddListener (start);
-		startButton.onClick.AddListener (closePanel);
-
-		continueButton.onClick.RemoveAllListeners ();
-		continueButton.onClick.AddListener (cont);
-		continueButton.onClick.AddListener (closePanel);
-
-		exitButton.onClick.RemoveAllListeners ();
-		exitButton.onClick.AddListener (exit);
-		exitButton.onClick.AddListener (closePanel);
-
-		startButton.gameObject.SetActive (true);
-		continueButton.gameObject.SetActive (true);
-		exitButton.gameObject.SetActive (true);
 	}
 
-	void closePanel()
+	void StartMenu(int ID)
 	{
-		modalPanel.setActive (false);
+		MenuWidth = Screen.width / 3;
+		MenuHeight = Screen.height / 3;
+
+		Buffer = MenuHeight / 3;
+
+		GUI.BeginGroup (new Rect ((Screen.width/2)-(MenuWidth/2), (Screen.height/2)-(MenuHeight/2), MenuWidth, MenuHeight));
+
+		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),"Start New Game"))
+		{
+			//create a new map
+		}
+		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),"Continue"))
+		{
+			StartWindowOpen = false;
+			Global.pause = false;
+		}
+		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),"Exit"))
+		{
+			//exit the game
+		}
+
+		GUI.EndGroup();
+	}
+
+	void SettingsMenu(int ID)
+	{
+		MenuWidth = Screen.width / 3;
+		MenuHeight = Screen.height / 3;
+
+		Buffer = MenuHeight / 4;
+
+		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),"Low"))
+		{
+			//send "1" to create map function
+		}
+		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),"Medium"))
+		{
+			//send "2" to create map function
+		}
+		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),"Hard"))
+		{
+			//send "3" to create map function
+		}
+		if(GUI.Button(new Rect(0,Buffer*3,MenuWidth,Buffer),"Back"))
+		{
+			//back to the previous menu
+			SettingsWindowOpen = false;
+			StartWindowOpen = true;
+		}
 	}
 }
 

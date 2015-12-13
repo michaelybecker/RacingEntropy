@@ -4,16 +4,22 @@ using System.Collections;
 public class GUIMain : MonoBehaviour 
 {
 	public TileManager tiles;
+	public MenuController menu;
 	int Buffer = Screen.height/10; //measurement for spacing and button dimensions -- to scale with screen
 	int ButtonHeight;
 	int ButtonWidth;
+
+	public Texture2D Fire_btn;
 
 	int element;
 
 	void OnGUI ()
 	{
 		ButtonWidth = ButtonHeight = Buffer;
-		Rect StartMenu = new Rect(Buffer,Buffer,Screen.width-Buffer,Screen.height-Buffer);
+		if (GUI.Button (new Rect (0, 0, 80, 40), "Menu")) 
+		{
+			menu.StartWindowOpen = true;
+		}
 
 		//Buttons
 		GUI.BeginGroup(new Rect (Screen.width-ButtonWidth,Buffer*3,ButtonWidth,Screen.height));
@@ -22,7 +28,7 @@ public class GUIMain : MonoBehaviour
 		//{
 		//	element = (int)TileType.element.FIRE;
 		//}
-		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),"Fire"))
+		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),Fire_btn))
 		{
 			element = (int)TileType.element.FIRE;
 		}
@@ -44,12 +50,14 @@ public class GUIMain : MonoBehaviour
 		//If you click on a tile, call the function to change that tile using the element variable
 		if (Input.GetMouseButtonDown (0)) 
 		{
-			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			RaycastHit click;
-			if (Physics.Raycast (ray, out click)) 
+			if (!Global.pause) 
 			{
-				tiles.ChangeType (click.transform.gameObject, element);
-			}		
+				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+				RaycastHit click;
+				if (Physics.Raycast (ray, out click)) {
+					tiles.ChangeType (click.transform.gameObject, element);
+				}
+			}
 		}
 	}
 
