@@ -18,9 +18,9 @@ public class CameraControl : MonoBehaviour
 		Vector3 LookHere = tiles.objectFromTile [tiles.getTile[centerX,centerY]].transform.position;
 		//LookHere = Camera.main.ScreenToWorldPoint(LookHere); 
 
+		transform.position = new Vector3 (centerX, yHeight, tiles.boardSize.y);
+
 		Debug.Log ("look at " + LookHere);
 		transform.LookAt (LookHere);
-
-		transform.position = new Vector3 (tiles.boardSize.x, yHeight, tiles.boardSize.y);
 	}
 }
