@@ -23,16 +23,7 @@ public class TileManager : MonoBehaviour
 	public Dictionary<intVector2,GameObject> tileFromCoordinate = new Dictionary<intVector2,GameObject>();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
-	public bool buildOnStart;
-
-	public void Start()
-	{
-		if (buildOnStart) 
-		{
-			int[,] map = new int[,]{{0,1,2,3,4},{5,6,7,6,5},{6,5,4,3,2},{1,0,0,0,0},{0,0,0,0,0}};
-			CreateMap (map);
-		}
-	}
+	public Vector2 boardSize;
 
 	//Adds a new tile
 	public void Add(int tileType, int X, int Y)
@@ -95,6 +86,7 @@ public class TileManager : MonoBehaviour
 				Add(map[x,y],x,y);
 			}
 		}
+		boardSize = new Vector2 (map.GetLength(0)*worldScale.x,map.GetLength(1)*worldScale.z);
 	}
 
 	//Change the tile object
