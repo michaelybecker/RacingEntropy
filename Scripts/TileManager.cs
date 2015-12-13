@@ -2,12 +2,25 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+public class intVector2
+{
+	public int x;
+	public int y;
+
+	public intVector2(int newX, int newY)
+	{
+		x = newX;
+		y = newY;
+	}
+}
+
 public class TileManager : MonoBehaviour
 {
 	//Game map
 	public Tile[,] getTile = new Tile[100,100];
 	//Tile to game object
-	public Dictionary<Tile,GameObject> getGameObject = new Dictionary<Tile,GameObject>();
+	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
+	public Dictionary<intVector2,GameObject> tileFromCoordinate = new Dictionary<intVector2,GameObject>();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
 	public bool buildOnStart;
@@ -32,18 +45,19 @@ public class TileManager : MonoBehaviour
 		getTile [X, Y] = newTile;
 
 		//create the gameobject
-		Place (newTile);
+		Place (newTile,X,Y);
 	}
 
 	//Place a new tile in the scene
-	public void Place(Tile tile)
+	public void Place(Tile tile, int x, int y)
 	{
 		//Creates a new tile
 		//A purely cosmetic object to be placed above the base tile
 		GameObject newTile = new GameObject ("Tile");
 		GameObject tileFlair = new GameObject ("Flair");
 		//adds it to the dictionary
-		getGameObject.Add (tile, newTile);
+		tileFromObject.Add (newTile, tile);
+		tileFromCoordinate.Add (new intVector2 (x,y), newTile);
 
 		//Creates a collider for Jade to hit with a raycast (can't remember if a rigidbody is needed....
 		BoxCollider collider = newTile.AddComponent<BoxCollider> ();
@@ -86,19 +100,34 @@ public class TileManager : MonoBehaviour
 	//Change the tile object
 	public void ChangeType(int x, int y, int element)
 	{
-		getTile[x,y].Change (element);
+		GameObject tile = tileFromCoordinate[new intVector2(x,y)];
+		Tile changedTile = tileFromObject [tile];
+		changedTile.Change (element);
+		tile.GetComponent<MeshRenderer>().material = changedTile.material;
+		foreach(Transform child in tile.transform)
+		{
+			child.GetComponent<MeshRenderer>().material = changedTile.material;
+			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
+		}
 	}
 
 	//Chang the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
-		
+		Tile changedTile = tileFromObject [tile];
+		changedTile.Change (element);
+		tile.GetComponent<MeshRenderer>().material = changedTile.material;
+		foreach(Transform child in tile.transform)
+		{
+			child.GetComponent<MeshRenderer>().material = changedTile.material;
+			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
+		}
 	}
 	
 	//Add a plant to a certain tile
 	public void AddPlant(int x, int y)
 	{
-
+		tileFromObject [tileFromCoordinate [new intVector2(x,y)]].plantHealth = 1;
 	}
 }
 
