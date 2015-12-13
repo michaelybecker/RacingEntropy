@@ -22,13 +22,12 @@ public class PlantManager : MonoBehaviour
 		{
 			foreach(intVector2 dir in directions)
 			{
-				Tile tempTile = 
-					manager.tileFromObject [manager.tileFromCoordinate [new intVector2 (plant.Key.x+dir.x,plant.Key.y+dir.y)]].plant;
-				if(tempTile.plant = false)
+				Tile tempTile = manager.tileFromObject [manager.tileFromCoordinate [new intVector2 (plant.Key.x+dir.x,plant.Key.y+dir.y)]];
+				if(tempTile.plant == false)
 				{
 					if(tempTile.growthFactor > 0.5f)
 					{
-						AddPlant(
+						AddPlant(plant.Key.x+dir.x,plant.Key.y+dir.y);
 					}
 				}
 			}
