@@ -4,7 +4,7 @@ using System.Collections;
 public class GUIMain : MonoBehaviour 
 {
 	public TileManager tiles;
-	int Buffer = Screen.height/8; //measurement for spacing and button dimensions -- to scale with screen
+	int Buffer = Screen.height/10; //measurement for spacing and button dimensions -- to scale with screen
 	int ButtonHeight;
 	int ButtonWidth;
 
@@ -13,9 +13,10 @@ public class GUIMain : MonoBehaviour
 	void OnGUI ()
 	{
 		ButtonWidth = ButtonHeight = Buffer;
+		Rect StartMenu = new Rect(Buffer,Buffer,Screen.width-Buffer,Screen.height-Buffer);
 
 		//Buttons
-		GUI.BeginGroup(new Rect (Screen.width-ButtonWidth,Buffer*2,ButtonWidth,Screen.height));
+		GUI.BeginGroup(new Rect (Screen.width-ButtonWidth,Buffer*3,ButtonWidth,Screen.height));
 
 		//if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),"Fire"))
 		//{
