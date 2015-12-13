@@ -16,21 +16,22 @@ public class PlantManager : MonoBehaviour
 		new intVector2(0,-1)
 	};
 
-	public void Update()
+	public void Grow()
 	{
-		foreach(KeyValuePair<intVector2,Tile> plant in getPlantTile)
+		List<intVector2> plantLocation = new List<intVector2> (getPlantTile.Keys);
+		foreach(intVector2 plant in plantLocation)
 		{
 			foreach(intVector2 dir in directions)
 			{
-				if(plant.Key.x+dir.x > 0 && plant.Key.x+dir.x < manager.getTile.GetLength(0) &&
-				   plant.Key.y+dir.y > 0 && plant.Key.y+dir.y < manager.getTile.GetLength(1))
+				if(plant.x+dir.x >= 0 && plant.x+dir.x < manager.getTile.GetLength(0) &&
+				   plant.y+dir.y >= 0 && plant.y+dir.y < manager.getTile.GetLength(1))
 				{
-					Tile tempTile = manager.tileFromObject [manager.objectFromCoordinate [new intVector2 (plant.Key.x+dir.x,plant.Key.y+dir.y)]];
+					Tile tempTile = manager.tileFromObject[manager.objectFromTile[manager.getTile[plant.x+dir.x,plant.y+dir.y]]];
 					if(tempTile.plant == false)
 					{
 						if(tempTile.growthFactor > 0.5f)
 						{
-							AddPlant(plant.Key.x+dir.x,plant.Key.y+dir.y);
+							AddPlant(plant.x+dir.x,plant.y+dir.y);
 						}
 					}
 				}
@@ -40,11 +41,11 @@ public class PlantManager : MonoBehaviour
 
 	public void AddPlant(int x, int y)
 	{
-		Tile newTile = manager.tileFromObject [manager.objectFromCoordinate [new intVector2 (x, y)]];
+		GameObject tile = manager.objectFromTile [manager.getTile[x,y]];
+		Tile newTile = manager.tileFromObject [tile];
 		newTile.plant = true;
 		getPlantTile.Add (new intVector2(x,y),newTile);
 		//TODO add plant mesh thingy
-		GameObject tile = manager.objectFromCoordinate [new intVector2 (x, y)];
 		tile.GetComponent<MeshRenderer>().material = Resource.plantMaterial;
 		foreach(Transform child in tile.transform)
 		{

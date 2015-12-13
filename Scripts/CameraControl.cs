@@ -4,9 +4,9 @@ using System.Collections;
 public class CameraControl : MonoBehaviour 
 {
 	public TileManager tiles;
-	float yHeight;
+	public float yHeight;
 
-	void Init()
+	public void Init()
 	{
 		yHeight = tiles.boardSize.x;
 		int centerX = (int)(tiles.getTile.GetLength (0) / 2);
@@ -15,8 +15,10 @@ public class CameraControl : MonoBehaviour
 		Debug.Log (centerX);
 		Debug.Log (centerY);
 
-		Vector3 LookHere = tiles.tileFromCoordinate [new intVector2 (centerX, centerY)].transform.position;
+		Vector3 LookHere = tiles.objectFromTile [tiles.getTile[centerX,centerY]].transform.position;
+		//LookHere = Camera.main.ScreenToWorldPoint(LookHere); 
 
+		Debug.Log ("look at " + LookHere);
 		transform.LookAt (LookHere);
 
 		transform.position = new Vector3 (tiles.boardSize.x, yHeight, tiles.boardSize.y);

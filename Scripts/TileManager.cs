@@ -17,10 +17,13 @@ public class intVector2
 public class TileManager : MonoBehaviour
 {
 	//Game map
-	public Tile[,] getTile = new Tile[100,100];
+	public Tile[,] getTile;
+
+	//Camera control
+	public CameraControl cameraControl;
 	//Tile to game object
 	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
-	public Dictionary<intVector2,GameObject> objectFromCoordinate = new Dictionary<intVector2,GameObject>();
+	public Dictionary<Tile,GameObject> objectFromTile = new Dictionary<Tile,GameObject>();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
 	public Vector2 boardSize;
@@ -50,7 +53,7 @@ public class TileManager : MonoBehaviour
 		GameObject tileFlair = new GameObject ("Flair");
 		//adds it to the dictionary
 		tileFromObject.Add (newTile, tile);
-		objectFromCoordinate.Add (new intVector2 (x,y), newTile);
+		objectFromTile.Add (tile, newTile);
 
 		//Creates a collider for Jade to hit with a raycast (can't remember if a rigidbody is needed....
 		BoxCollider collider = newTile.AddComponent<BoxCollider> ();
@@ -81,6 +84,7 @@ public class TileManager : MonoBehaviour
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
 	public void CreateMap(int[,] map)
 	{
+		getTile = new Tile[map.GetLength(0),map.GetLength(1)];
 		for(int x = 0; x < map.GetLength(0); x++)
 		{
 			for(int y = 0; y < map.GetLength(1); y++)
@@ -89,12 +93,13 @@ public class TileManager : MonoBehaviour
 			}
 		}
 		boardSize = new Vector2 (map.GetLength(0)*worldScale.x,map.GetLength(1)*worldScale.z);
+		//cameraControl.Init();
 	}
 
 	//Change the tile object
 	public void ChangeType(int x, int y, int element)
 	{
-		GameObject tile = objectFromCoordinate[new intVector2(x,y)];
+		GameObject tile = objectFromTile[getTile[x,y]];
 		Tile changedTile = tileFromObject [tile];
 		changedTile.Change (element);
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
@@ -103,10 +108,10 @@ public class TileManager : MonoBehaviour
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
-		plant.Update ();
+		plant.Grow ();
 	}
 
-	//Chang the tile based on the gameObject
+	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
 		Tile changedTile = tileFromObject [tile];
@@ -117,7 +122,7 @@ public class TileManager : MonoBehaviour
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
-		plant.Update ();
+		plant.Grow ();
 	}
 	
 	//Add a plant to a certain tile
