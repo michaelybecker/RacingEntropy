@@ -23,11 +23,14 @@ public class CascadeManager {
 	private int[] elevations = new int[]{1,0,1,0,3,1,2,1};
 	//private int[] telements = new int[]{3,2,2,2,0,1,0,1}; // For future air implementation.
 
+	private List<Tile> affectedTiles;
+	private Queue<Tile> toDo;
+
 	public CascadeManager (TileManager m) {
 		manager = m;
 	}
 
-	public void OnElement (Tile currentTile, TileType.element currentElement) {
+	public void OnElement (Tile currentTile, int currentElement) {
 
 		// I can't guarentee that the map size will remain the same from call to call on this function.
 		width = manager.getTile.GetLength(0);
@@ -39,8 +42,8 @@ public class CascadeManager {
 		int coordY = Mathf.RoundToInt (currentTile.position.y / manager.worldScale.y);
 
 		// So now I need a bunch of cases for each element, and then I need a loop function for each of them
-		List<Tile> affectedTiles = new List<Tile>();
-		Queue<Tile> toDo = new Queue<Tile>();
+		affectedTiles = new List<Tile>();
+		toDo = new Queue<Tile>();
 
 		affectedTiles.Add(currentTile);
 		toDo.Enqueue(currentTile);
@@ -49,32 +52,33 @@ public class CascadeManager {
 
 		// loops until toDo is done.  This isn't dangerous at all...
 		while (toDo.Count > 0) {
+			Debug.Log("test");
 			switch (currentElement) {
-				case TileType.element.WATER:
-					OnWater(coordX, coordY, toDo.Dequeue(), affectedTiles, toDo);
+				case (int)TileType.element.WATER:
+					OnWater(coordX, coordY, toDo.Dequeue());
 					break;
-				case TileType.element.FIRE:
-					OnFire(coordX, coordY, toDo.Dequeue(), affectedTiles, toDo);
+				case (int)TileType.element.FIRE:
+					OnFire(coordX, coordY, toDo.Dequeue());
 					break;
-				case TileType.element.EARTH:
-					OnEarth(coordX, coordY, toDo.Dequeue(), affectedTiles, toDo);
+				case (int)TileType.element.EARTH:
+					OnEarth(coordX, coordY, toDo.Dequeue());
 					break;
-				case TileType.element.AIR:
-					OnAir(coordX, coordY, toDo.Dequeue(), affectedTiles, toDo);
+				case (int)TileType.element.AIR:
+					OnAir(coordX, coordY, toDo.Dequeue());
 					break;
 			}
 		}
 
 		// Then apply the element effect to every tile in affectedTiles.  I don't currently know what to call for that.
 		foreach (Tile t in affectedTiles) {
-			t.Change((int)currentElement);
+			t.Change(currentElement);
 		}
 	}
 
-	private void OnWater (int coordX, int coordY, Tile currentTile, List<Tile> affectedTiles, Queue<Tile> toDo) {
+	private void OnWater (int coordX, int coordY, Tile currentTile) {
 		// Four checks, comparing elevation of each adjacent tile with elevation of this tile.
 		// Can short-circut if this tile is already elevation 1 or less.
-		if (elevations[currentTile.type] == 0)
+		if (elevations[(int)currentTile.type] == 0)
 			return;
 
 		Tile currentCheck;
@@ -112,7 +116,7 @@ public class CascadeManager {
 		}
 	}
 
-	private void OnFire (int coordX, int coordY, Tile currentTile, List<Tile> affectedTiles, Queue<Tile> toDo) {
+	private void OnFire (int coordX, int coordY, Tile currentTile) {
 		// Four checks to see if the adjacent tiles are flammable.
 
 		Tile currentCheck;
@@ -150,7 +154,7 @@ public class CascadeManager {
 		}
 	}
 
-	private void OnEarth (int coordX, int coordY, Tile currentTile, List<Tile> affectedTiles, Queue<Tile> toDo) {
+	private void OnEarth (int coordX, int coordY, Tile currentTile) {
 		// Make sure we're a crag or mountain
 		if (currentTile.type != 6 && currentTile.type != 4)
 			return;
@@ -188,7 +192,7 @@ public class CascadeManager {
 
 	}
 
-	private void OnAir (int coordX, int coordY, Tile currentTile, List<Tile> affectedTiles, Queue<Tile> toDo) {
+	private void OnAir (int coordX, int coordY, Tile currentTile) {
 		// Four checks
 
 		// Currently air doesn't do anything anyway, so... take a moment.
