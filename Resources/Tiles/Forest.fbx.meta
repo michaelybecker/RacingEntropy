@@ -11,30 +11,47 @@ ModelImporter:
     100006: polySurface4
     100008: polySurface5
     100010: polySurface6
+    100012: polySurface7
+    100014: sm_ForestTile
+    100016: transform1
+    100018: transform2
+    100020: transform3
+    100022: transform4
+    100024: transform5
     400000: //RootNode
     400002: polySurface2
     400004: polySurface3
     400006: polySurface4
     400008: polySurface5
     400010: polySurface6
+    400012: polySurface7
+    400014: sm_ForestTile
+    400016: transform1
+    400018: transform2
+    400020: transform3
+    400022: transform4
+    400024: transform5
     2300000: //RootNode
     2300002: polySurface2
     2300004: polySurface3
     2300006: polySurface4
     2300008: polySurface5
     2300010: polySurface6
+    2300012: polySurface7
     3300000: //RootNode
     3300002: polySurface2
     3300004: polySurface3
     3300006: polySurface4
     3300008: polySurface5
     3300010: polySurface6
+    3300012: polySurface7
     4300000: sm_ForestTile
     4300002: polySurface2
     4300004: polySurface3
     4300006: polySurface4
     4300008: polySurface5
     4300010: polySurface6
+    4300012: polySurface7
   materials:
     importMaterials: 1
     materialName: 0

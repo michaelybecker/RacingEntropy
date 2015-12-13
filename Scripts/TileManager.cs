@@ -20,7 +20,7 @@ public class TileManager : MonoBehaviour
 	public Tile[,] getTile = new Tile[100,100];
 	//Tile to game object
 	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
-	public Dictionary<intVector2,GameObject> tileFromCoordinate = new Dictionary<intVector2,GameObject>();
+	public Dictionary<intVector2,GameObject> objectFromCoordinate = new Dictionary<intVector2,GameObject>();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
 	public Vector2 boardSize;
@@ -50,7 +50,7 @@ public class TileManager : MonoBehaviour
 		GameObject tileFlair = new GameObject ("Flair");
 		//adds it to the dictionary
 		tileFromObject.Add (newTile, tile);
-		tileFromCoordinate.Add (new intVector2 (x,y), newTile);
+		objectFromCoordinate.Add (new intVector2 (x,y), newTile);
 
 		//Creates a collider for Jade to hit with a raycast (can't remember if a rigidbody is needed....
 		BoxCollider collider = newTile.AddComponent<BoxCollider> ();
@@ -94,7 +94,7 @@ public class TileManager : MonoBehaviour
 	//Change the tile object
 	public void ChangeType(int x, int y, int element)
 	{
-		GameObject tile = tileFromCoordinate[new intVector2(x,y)];
+		GameObject tile = objectFromCoordinate[new intVector2(x,y)];
 		Tile changedTile = tileFromObject [tile];
 		changedTile.Change (element);
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
@@ -123,7 +123,8 @@ public class TileManager : MonoBehaviour
 	//Add a plant to a certain tile
 	public void AddPlant(int x, int y)
 	{
-		tileFromObject [tileFromCoordinate [new intVector2 (x, y)]].plant = true;
+		Debug.Log ("adding plant at" + x + " " + y);
+		plant.AddPlant (x, y);
 	}
 }
 

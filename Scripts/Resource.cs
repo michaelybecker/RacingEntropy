@@ -24,6 +24,8 @@ public static class Resource
 		(Mesh)Resources.Load(("Tiles/Goal"), typeof( Mesh ))*/
 	};
 
+	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
+
 	public static Material[] tileMaterial = new Material[]{
 		(Material)Resources.Load (("Tiles/Materials/Desert"), typeof(Material)),
 		(Material)Resources.Load (("Tiles/Materials/Marsh"), typeof(Material)),
