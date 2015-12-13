@@ -14,7 +14,8 @@ public class TileManager : MonoBehaviour
 
 	public void Start()
 	{
-		if (buildOnStart) {
+		if (buildOnStart) 
+		{
 			int[,] map = new int[,]{{0,1,2,3,4},{5,6,7,6,5},{6,5,4,3,2},{1,0,0,0,0},{0,0,0,0,0}};
 			CreateMap (map);
 		}
@@ -38,7 +39,9 @@ public class TileManager : MonoBehaviour
 	public void Place(Tile tile)
 	{
 		//Creates a new tile
-		GameObject newTile = new GameObject ("");
+		//A purely cosmetic object to be placed above the base tile
+		GameObject newTile = new GameObject ("Tile");
+		GameObject tileFlair = new GameObject ("Flair");
 		//adds it to the dictionary
 		getGameObject.Add (tile, newTile);
 
@@ -51,14 +54,21 @@ public class TileManager : MonoBehaviour
 		//Creates the mesh holder and adds a mesh
 		MeshFilter filter = newTile.AddComponent<MeshFilter> ();
 		MeshRenderer renderer = newTile.AddComponent<MeshRenderer>();
+		MeshFilter flairFilter = tileFlair.AddComponent<MeshFilter> ();
+		MeshRenderer flairRenderer = tileFlair.AddComponent<MeshRenderer>();
 
-		filter.mesh = tile.mesh;
+		filter.mesh = Resource.baseMesh;
+		flairFilter.mesh = tile.mesh;
+
 		renderer.material = tile.material;
+		flairRenderer.material = tile.material;
 		//TODO add a texture and shader
 
 		//position the gameobject
 		newTile.transform.position = tile.position;
+		tileFlair.transform.position = new Vector3 (tile.position.x, tile.position.y + 0.5f, tile.position.z);
 		newTile.transform.parent = transform;
+		tileFlair.transform.parent = newTile.transform;
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
@@ -74,13 +84,13 @@ public class TileManager : MonoBehaviour
 	}
 
 	//Change the tile object
-	public void ChangeType(Tile tile, int newType)
+	public void ChangeType(int x, int y, int element)
 	{
-
+		getTile[x,y].Change (element);
 	}
 
 	//Chang the tile based on the gameObject
-	public void ChangeType(GameObject tile, int newType)
+	public void ChangeType(GameObject tile, int element)
 	{
 		
 	}

@@ -21,38 +21,50 @@ public class Tile
 		position = newPosition;
 	}
 
+	public void Change(int element)
+	{
+		setTile (TileHelper.CombinationLookup(type,element));
+	}
+
 	//Set the tile parameters
 	private void setTile(int newType)
 	{
-		type = newType;
-		mesh = Resource.tileMesh[type];
-		material = Resource.tileMaterial[type];
-		switch(type)
+		if(newType != -1)
 		{
-		case (int)TileType.tile.DESERT:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.MARSH:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.FOREST:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.LAKE:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.MOUNTAIN:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.PLAIN:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.CRAGS:
-			growthFactor = 1;
-			break;
-		case (int)TileType.tile.GOAL:
-			growthFactor = 1;
-			break;
+			type = newType;
+			mesh = Resource.tileMesh[type];
+			material = Resource.tileMaterial[type];
+			switch(type)
+			{
+			case (int)TileType.tile.DESERT:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.MARSH:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.FOREST:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.LAKE:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.MOUNTAIN:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.PLAIN:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.CRAGS:
+				growthFactor = 1;
+				break;
+			case (int)TileType.tile.GOAL:
+				growthFactor = 1;
+				break;
+			}
+		}
+		else
+		{
+			Debug.Log("That has yet to be implemented");
 		}
 	}
 }
