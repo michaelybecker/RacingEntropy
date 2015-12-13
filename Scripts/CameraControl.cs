@@ -12,15 +12,10 @@ public class CameraControl : MonoBehaviour
 		int centerX = (int)(tiles.getTile.GetLength (0) / 2);
 		int centerY = (int)(tiles.getTile.GetLength (1) / 2);
 
-		Debug.Log (centerX);
-		Debug.Log (centerY);
-
 		Vector3 LookHere = tiles.objectFromTile [tiles.getTile[centerX,centerY]].transform.position;
 		//LookHere = Camera.main.ScreenToWorldPoint(LookHere); 
 
 		transform.position = new Vector3 (centerX, yHeight, tiles.boardSize.y);
-
-		Debug.Log ("look at " + LookHere);
 		transform.LookAt (LookHere);
 	}
 }

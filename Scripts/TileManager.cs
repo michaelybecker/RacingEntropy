@@ -56,8 +56,8 @@ public class TileManager : MonoBehaviour
 	{
 		//Creates a new tile
 		//A purely cosmetic object to be placed above the base tile
-		GameObject newTile = new GameObject ("Tile");
-		GameObject tileFlair = new GameObject ("Flair");
+		GameObject newTile = new GameObject ("Tile" + x + "," + y);
+		GameObject tileFlair = new GameObject ("Flair" + x + "," + y);
 		//adds it to the dictionary
 		tileFromObject.Add (newTile, tile);
 		objectFromTile.Add (tile, newTile);
@@ -132,9 +132,8 @@ public class TileManager : MonoBehaviour
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);
 		Change (tile, changedTile);
-		//changedTile.Change (element);
-		plant.KillPlant (changedTile);
 		plant.Grow ();
+		//changedTile.Change (element);
 	}
 
 	public void Change(GameObject tile, Tile changedTile)
@@ -145,12 +144,12 @@ public class TileManager : MonoBehaviour
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
+		plant.KillPlant (changedTile);
 	}
 	
 	//Add a plant to a certain tile
 	public void AddPlant(int x, int y)
 	{
-		Debug.Log ("adding plant at" + x + " " + y);
 		plant.AddPlant (x, y);
 	}
 }

@@ -46,25 +46,25 @@ public class Tile
 			switch(type)
 			{
 			case (int)TileType.tile.DESERT:
-				growthFactor = 0;
+				growthFactor = 0.0f;
 				break;
 			case (int)TileType.tile.MARSH:
-				growthFactor = 0.02f;
+				growthFactor = 0.25f;
 				break;
 			case (int)TileType.tile.FOREST:
-				growthFactor = 0.1f;
+				growthFactor = 0.5f;
 				break;
 			case (int)TileType.tile.LAKE:
-				growthFactor = 0.075f;
+				growthFactor = 0.0f;
 				break;
 			case (int)TileType.tile.MOUNTAIN:
-				growthFactor = 0.01f;
-				break;
-			case (int)TileType.tile.PLAIN:
 				growthFactor = 0.05f;
 				break;
+			case (int)TileType.tile.PLAIN:
+				growthFactor = 1f;
+				break;
 			case (int)TileType.tile.CRAGS:
-				growthFactor = 0.01f;
+				growthFactor = 0.075f;
 				break;
 			case (int)TileType.tile.GOAL:
 				growthFactor = 10;

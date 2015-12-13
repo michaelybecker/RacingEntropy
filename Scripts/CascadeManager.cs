@@ -44,7 +44,7 @@ public class CascadeManager {
 		toDo = new Queue<Tile>();
 
 		// Don't want to hit ourselves with air.
-		if (currentElement != TileType.element.AIR)
+		if (currentElement != (int)TileType.element.AIR)
 			affectedTiles.Add(currentTile);
 		toDo.Enqueue(currentTile);
 		// Now we can assume in each iteration that we've already added the tile on toDo.
@@ -69,13 +69,13 @@ public class CascadeManager {
 		}
 
 		// If air, here we need to change the current element according to the tile we're hitting with air.
-		if (currentElement == TileType.element.AIR)
+		if (currentElement == (int)TileType.element.AIR)
 			currentElement = telements[(int)currentTile.type];
 
 		// Then apply the element effect to every tile in affectedTiles.  I don't currently know what to call for that.
 		foreach (Tile t in affectedTiles) {
 			t.Change(currentElement);
-			manager.Change(manager.objectFromTile[t].t);
+			manager.Change(manager.objectFromTile[t],t);
 		}
 	}
 
