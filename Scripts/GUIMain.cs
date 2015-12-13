@@ -4,28 +4,36 @@ using System.Collections;
 public class GUIMain : MonoBehaviour 
 {
 	public TileManager tiles;
-	int ButtonHeight = 80;
-	int ButtonWidth = Screen.width/4;
+	int Buffer = Screen.height/8; //measurement for spacing and button dimensions -- to scale with screen
+	int ButtonHeight;
+	int ButtonWidth;
+
 	int element;
 
 	void OnGUI ()
 	{
-		//Buttons
-		GUI.BeginGroup(new Rect (0,Screen.height-ButtonHeight,Screen.width,ButtonHeight));
+		ButtonWidth = ButtonHeight = Buffer;
 
+		//Buttons
+		GUI.BeginGroup(new Rect (Screen.width-ButtonWidth,Buffer*2,ButtonWidth,Screen.height));
+
+		//if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),"Fire"))
+		//{
+		//	element = (int)TileType.element.FIRE;
+		//}
 		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),"Fire"))
 		{
 			element = (int)TileType.element.FIRE;
 		}
-		if(GUI.Button(new Rect(ButtonWidth,0,ButtonWidth,ButtonHeight),"Water"))
+		if(GUI.Button(new Rect(0,ButtonHeight,ButtonWidth,ButtonHeight),"Water"))
 		{
 			element = (int)TileType.element.WATER;
 		}
-		if(GUI.Button(new Rect(ButtonWidth*2,0,ButtonWidth,ButtonHeight),"Earth"))
+		if(GUI.Button(new Rect(0,ButtonHeight*2,ButtonWidth,ButtonHeight),"Earth"))
 		{
 			element = (int)TileType.element.EARTH;
 		}
-		if(GUI.Button(new Rect(ButtonWidth*3,0,ButtonWidth,ButtonHeight),"Air"))
+		if(GUI.Button(new Rect(0,ButtonHeight*3,ButtonWidth,ButtonHeight),"Air"))
 		{
 			element = (int)TileType.element.AIR;
 		}
