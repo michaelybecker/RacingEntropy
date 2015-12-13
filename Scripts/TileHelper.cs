@@ -45,7 +45,7 @@ public static class TileHelper
 			case (int)TileType.element.FIRE:
 				return (int)TileType.tile.PLAIN;
 			case (int)TileType.element.AIR:
-				return -1;//(int)TileType.tile.DESERT;
+				return (int)TileType.tile.PLAIN;
 			}
 			return -1;
 		case (int)TileType.tile.LAKE:
@@ -71,7 +71,7 @@ public static class TileHelper
 			case (int)TileType.element.FIRE:
 				return -1;//(int)TileType.tile.DESERT;
 			case (int)TileType.element.AIR:
-				return -1;//(int)TileType.tile.DESERT;
+				return (int)TileType.tile.CRAGS;
 			}
 			return -1;
 		case (int)TileType.tile.PLAIN:
@@ -97,7 +97,7 @@ public static class TileHelper
 			case (int)TileType.element.FIRE:
 				return (int)TileType.tile.DESERT;
 			case (int)TileType.element.AIR:
-				return -1;//(int)TileType.tile.DESERT;
+				return (int)TileType.tile.DESERT;
 			}
 			return -1;
 		case (int)TileType.tile.GOAL:
