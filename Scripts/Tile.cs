@@ -8,18 +8,26 @@ public class Tile
 	public Mesh mesh;
 	public Material material;
 	public Vector3 position;
+	public int x;
+	public int y;
 
-	//Variables for growth and stuff
+	//Terrain types
 	public int type;
 	public float growthFactor;
-	public bool plant;
+
+	//Plant factor
+	public bool plant;//plant that is growing
+	public float plantGrowth;
 
 	//Create a new Tile
-	public Tile(int newType, Vector3 newPosition)
+	public Tile(int newType, Vector3 newPosition, int X, int Y)
 	{
 		//Set the tile parameters
 		setTile (newType);
 		position = newPosition;
+
+		x = X;
+		y = Y;
 	}
 
 	public void Change(int element)
@@ -41,22 +49,22 @@ public class Tile
 				growthFactor = 0;
 				break;
 			case (int)TileType.tile.MARSH:
-				growthFactor = 0.75f;
+				growthFactor = 0.02f;
 				break;
 			case (int)TileType.tile.FOREST:
-				growthFactor = 1;
+				growthFactor = 0.1f;
 				break;
 			case (int)TileType.tile.LAKE:
-				growthFactor = 0.5f;
+				growthFactor = 0.075f;
 				break;
 			case (int)TileType.tile.MOUNTAIN:
-				growthFactor = 0.2f;
+				growthFactor = 0.01f;
 				break;
 			case (int)TileType.tile.PLAIN:
-				growthFactor = 0.75f;
+				growthFactor = 0.05f;
 				break;
 			case (int)TileType.tile.CRAGS:
-				growthFactor = 0.2f;
+				growthFactor = 0.01f;
 				break;
 			case (int)TileType.tile.GOAL:
 				growthFactor = 10;
@@ -65,7 +73,7 @@ public class Tile
 		}
 		else
 		{
-			Debug.Log("That has yet to be implemented");
+			//Debug.Log("That has yet to be implemented");
 		}
 	}
 }

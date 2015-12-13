@@ -67,9 +67,10 @@ public class CascadeManager {
 		}
 
 		// Then apply the element effect to every tile in affectedTiles.  I don't currently know what to call for that.
-		foreach (Tile t in affectedTiles) {
+		foreach (Tile t in affectedTiles) 
+		{
 			t.Change(currentElement);
-			manager.Change(manager.objectFromTile[t].t);
+			manager.Change(manager.objectFromTile[t],t);
 		}
 	}
 
@@ -196,7 +197,6 @@ public class CascadeManager {
 				affectedTiles.Add(currentCheck);
 			}
 		}
-
 	}
 
 	private void OnAir (Tile currentTile) {
