@@ -18,13 +18,6 @@ public static class Resource
 		(Mesh)Resources.Load(("Tiles/Desert"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Crags"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Goal"), typeof( Mesh ))
-		/*(Mesh)Resources.Load(("Tiles/Marsh"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Forest"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Lake"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Mountain"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Plain"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Crags"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Goal"), typeof( Mesh ))*/
 	};
 
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
@@ -39,6 +32,17 @@ public static class Resource
 		(Material)Resources.Load (("Tiles/Materials/Plain"), typeof(Material)),
 		(Material)Resources.Load (("Tiles/Materials/Crags"), typeof(Material)),
 		(Material)Resources.Load (("Tiles/Materials/Goal"), typeof(Material))
+	};
+
+	public static AudioClip mainTheme = (AudioClip)Resources.Load ("Sound/Music/Main_Theme/Main", typeof(AudioClip));
+	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOver", typeof(AudioClip));
+
+	public static AudioClip[] elementSound = new AudioClip[]
+	{
+		(AudioClip)Resources.Load ("Sound/FX/elements/earth", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/elements/air", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/elements/water", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/elements/fire", typeof(AudioClip)),
 	};
 }
 

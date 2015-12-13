@@ -5,4 +5,5 @@ public static class Global
 {
 	public static bool win = false;
 	public static bool lose = false;
+	public static bool playingTheme = true;
 }
