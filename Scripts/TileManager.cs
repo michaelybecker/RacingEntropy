@@ -25,7 +25,7 @@ public class TileManager : MonoBehaviour
 	//Cascade manager
 	public CascadeManager cascade;
 	public Cartographer mapControl;
-	public AudioManager audio;
+	public AudioManager audioControl;
 
 	//Tile to game object
 	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
@@ -125,7 +125,7 @@ public class TileManager : MonoBehaviour
 	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
-		audio.Play (Resource.elementSound [element]);
+		audioControl.Play (Resource.elementSound [element]);
 
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);

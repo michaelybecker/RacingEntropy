@@ -20,6 +20,25 @@ public static class Resource
 		(Mesh)Resources.Load(("Tiles/Goal"), typeof( Mesh ))
 	};
 
+	//GUI buttons
+	public static Texture2D Air_Btn = (Texture2D)Resources.Load (("Gui/Air_Btn"), typeof(Texture2D));
+	public static Texture2D Earth_Btn = (Texture2D)Resources.Load (("Gui/Earth_Btn"), typeof(Texture2D));
+	public static Texture2D Fire_Btn = (Texture2D)Resources.Load (("Gui/Fire_Btn"), typeof(Texture2D));
+	public static Texture2D Water_Btn = (Texture2D)Resources.Load (("Gui/Water_Btn"), typeof(Texture2D));
+
+	public static Texture2D NG_Btn = (Texture2D)Resources.Load (("Gui/NG_Btn"), typeof(Texture2D));
+	public static Texture2D ContinueGame_Btn = (Texture2D)Resources.Load (("Gui/ContinueGame_Btn"), typeof(Texture2D));
+	public static Texture2D QuitGame_Btn = (Texture2D)Resources.Load (("Gui/QuitGame_Btn"), typeof(Texture2D));
+	public static Texture2D RestartGame_Btn = (Texture2D)Resources.Load (("Gui/RestartGame_Btn"), typeof(Texture2D));
+
+	public static Texture2D HardDifficulty_Btn = (Texture2D)Resources.Load (("Gui/HardDifficulty_Btn"), typeof(Texture2D));
+	public static Texture2D MediumDifficulty_Btn = (Texture2D)Resources.Load (("Gui/MediumDifficulty_Btn"), typeof(Texture2D));
+	public static Texture2D LowDifficulty_Btn = (Texture2D)Resources.Load (("Gui/LowDifficulty_Btn"), typeof(Texture2D));
+
+	public static Texture2D Title = (Texture2D)Resources.Load (("Gui/Title"), typeof(Texture2D));
+	public static Texture2D TitleBackground = (Texture2D)Resources.Load (("Gui/TitleBackground"), typeof(Texture2D));
+
+	//Materials
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
 	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
 
@@ -34,8 +53,9 @@ public static class Resource
 		(Material)Resources.Load (("Tiles/Materials/Goal"), typeof(Material))
 	};
 
+	//Music 
 	public static AudioClip mainTheme = (AudioClip)Resources.Load ("Sound/Music/Main_Theme/Main", typeof(AudioClip));
-	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOver", typeof(AudioClip));
+	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOverRev2", typeof(AudioClip));
 
 	public static AudioClip[] elementSound = new AudioClip[]
 	{
