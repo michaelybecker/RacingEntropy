@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 // TO DO: Implement Air.
 
-public class CascadeManager : MonoBehaviour {
+public class CascadeManager {
 
 	// So for each cascading element, I'm going to need a whole array of affected tiles because I don't want to hit the same tile twice.
 	// So I'll need to check if the tile in question is already on the affected list.
@@ -20,13 +20,11 @@ public class CascadeManager : MonoBehaviour {
 	private int width;
 	private int height;
 
-	private int[] elevations;
-	private int[] telements;
+	private int[] elevations = new int[]{1,0,1,0,3,1,2,1};
+	//private int[] telements = new int[]{3,2,2,2,0,1,0,1}; // For future air implementation.
 
-	public void Awake () {
-
-		elevations = new int[]{1,0,1,0,3,1,2,1};
-		telements = new int[] {3,2,2,2,0,1,0,1};
+	public CascadeManager (TileManager m) {
+		manager = m;
 	}
 
 	public void OnElement (Tile currentTile, TileType.element currentElement) {
