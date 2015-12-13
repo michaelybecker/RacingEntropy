@@ -3,6 +3,8 @@ using System.Collections;
 
 public static class Resource
 {
+	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
+
 	public static Mesh baseMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
 	//Meshes for the different Tiles

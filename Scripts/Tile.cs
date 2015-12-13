@@ -38,28 +38,28 @@ public class Tile
 			switch(type)
 			{
 			case (int)TileType.tile.DESERT:
-				growthFactor = 1;
+				growthFactor = 0;
 				break;
 			case (int)TileType.tile.MARSH:
-				growthFactor = 1;
+				growthFactor = 0.75f;
 				break;
 			case (int)TileType.tile.FOREST:
 				growthFactor = 1;
 				break;
 			case (int)TileType.tile.LAKE:
-				growthFactor = 1;
+				growthFactor = 0.5f;
 				break;
 			case (int)TileType.tile.MOUNTAIN:
-				growthFactor = 1;
+				growthFactor = 0.2f;
 				break;
 			case (int)TileType.tile.PLAIN:
-				growthFactor = 1;
+				growthFactor = 0.75f;
 				break;
 			case (int)TileType.tile.CRAGS:
-				growthFactor = 1;
+				growthFactor = 0.2f;
 				break;
 			case (int)TileType.tile.GOAL:
-				growthFactor = 1;
+				growthFactor = 10;
 				break;
 			}
 		}

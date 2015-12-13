@@ -39,18 +39,46 @@ public class PlantManager : MonoBehaviour
 		}
 	}
 
+	public void KillPlant(Tile tile)
+	{
+		tile.plant = false;
+		Transform plant = manager.objectFromTile [tile].transform.Find ("Plant");
+		if(plant != null)
+		{
+			//KILL
+			Debug.Log("KILL");
+			Destroy(plant.gameObject);
+		}
+	}
+
+	public void KillPlant(int x, int y)
+	{
+		manager.getTile [x, y].plant = false;
+		Transform plant = manager.objectFromTile [manager.getTile [x, y]].transform.Find ("Plant");
+		if(plant != null)
+		{
+			//KILL
+			Debug.Log("KILL");
+			Destroy(plant.gameObject);
+		}
+	}
+
 	public void AddPlant(int x, int y)
 	{
 		GameObject tile = manager.objectFromTile [manager.getTile[x,y]];
 		Tile newTile = manager.tileFromObject [tile];
+		GameObject newPlant = new GameObject ("Plant");
 		newTile.plant = true;
 		getPlantTile.Add (new intVector2(x,y),newTile);
 		//TODO add plant mesh thingy
-		tile.GetComponent<MeshRenderer>().material = Resource.plantMaterial;
-		foreach(Transform child in tile.transform)
-		{
-			child.GetComponent<MeshRenderer>().material = Resource.plantMaterial;
-		}
+		MeshFilter filter = newPlant.AddComponent<MeshFilter> ();
+		MeshRenderer renderer = newPlant.AddComponent<MeshRenderer>();
+
+		filter.mesh = Resource.plantMesh;
+		renderer.material = Resource.plantMaterial;
+
+		newPlant.transform.parent = tile.transform;
+		newPlant.transform.position = new Vector3 (tile.transform.position.x, tile.transform.position.y+manager.worldScale.y, tile.transform.position.z);
 	}
 }
 

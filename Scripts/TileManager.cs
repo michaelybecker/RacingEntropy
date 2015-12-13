@@ -99,15 +99,22 @@ public class TileManager : MonoBehaviour
 	//Change the tile object
 	public void ChangeType(int x, int y, int element)
 	{
+		//get the game object
 		GameObject tile = objectFromTile[getTile[x,y]];
+		//get the tile
 		Tile changedTile = tileFromObject [tile];
+		//change according to element lookup table
 		changedTile.Change (element);
+		//chang the material
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
+		//change each of the children meshes
 		foreach(Transform child in tile.transform)
 		{
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
+		//kill the plant on that tile
+		plant.KillPlant (x,y);
 		plant.Grow ();
 	}
 
@@ -122,6 +129,7 @@ public class TileManager : MonoBehaviour
 			child.GetComponent<MeshRenderer>().material = changedTile.material;
 			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
 		}
+		plant.KillPlant (changedTile);
 		plant.Grow ();
 	}
 	
