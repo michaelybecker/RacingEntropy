@@ -10,18 +10,25 @@ public class Cartographer : MonoBehaviour {
 
 	public float spacing;
 
-	public bool debugBuild; // For testing absent supporting scripts.
+	//public bool debugBuild; // For testing absent supporting scripts.
 	public int debugSize;
 
 	public TileManager manager;
 
 	public float noise;
 
-	public void Awake () {
+	/*public void Awake () 
+	{
 		if (debugBuild)
 			GenerateBiomes (debugSize, debugSize);
 		if (manager == null)
 			manager = gameObject.GetComponent<TileManager>();
+	}*/
+
+	public void GenerateDifficulty(int level) 
+	{
+		noise = 0.1f;
+		GenerateRandom (10*level,10*level);
 	}
 
 	// Basic functionality: generate a completely random level of X width and Y height.

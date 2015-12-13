@@ -138,47 +138,11 @@ public class CascadeManager {
 		// Four checks
 		Tile currentCheck = manager.getTile[coordX,coordY];
 		manager.AddFire(currentCheck.x,currentCheck.y);
-
-		/*int coordX = currentTile.x;
-		int coordY = currentTile.y;
-		Tile currentCheck;
-
-		if (coordY != 0) {
-			currentCheck = manager.getTile[coordX, coordY-1];
-			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
-				affectedTiles.Add(currentCheck);
-				toDo.Enqueue(currentCheck);
-			}
-		}
-
-		if (coordX != 0) {
-			currentCheck = manager.getTile[coordX-1, coordY];
-			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
-				affectedTiles.Add(currentCheck);
-				toDo.Enqueue(currentCheck);
-			}
-		}
-
-		if (coordX != width-1) { 
-			currentCheck = manager.getTile[coordX+1, coordY];
-			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
-				affectedTiles.Add(currentCheck);
-				toDo.Enqueue(currentCheck);
-			}
-		}
-
-		if (coordY != height-1) { 
-			currentCheck = manager.getTile[coordX, coordY+1];
-			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
-				affectedTiles.Add(currentCheck);
-				toDo.Enqueue(currentCheck);
-			}
-		}*/
 	}
 
 	private void OnEarth (Tile currentTile) {
 		// Make sure we're a crag or mountain
-		if (currentTile.type != 6 && currentTile.type != 4)
+		if (currentTile.type != (int)TileType.tile.MOUNTAIN && currentTile.type != (int)TileType.tile.CRAGS)
 			return;
 
 

@@ -21,8 +21,12 @@ public class TileManager : MonoBehaviour
 
 	//Camera control
 	public CameraControl cameraControl;
+
 	//Cascade manager
 	public CascadeManager cascade;
+	public Cartographer mapControl;
+	public AudioManager audio;
+
 	//Tile to game object
 	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
 	public Dictionary<Tile,GameObject> objectFromTile = new Dictionary<Tile,GameObject>();
@@ -36,6 +40,7 @@ public class TileManager : MonoBehaviour
 	public void Awake()
 	{
 		cascade = new CascadeManager(this);
+		NewLevel (1);
 	}
 
 	//Adds a new tile
@@ -89,6 +94,11 @@ public class TileManager : MonoBehaviour
 		tileFlair.transform.parent = newTile.transform;
 	}
 
+	public void NewLevel(int difficulty)
+	{
+		mapControl.GenerateDifficulty (difficulty);
+	}
+
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
 	public void CreateMap(int[,] map)
 	{
@@ -115,6 +125,8 @@ public class TileManager : MonoBehaviour
 	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
+		audio.Play (Resource.elementSound [element]);
+
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);
 		Change (tile, changedTile);
