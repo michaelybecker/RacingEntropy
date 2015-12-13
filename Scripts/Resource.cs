@@ -4,6 +4,7 @@ using System.Collections;
 public static class Resource
 {
 	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
+	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
 	public static Mesh baseMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
@@ -27,6 +28,7 @@ public static class Resource
 	};
 
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
+	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
 
 	public static Material[] tileMaterial = new Material[]{
 		(Material)Resources.Load (("Tiles/Materials/Desert"), typeof(Material)),

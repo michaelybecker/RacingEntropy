@@ -31,6 +31,7 @@ public class TileManager : MonoBehaviour
 	public Vector2 boardSize;
 	//Plant manager
 	public PlantManager plant;
+	public List<FireManager> fires = new List<FireManager>();
 
 	public void Awake()
 	{
@@ -57,7 +58,7 @@ public class TileManager : MonoBehaviour
 		//Creates a new tile
 		//A purely cosmetic object to be placed above the base tile
 		GameObject newTile = new GameObject ("Tile" + x + "," + y);
-		GameObject tileFlair = new GameObject ("Flair" + x + "," + y);
+		GameObject tileFlair = new GameObject ("Flair");
 		//adds it to the dictionary
 		tileFromObject.Add (newTile, tile);
 		objectFromTile.Add (tile, newTile);
@@ -109,21 +110,6 @@ public class TileManager : MonoBehaviour
 		//get the game object
 		GameObject tile = objectFromTile[getTile[x,y]];
 		ChangeType (tile, element);
-		//get the tile
-		/*Tile changedTile = tileFromObject [tile];
-		//change according to element lookup table
-		changedTile.Change (element);
-		//chang the material
-		tile.GetComponent<MeshRenderer>().material = changedTile.material;
-		//change each of the children meshes
-		foreach(Transform child in tile.transform)
-		{
-			child.GetComponent<MeshRenderer>().material = changedTile.material;
-			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
-		}
-		//kill the plant on that tile
-		plant.KillPlant (x,y);
-		plant.Grow ();*/
 	}
 
 	//Change the tile based on the gameObject
@@ -133,24 +119,40 @@ public class TileManager : MonoBehaviour
 		cascade.OnElement (changedTile,element);
 		Change (tile, changedTile);
 		plant.Grow ();
+		if(fires.Count > 0)
+		{
+			for(int i = 0; i < fires.Count; i++)
+			{
+				fires[i].KillFire(changedTile);
+				fires[i].Grow();
+			}
+		}
 		//changedTile.Change (element);
 	}
 
 	public void Change(GameObject tile, Tile changedTile)
 	{
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
-		foreach(Transform child in tile.transform)
-		{
-			child.GetComponent<MeshRenderer>().material = changedTile.material;
-			child.GetComponent<MeshFilter>().mesh = changedTile.mesh;
-		}
+		Transform flair = objectFromTile [changedTile].transform.Find ("Flair");
+		flair.GetComponent<MeshRenderer>().material = changedTile.material;
+		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;
+
 		plant.KillPlant (changedTile);
 	}
-	
+
 	//Add a plant to a certain tile
 	public void AddPlant(int x, int y)
 	{
 		plant.AddPlant (x, y);
+	}
+
+	public void AddFire(int x, int y)
+	{
+		GameObject newFireObject = new GameObject ("Fire" + x + "," + y);
+		FireManager newFire = newFireObject.AddComponent<FireManager>();
+		newFire.manager = this;
+		newFire.AddFire (x,y);
+		fires.Add (newFire);
 	}
 }
 

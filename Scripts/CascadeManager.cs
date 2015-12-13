@@ -51,12 +51,15 @@ public class CascadeManager {
 		// (reasonable, since it'll have been done by the prior iteration.)
 
 		// loops until toDo is done.  This isn't dangerous at all...
-		while (toDo.Count > 0) {
-			switch (currentElement) {
+		while (toDo.Count > 0) 
+		{
+			switch (currentElement) 
+			{
 				case (int)TileType.element.WATER:
 					OnWater(toDo.Dequeue());
 					break;
 				case (int)TileType.element.FIRE:
+					if(currentTile.flammability > 0)manager.AddFire(currentTile.x,currentTile.y);
 					OnFire(toDo.Dequeue());
 					break;
 				case (int)TileType.element.EARTH:
@@ -124,9 +127,19 @@ public class CascadeManager {
 	}
 
 	private void OnFire (Tile currentTile) {
-		// Four checks to see if the adjacent tiles are flammable.
-
+		// Four checks to see if the selected tile is flammable.
+		if (currentTile.type != (int)TileType.tile.FOREST && currentTile.type != (int)TileType.tile.PLAIN)
+			return;
+		
+		
 		int coordX = currentTile.x;
+		int coordY = currentTile.y;
+		
+		// Four checks
+		Tile currentCheck = manager.getTile[coordX,coordY];
+		manager.AddFire(currentCheck.x,currentCheck.y);
+
+		/*int coordX = currentTile.x;
 		int coordY = currentTile.y;
 		Tile currentCheck;
 
@@ -160,7 +173,7 @@ public class CascadeManager {
 				affectedTiles.Add(currentCheck);
 				toDo.Enqueue(currentCheck);
 			}
-		}
+		}*/
 	}
 
 	private void OnEarth (Tile currentTile) {
