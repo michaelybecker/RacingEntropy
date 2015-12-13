@@ -8,6 +8,7 @@ public class GUIMain : MonoBehaviour
 	int Buffer = Screen.height/10; //measurement for spacing and button dimensions -- to scale with screen
 	int ButtonHeight;
 	int ButtonWidth;
+	public GUISkin style;
 
 	public Texture2D Fire_btn;
 
@@ -15,6 +16,7 @@ public class GUIMain : MonoBehaviour
 
 	void OnGUI ()
 	{
+		GUI.skin = style;
 		ButtonWidth = ButtonHeight = Buffer;
 		if (GUI.Button (new Rect (0, 0, 80, 40), "Menu")) 
 		{
@@ -28,19 +30,19 @@ public class GUIMain : MonoBehaviour
 		//{
 		//	element = (int)TileType.element.FIRE;
 		//}
-		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),Fire_btn))
+		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),Resource.Fire_Btn))
 		{
 			element = (int)TileType.element.FIRE;
 		}
-		if(GUI.Button(new Rect(0,ButtonHeight,ButtonWidth,ButtonHeight),"Water"))
+		if(GUI.Button(new Rect(0,ButtonHeight,ButtonWidth,ButtonHeight),Resource.Water_Btn))
 		{
 			element = (int)TileType.element.WATER;
 		}
-		if(GUI.Button(new Rect(0,ButtonHeight*2,ButtonWidth,ButtonHeight),"Earth"))
+		if(GUI.Button(new Rect(0,ButtonHeight*2,ButtonWidth,ButtonHeight),Resource.Earth_Btn))
 		{
 			element = (int)TileType.element.EARTH;
 		}
-		if(GUI.Button(new Rect(0,ButtonHeight*3,ButtonWidth,ButtonHeight),"Air"))
+		if(GUI.Button(new Rect(0,ButtonHeight*3,ButtonWidth,ButtonHeight),Resource.Air_Btn))
 		{
 			element = (int)TileType.element.AIR;
 		}

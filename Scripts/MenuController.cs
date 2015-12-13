@@ -4,6 +4,7 @@ using System.Collections;
 public class MenuController : MonoBehaviour 
 {
 	
+	public GUISkin style;
 	int MenuWidth;
 	int MenuHeight;
 	int Buffer;
@@ -12,10 +13,11 @@ public class MenuController : MonoBehaviour
 
 	void OnGUI()
 	{
+		GUI.skin = style;
 		if (StartWindowOpen) 
 		{
 			Rect window = new Rect (0, 0, Screen.width, Screen.height);
-			window = GUI.ModalWindow (0, window, StartMenu, "");
+			window = GUI.ModalWindow (0, window, StartMenu, Resource.TitleBackground);
 			Global.pause = true;
 		}
 	}
@@ -29,16 +31,17 @@ public class MenuController : MonoBehaviour
 
 		GUI.BeginGroup (new Rect ((Screen.width/2)-(MenuWidth/2), (Screen.height/2)-(MenuHeight/2), MenuWidth, MenuHeight));
 
-		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),"Start New Game"))
+		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),Resource.NG_Btn))
 		{
-			//create a new map
+			SettingsWindowOpen = true;
+			StartWindowOpen = false;
 		}
-		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),"Continue"))
+		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.ContinueGame_Btn))
 		{
 			StartWindowOpen = false;
 			Global.pause = false;
 		}
-		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),"Exit"))
+		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
 			//exit the game
 		}
@@ -53,23 +56,23 @@ public class MenuController : MonoBehaviour
 
 		Buffer = MenuHeight / 4;
 
-		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),"Low"))
+		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),Resource.LowDifficulty_Btn))
 		{
 			//send "1" to create map function
 		}
-		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),"Medium"))
+		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.MediumDifficulty_Btn))
 		{
 			//send "2" to create map function
 		}
-		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),"Hard"))
+		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),Resource.HardDifficulty_Btn))
 		{
 			//send "3" to create map function
 		}
 		if(GUI.Button(new Rect(0,Buffer*3,MenuWidth,Buffer),"Back"))
 		{
 			//back to the previous menu
-			SettingsWindowOpen = false;
 			StartWindowOpen = true;
+			SettingsWindowOpen = false;
 		}
 	}
 }
