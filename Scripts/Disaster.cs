@@ -36,10 +36,14 @@ public class Disaster : MonoBehaviour {
 		filter.mesh = Resource.disasterMesh [type];
 		renderer.material = Resource.disasterMaterial [type];
 
+		GameObject particles = (GameObject)Instantiate (Resource.disasterParticles [type]);
+		particles.transform.parent = transform;
+
 		transform.position = new Vector3 (
 				manager.objectFromTile[currentTile].transform.position.x,
 				manager.objectFromTile[currentTile].transform.position.y+manager.worldScale.y, 
 				manager.objectFromTile[currentTile].transform.position.z);
+		particles.transform.position = transform.position;
 	}
 	public void Kill()
 	{

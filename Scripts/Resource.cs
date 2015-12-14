@@ -62,13 +62,13 @@ public static class Resource
 	/******************************************************************
 	 * PARTICLE EFFECTS
 	 * ****************************************************************/
-	public static ParticleSystem fireParticle = (ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem));
-	public static ParticleSystem[] disasterParticles = new ParticleSystem[]
+	public static GameObject fireParticle = ((GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)));
+	public static GameObject[] disasterParticles = new GameObject[]
 	{
-		(ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem)),
-		(ParticleSystem)Resources.Load (("Particles/Volcano"), typeof(ParticleSystem)),
-		(ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem)),
-		(ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem)),
+		(GameObject)Resources.Load (("Particles/Cloud"), typeof(GameObject)),
+		(GameObject)Resources.Load (("Particles/Smoke"), typeof(GameObject)),
+		(GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)),
+		(GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)),
 	};
 
 	/******************************************************************
@@ -107,7 +107,7 @@ public static class Resource
 	public static Texture2D Earth_Cursor = (Texture2D)Resources.Load (("Gui/Earth_Cursor"), typeof(Texture2D));
 	public static Texture2D Fire_Cursor = (Texture2D)Resources.Load (("Gui/Fire_Cursor"), typeof(Texture2D));
 	public static Texture2D Water_Cursor = (Texture2D)Resources.Load (("Gui/Water_Cursor"), typeof(Texture2D));
-	public static Texture2D Menu_Cursor = (Texture2D)Resources.Load (("Gui/Menu_Btn"), typeof(Texture2D));
+	public static Texture2D Menu_Cursor = (Texture2D)Resources.Load (("Gui/Blk_Cursor"), typeof(Texture2D));
 	
 	public static Texture2D NG_Btn = (Texture2D)Resources.Load (("Gui/NG_Btn"), typeof(Texture2D));
 	public static Texture2D ContinueGame_Btn = (Texture2D)Resources.Load (("Gui/ContinueGame_Btn"), typeof(Texture2D));
