@@ -77,6 +77,7 @@ public class PlantManager : MonoBehaviour
 		GameObject tile = manager.objectFromTile [manager.getTile[x,y]];
 		Tile newTile = manager.tileFromObject [tile];
 		GameObject newPlant = new GameObject ("Plant");
+		newPlant.transform.Rotate (new Vector3 (0,135,0));
 		newTile.plant = true;
 		plantTiles.Add (newTile);
 		if(newTile.type == (int)TileType.tile.GOAL)

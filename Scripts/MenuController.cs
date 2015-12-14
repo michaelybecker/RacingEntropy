@@ -178,7 +178,7 @@ public class MenuController : MonoBehaviour
 
 	void ExitMenu(int ID)
 	{
-		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Exit, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (0, 35, Screen.width, Screen.width/3), Resource.Exit, ScaleMode.ScaleToFit);
 
 		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 

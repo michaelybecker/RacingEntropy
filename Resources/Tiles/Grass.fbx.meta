@@ -331,6 +331,7 @@ ModelImporter:
     2300210: pCube97
     2300212: pCube98
     2300214: pCube99
+    2300216: //RootNode
     3300000: pCube1
     3300002: pCube10
     3300004: pCube100
@@ -439,6 +440,7 @@ ModelImporter:
     3300210: pCube97
     3300212: pCube98
     3300214: pCube99
+    3300216: //RootNode
     4300000: pCube1
     4300002: pCube2
     4300004: pCube3
@@ -547,6 +549,7 @@ ModelImporter:
     4300210: pCube106
     4300212: pCube107
     4300214: pCube108
+    4300216: polySurface1
   materials:
     importMaterials: 1
     materialName: 0
@@ -570,7 +573,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
