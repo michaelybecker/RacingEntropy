@@ -16,55 +16,51 @@ public class GUIMain : MonoBehaviour
 
 	void OnGUI ()
 	{
-		if (firstRun) 
-		{
+		if (firstRun) {
 			menu.StartWindowOpen = true;
 			firstRun = false;
 		}
 
 		GUI.skin = style;
 		ButtonWidth = ButtonHeight = Buffer;
-		if (GUI.Button (new Rect (0, 0, 80, 40), "Menu")) 
-		{
+		if (GUI.Button (new Rect (0, 0, ButtonWidth * 2, ButtonWidth), Resource.Menu_Btn)) {
 			menu.StartWindowOpen = true;
 		}
 
 		//Buttons
-		GUI.BeginGroup(new Rect (Screen.width-ButtonWidth,Buffer*3,ButtonWidth,Screen.height));
+		GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
 
-		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),Resource.Fire_Btn))
-		{
+		if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
 			element = (int)TileType.element.FIRE;
 		}
-		if(GUI.Button(new Rect(0,ButtonHeight,ButtonWidth,ButtonHeight),Resource.Water_Btn))
-		{
+		if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn)) {
 			element = (int)TileType.element.WATER;
 		}
-		if(GUI.Button(new Rect(0,ButtonHeight*2,ButtonWidth,ButtonHeight),Resource.Earth_Btn))
-		{
+		if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn)) {
 			element = (int)TileType.element.EARTH;
 		}
-		if(GUI.Button(new Rect(0,ButtonHeight*3,ButtonWidth,ButtonHeight),Resource.Air_Btn))
-		{
+		if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn)) {
 			element = (int)TileType.element.AIR;
 		}
 
 		GUI.EndGroup ();
 
-		//If you click on a tile, call the function to change that tile using the element variable
+	}
+
+	void Update()
+	{
+		Global.pause = false;
 		if (Input.GetMouseButtonDown (0)) 
 		{
 			if (!Global.pause) 
 			{
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit click;
-				if (Physics.Raycast (ray, out click)) {
+				if (Physics.Raycast (ray, out click)) 
+				{
 					tiles.ChangeType (click.transform.gameObject, element);
 				}
 			}
 		}
-			
 	}
-
-	//Lookup which terrain combo results in which new tile type
 }

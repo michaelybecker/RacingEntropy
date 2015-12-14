@@ -11,6 +11,8 @@ public class MenuController : MonoBehaviour
 	int Buffer;
 	public bool StartWindowOpen = true;
 	public bool SettingsWindowOpen = false;
+	public bool LoseWindowOpen = false;
+	public bool WinWindowOpen = false;
 
 	void OnGUI()
 	{
@@ -45,7 +47,9 @@ public class MenuController : MonoBehaviour
 
 		Buffer = MenuHeight / 3;
 
-		GUI.BeginGroup (new Rect ((Screen.width/2)-(MenuWidth/2), (Screen.height/2)-(MenuHeight/2), MenuWidth, MenuHeight));
+		GUI.DrawTexture (new Rect (0, 0, 1661, 590), Resource.Title, ScaleMode.ScaleToFit);
+
+		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 
 		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),Resource.NG_Btn))
 		{
@@ -72,21 +76,26 @@ public class MenuController : MonoBehaviour
 
 		Buffer = MenuHeight / 4;
 
-		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), (Screen.height / 2) - (MenuHeight / 2), MenuWidth, MenuHeight));
+		GUI.DrawTexture (new Rect (0, 0, 1661, 590), Resource.Title, ScaleMode.ScaleToFit);
+
+		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 
 		if (GUI.Button (new Rect (0, 0, MenuWidth, Buffer), Resource.LowDifficulty_Btn)) {
 			//send "1" to create map function
 			tiles.NewLevel (1);
+			SettingsWindowOpen = false;
 		}
 		if (GUI.Button (new Rect (0, Buffer, MenuWidth, Buffer), Resource.MediumDifficulty_Btn)) {
 			//send "2" to create map function
 			tiles.NewLevel (2);
+			SettingsWindowOpen = false;
 		}
 		if (GUI.Button (new Rect (0, Buffer * 2, MenuWidth, Buffer), Resource.HardDifficulty_Btn)) {
 			//send "3" to create map function
 			tiles.NewLevel (3);
+			SettingsWindowOpen = false;
 		}
-		if (GUI.Button (new Rect (0, Buffer * 3, MenuWidth, Buffer), "Back")) {
+		if (GUI.Button (new Rect (0, Buffer * 3, MenuWidth, Buffer), Resource.Back_Btn)) {
 			//back to the previous menu
 			StartWindowOpen = true;
 			SettingsWindowOpen = false;
@@ -97,9 +106,20 @@ public class MenuController : MonoBehaviour
 
 	void LoseMenu(int ID)
 	{
-		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), (Screen.height / 2) - (MenuHeight / 2), MenuWidth, MenuHeight));
+		GUI.DrawTexture (new Rect (0, 0, 1661, 590), Resource.Lose, ScaleMode.ScaleToFit);
 
-		// buttons somewhere. gotta check backgrounds first.
+		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
+
+		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),Resource.NG_Btn))
+		{
+			SettingsWindowOpen = true;
+			LoseWindowOpen = false;
+			Debug.Log ("Settings :" + SettingsWindowOpen + "loseWindow" + LoseWindowOpen + "start " + StartWindowOpen);
+		}
+		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
+		{
+			//Exit Game
+		}
 
 		GUI.EndGroup ();
 	}
