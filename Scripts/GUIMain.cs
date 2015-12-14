@@ -10,13 +10,17 @@ public class GUIMain : MonoBehaviour
 	int ButtonWidth;
 	public GUISkin style;
 
-	public Texture2D Fire_btn;
+	bool firstRun = true;
 
 	int element;
 
 	void OnGUI ()
 	{
-		//menu.StartWindowOpen = true;
+		if (firstRun) 
+		{
+			menu.StartWindowOpen = true;
+			firstRun = false;
+		}
 
 		GUI.skin = style;
 		ButtonWidth = ButtonHeight = Buffer;

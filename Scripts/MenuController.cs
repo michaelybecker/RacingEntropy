@@ -97,7 +97,11 @@ public class MenuController : MonoBehaviour
 
 	void LoseMenu(int ID)
 	{
+		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), (Screen.height / 2) - (MenuHeight / 2), MenuWidth, MenuHeight));
 
+		// buttons somewhere. gotta check backgrounds first.
+
+		GUI.EndGroup ();
 	}
 }
 
