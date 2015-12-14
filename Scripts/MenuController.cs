@@ -38,6 +38,12 @@ public class MenuController : MonoBehaviour
 			window = GUI.ModalWindow (0, window, LoseMenu, "");
 			Global.pause = true;
 		}
+		if (Global.win)
+		{
+			Rect window = new Rect (0, 0, Screen.width, Screen.height);
+			window = GUI.ModalWindow (0, window, WinMenu, "");
+			Global.pause = true;
+		}
 	}
 
 	void StartMenu(int ID)
@@ -47,7 +53,7 @@ public class MenuController : MonoBehaviour
 
 		Buffer = MenuHeight / 3;
 
-		GUI.DrawTexture (new Rect (0, 0, 1661, 590), Resource.Title, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Title, ScaleMode.ScaleToFit);
 
 		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 
@@ -63,7 +69,7 @@ public class MenuController : MonoBehaviour
 		}
 		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
-			//exit the game
+			//exit game
 		}
 
 		GUI.EndGroup();
@@ -76,7 +82,7 @@ public class MenuController : MonoBehaviour
 
 		Buffer = MenuHeight / 4;
 
-		GUI.DrawTexture (new Rect (0, 0, 1661, 590), Resource.Title, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Title, ScaleMode.ScaleToFit);
 
 		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 
@@ -106,7 +112,7 @@ public class MenuController : MonoBehaviour
 
 	void LoseMenu(int ID)
 	{
-		GUI.DrawTexture (new Rect (0, 0, 1661, 590), Resource.Lose, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Lose, ScaleMode.ScaleToFit);
 
 		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 
@@ -115,6 +121,26 @@ public class MenuController : MonoBehaviour
 			SettingsWindowOpen = true;
 			LoseWindowOpen = false;
 			Debug.Log ("Settings :" + SettingsWindowOpen + "loseWindow" + LoseWindowOpen + "start " + StartWindowOpen);
+		}
+		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
+		{
+			//Exit Game
+		}
+
+		GUI.EndGroup ();
+	}
+
+	void WinMenu(int ID)
+	{
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Win, ScaleMode.ScaleToFit);
+
+		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
+
+		if(GUI.Button(new Rect(0,0,MenuWidth,Buffer),Resource.NG_Btn))
+		{
+			SettingsWindowOpen = true;
+			WinWindowOpen = false;
+			Debug.Log ("Settings :" + SettingsWindowOpen + "winWindow" + WinWindowOpen + "start " + StartWindowOpen);
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
