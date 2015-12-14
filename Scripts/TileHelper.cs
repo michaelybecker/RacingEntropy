@@ -45,7 +45,7 @@ public static class TileHelper
 			case (int)TileType.element.FIRE:
 				return (int)TileType.tile.PLAIN;
 			case (int)TileType.element.AIR:
-				return (int)TileType.tile.PLAIN;
+				return (int)TileType.tile.MARSH;
 			}
 			return -1;
 		case (int)TileType.tile.LAKE:
