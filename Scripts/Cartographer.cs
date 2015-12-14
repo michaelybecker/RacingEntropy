@@ -239,6 +239,6 @@ public class Cartographer : MonoBehaviour {
 		if (ecks < 0 || ecks >= currentSize || why < 0 || why >= currentSize)
 			Debug.Log("Attempting to spawn disaster outside of map.");
 		// This is where I'll put the actual call when the manager or whatever is able to execute it.  For now, this stays empty.
-
+		manager.AddDisaster (ecks, why);
 	}
 }

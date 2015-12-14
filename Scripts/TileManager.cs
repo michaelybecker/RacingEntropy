@@ -146,7 +146,7 @@ public class TileManager : MonoBehaviour
 	public void ChangeType(GameObject tile, int element)
 	{
 		Debug.Log ("We are changing things");
-		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element]);
+		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element],0.5f);
 
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);

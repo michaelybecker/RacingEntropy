@@ -3,16 +3,17 @@ using System.Collections;
 
 public static class Resource
 {
-	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
+	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Plant"), typeof( Mesh ));
 	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 	public static Mesh stormMesh = (Mesh)Resources.Load(("Tiles/stormClouds"), typeof( Mesh ));
+	public static Mesh disasterMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
 	public static Mesh baseMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
 	//Meshes for the different Tiles
 	public static Mesh[] tileMesh = new Mesh[]{
 		(Mesh)Resources.Load(("Tiles/Desert"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Desert"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Tiles/Marsh"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Forest"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Water"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Mountain"), typeof( Mesh )),
@@ -53,6 +54,7 @@ public static class Resource
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
 	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
 	public static Material stormMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
+	public static Material disasterMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
 
 	public static Material[] tileMaterial = new Material[]{
 		(Material)Resources.Load (("Tiles/Materials/Desert"), typeof(Material)),
@@ -68,7 +70,7 @@ public static class Resource
 	//Music 
 	public static AudioClip mainTheme = (AudioClip)Resources.Load ("Sound/Music/Main_Theme/Main", typeof(AudioClip));
 	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOverRev2", typeof(AudioClip));
-	public static AudioClip winTheme = (AudioClip)Resources.Load ("Sound/Music/Winning_Theme/WinningMusic", typeof(AudioClip));
+	public static AudioClip winTheme = (AudioClip)Resources.Load ("Sound/Music/Winning_Theme/WinMusic", typeof(AudioClip));
 
 	public static AudioClip Click = (AudioClip)Resources.Load ("Sound/FX/gameplay/Click", typeof(AudioClip));
 	public static AudioClip startButton = (AudioClip)Resources.Load ("Sound/FX/gameplay/StartButton", typeof(AudioClip));
@@ -76,10 +78,10 @@ public static class Resource
 
 	public static AudioClip[] elementSound = new AudioClip[]
 	{
-		(AudioClip)Resources.Load ("Sound/FX/elements/earth", typeof(AudioClip)),
-		(AudioClip)Resources.Load ("Sound/FX/elements/air", typeof(AudioClip)),
-		(AudioClip)Resources.Load ("Sound/FX/elements/water", typeof(AudioClip)),
-		(AudioClip)Resources.Load ("Sound/FX/elements/fire", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/Elements/earth", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/Elements/air", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/Elements/water", typeof(AudioClip)),
+		(AudioClip)Resources.Load ("Sound/FX/Elements/fire", typeof(AudioClip)),
 	};
 }
 

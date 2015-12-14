@@ -16,15 +16,18 @@ public class AudioManager : MonoBehaviour
 		mainTheme = gameObject.AddComponent<AudioSource> ();
 		mainTheme.clip = Resource.mainTheme;
 		mainTheme.loop = true;
+		mainTheme.volume  = 0.5f;
 		mainTheme.Play ();
 
 		loseTheme = gameObject.AddComponent<AudioSource> ();
 		loseTheme.clip = Resource.loseTheme;
 		loseTheme.loop = true;
+		loseTheme.volume  = 0.5f;
 
 		winTheme = gameObject.AddComponent<AudioSource> ();
 		winTheme.clip = Resource.winTheme;
 		winTheme.loop = true;
+		winTheme.volume  = 0.5f;
 	}
 
 	void Update()
@@ -61,9 +64,9 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-	public void Play(AudioClip audio)
+	public void Play(AudioClip audio, float volume)
 	{
-		player.PlayOneShot (audio,0.5f);
+		player.PlayOneShot (audio,volume);
 	}
 }
 
