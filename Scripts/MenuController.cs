@@ -89,9 +89,6 @@ public class MenuController : MonoBehaviour
 
 	void SettingsMenu(int ID)
 	{
-		/*MenuWidth = Screen.width / 3;
-		MenuHeight = Screen.height / 3;*/
-
 		Buffer = MenuHeight / 4;
 
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Title, ScaleMode.ScaleToFit);
@@ -181,17 +178,18 @@ public class MenuController : MonoBehaviour
 
 	void ExitMenu(int ID)
 	{
-		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Win, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Exit, ScaleMode.ScaleToFit);
 
 		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
 
-		if (GUI.Button (new Rect (0, 0, MenuWidth, Buffer), Resource.QuitGame_Btn)) 
+		if (GUI.Button (new Rect (0, 0, MenuWidth, Buffer), Resource.Yes_Btn)) 
 		{
 			Application.Quit ();
 		}
-		if (GUI.Button (new Rect (0, Buffer, MenuWidth, Buffer), Resource.ContinueGame_Btn)) 
+		if (GUI.Button (new Rect (0, Buffer, MenuWidth, Buffer), Resource.No_Btn)) 
 		{
 			ExitWindowOpen = false;
+			StartWindowOpen = true;
 		}
 
 		GUI.EndGroup ();

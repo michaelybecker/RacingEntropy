@@ -39,6 +39,8 @@ public static class Resource
 	public static Texture2D ContinueGame_Btn = (Texture2D)Resources.Load (("Gui/ContinueGame_Btn"), typeof(Texture2D));
 	public static Texture2D QuitGame_Btn = (Texture2D)Resources.Load (("Gui/QuitGame_Btn"), typeof(Texture2D));
 	public static Texture2D RestartGame_Btn = (Texture2D)Resources.Load (("Gui/RestartGame_Btn"), typeof(Texture2D));
+	public static Texture2D Yes_Btn = (Texture2D)Resources.Load (("Gui/Yes_Btn"), typeof(Texture2D));
+	public static Texture2D No_Btn = (Texture2D)Resources.Load (("Gui/No_Btn"), typeof(Texture2D));
 
 	public static Texture2D HardDifficulty_Btn = (Texture2D)Resources.Load (("Gui/HardDifficulty_Btn"), typeof(Texture2D));
 	public static Texture2D MediumDifficulty_Btn = (Texture2D)Resources.Load (("Gui/MediumDifficulty_Btn"), typeof(Texture2D));
@@ -49,6 +51,7 @@ public static class Resource
 	public static Texture2D TitleBackground = (Texture2D)Resources.Load (("Gui/TitleBackground"), typeof(Texture2D));
 	public static Texture2D Lose = (Texture2D)Resources.Load (("Gui/GameOver2"), typeof(Texture2D));
 	public static Texture2D Win = (Texture2D)Resources.Load (("Gui/GameWin"), typeof(Texture2D));
+	public static Texture2D Exit = (Texture2D)Resources.Load (("Gui/AreYouSure"), typeof(Texture2D));
 
 	//Materials
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
@@ -84,4 +87,3 @@ public static class Resource
 		(AudioClip)Resources.Load ("Sound/FX/Elements/fire", typeof(AudioClip)),
 	};
 }
-
