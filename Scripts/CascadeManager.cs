@@ -137,6 +137,42 @@ public class CascadeManager {
 		// Four checks
 		Tile currentCheck = manager.getTile[coordX,coordY];
 		manager.AddFire(currentCheck.x,currentCheck.y);
+
+		/*int coordX = currentTile.x;
+		int coordY = currentTile.y;
+		Tile currentCheck;
+
+		if (coordY != 0) {
+			currentCheck = manager.getTile[coordX, coordY-1];
+			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
+				affectedTiles.Add(currentCheck);
+				toDo.Enqueue(currentCheck);
+			}
+		}
+
+		if (coordX != 0) {
+			currentCheck = manager.getTile[coordX-1, coordY];
+			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
+				affectedTiles.Add(currentCheck);
+				toDo.Enqueue(currentCheck);
+			}
+		}
+
+		if (coordX != width-1) { 
+			currentCheck = manager.getTile[coordX+1, coordY];
+			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
+				affectedTiles.Add(currentCheck);
+				toDo.Enqueue(currentCheck);
+			}
+		}
+
+		if (coordY != height-1) { 
+			currentCheck = manager.getTile[coordX, coordY+1];
+			if (!affectedTiles.Contains(currentCheck) && (currentCheck.type == 5 || currentCheck.type == 2)) {
+				affectedTiles.Add(currentCheck);
+				toDo.Enqueue(currentCheck);
+			}
+		}*/
 	}
 
 	private void OnEarth (Tile currentTile) {
@@ -180,19 +216,18 @@ public class CascadeManager {
 
 	}
 
-	private void OnAir (Tile currentTile) 
-	{
+	private void OnAir (Tile currentTile) {
 		int coordX = currentTile.x;
 		int coordY = currentTile.y;
 
 		Tile currentCheck = manager.getTile[coordX,coordY];
-		manager.AddStorm(currentCheck.x,currentCheck.y);
+		//manager.AddStorm(currentCheck.x,currentCheck.y);
 
 		
 		// Currently air doesn't do anything anyway, so... take a moment.
 	}
 
-	// Spread air, and if it's spread to an existing plains or desert then spread the storm further?
+	// Make a storm on a random adjacent tile (inclusive of this tile).
 	public void OnThunder (Tile currentTile) {
 		UpdateSize();
 		int coordX = currentTile.x;
@@ -270,6 +305,35 @@ public class CascadeManager {
 				manager.AddFire(currentCheck.x,currentCheck.y);
 			}
 		}
+
+		// Now also throw fire a distance.
+
+		int reach = 3;
+
+		// So, select values that are within reach but not off the board.
+
+		int minX = currentTile.x - reach;
+		while (minX < 0)
+			minX++;
+
+		int maxX = currentTile.x + reach;
+		while (maxX >= width)
+			maxX--;
+
+		int epiX = Random.Range(minX, maxX+1);
+
+		int minY = currentTile.y - reach;
+		while (minY < 0)
+			minY++;
+
+		int maxY = currentTile.y + reach;
+		while (maxY >= height)
+			maxY--;
+
+		int epiY = Random.Range(minY, maxY+1);
+
+		// Then we can do a regular four-check to hit the surrounding tiles with earth.  Actually, we're just hitting that tile with earth...
+		OnElement(manager.getTile[epiX, epiY], (int)TileType.element.FIRE);
 	}
 
 	// This puppy should cascade, complete with toDo, until it finds an appropriate tile to spread water to.
@@ -398,7 +462,7 @@ public class CascadeManager {
 	public void OnQuake (Tile currentTile) {
 		UpdateSize();
 
-		int reach = 3;
+		int reach = 5;
 
 		// So, select values that are within reach but not off the board.
 
