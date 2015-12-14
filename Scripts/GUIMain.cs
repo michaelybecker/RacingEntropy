@@ -16,6 +16,8 @@ public class GUIMain : MonoBehaviour
 
 	void OnGUI ()
 	{
+		menu.StartWindowOpen = true;
+
 		GUI.skin = style;
 		ButtonWidth = ButtonHeight = Buffer;
 		if (GUI.Button (new Rect (0, 0, 80, 40), "Menu")) 
@@ -26,10 +28,6 @@ public class GUIMain : MonoBehaviour
 		//Buttons
 		GUI.BeginGroup(new Rect (Screen.width-ButtonWidth,Buffer*3,ButtonWidth,Screen.height));
 
-		//if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),"Fire"))
-		//{
-		//	element = (int)TileType.element.FIRE;
-		//}
 		if(GUI.Button(new Rect(0,0,ButtonWidth,ButtonHeight),Resource.Fire_Btn))
 		{
 			element = (int)TileType.element.FIRE;
@@ -61,6 +59,7 @@ public class GUIMain : MonoBehaviour
 				}
 			}
 		}
+			
 	}
 
 	//Lookup which terrain combo results in which new tile type
