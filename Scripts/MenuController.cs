@@ -6,6 +6,7 @@ public class MenuController : MonoBehaviour
 	
 	public TileManager tiles;
 	public GUISkin style;
+	public AudioManager sound;
 	int MenuWidth;
 	int MenuHeight;
 	int Buffer;
@@ -13,6 +14,7 @@ public class MenuController : MonoBehaviour
 	public bool SettingsWindowOpen = false;
 	public bool LoseWindowOpen = false;
 	public bool WinWindowOpen = false;
+	public bool ExitWindowOpen = false;
 
 	void OnGUI()
 	{
@@ -30,6 +32,12 @@ public class MenuController : MonoBehaviour
 		{
 			Rect window = new Rect (0, 0, Screen.width, Screen.height);
 			window = GUI.ModalWindow (0, window, SettingsMenu, Resource.TitleBackground);
+			Global.pause = true;
+		}
+		if(ExitWindowOpen)
+		{
+			Rect window = new Rect (0, 0, Screen.width, Screen.height);
+			window = GUI.ModalWindow (0, window, ExitMenu, Resource.TitleBackground);
 			Global.pause = true;
 		}
 		if (Global.lose) 
@@ -61,15 +69,19 @@ public class MenuController : MonoBehaviour
 		{
 			SettingsWindowOpen = true;
 			StartWindowOpen = false;
+			sound.Play (Resource.startButton, 1f);
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.ContinueGame_Btn))
 		{
 			StartWindowOpen = false;
 			Global.pause = false;
+			sound.Play (Resource.startButton, 1f);
 		}
 		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
-			Application.Quit ();
+			sound.Play (Resource.wannaQuit, 0.5f);
+			ExitWindowOpen = true;
+			StartWindowOpen = false;
 		}
 
 		GUI.EndGroup();
@@ -91,24 +103,28 @@ public class MenuController : MonoBehaviour
 			tiles.NewLevel (1);
 			Global.pause = false;
 			SettingsWindowOpen = false;
+			sound.Play (Resource.startButton, 1f);
 		}
 		if (GUI.Button (new Rect (0, Buffer, MenuWidth, Buffer), Resource.MediumDifficulty_Btn)) {
 			//send "2" to create map function
 			tiles.NewLevel (2);
 			Global.pause = false;
 			SettingsWindowOpen = false;
+			sound.Play (Resource.startButton, 1f);
 		}
 		if (GUI.Button (new Rect (0, Buffer * 2, MenuWidth, Buffer), Resource.HardDifficulty_Btn)) {
 			//send "3" to create map function
 			tiles.NewLevel (3);
 			Global.pause = false;
 			SettingsWindowOpen = false;
+			sound.Play (Resource.startButton, 1f);
 		}
 		if (GUI.Button (new Rect (0, Buffer * 3, MenuWidth, Buffer), Resource.Back_Btn)) {
 			//back to the previous menu
 			StartWindowOpen = true;
 			Global.pause = false;
 			SettingsWindowOpen = false;
+			sound.Play (Resource.startButton, 1f);
 		}
 
 		GUI.EndGroup ();
@@ -131,7 +147,9 @@ public class MenuController : MonoBehaviour
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
-			Application.Quit ();
+			sound.Play (Resource.wannaQuit, 0.5f);
+			ExitWindowOpen = true;
+			LoseWindowOpen = false;
 		}
 
 		GUI.EndGroup ();
@@ -153,10 +171,29 @@ public class MenuController : MonoBehaviour
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
+			sound.Play (Resource.wannaQuit, 0.5f);
+			ExitWindowOpen = true;
+			WinWindowOpen = false;
+		}
+
+		GUI.EndGroup ();
+	}
+
+	void ExitMenu(int ID)
+	{
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Win, ScaleMode.ScaleToFit);
+
+		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
+
+		if (GUI.Button (new Rect (0, 0, MenuWidth, Buffer), Resource.QuitGame_Btn)) 
+		{
 			Application.Quit ();
+		}
+		if (GUI.Button (new Rect (0, Buffer, MenuWidth, Buffer), Resource.ContinueGame_Btn)) 
+		{
+			ExitWindowOpen = false;
 		}
 
 		GUI.EndGroup ();
 	}
 }
-
