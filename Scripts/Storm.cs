@@ -45,29 +45,34 @@ public class Storm : MonoBehaviour {
 
 		if (coordY != 0) {
 			currentCheck = manager.getTile[coordX, coordY-1];
-			if (previousTile == null || currentCheck != previousTile)
+			if (currentCheck.type != (int)TileType.tile.MOUNTAIN && (previousTile == null || currentCheck != previousTile))
 				candidates.Add(currentCheck);
 		}
 
 		if (coordX != 0) {
 			currentCheck = manager.getTile[coordX-1, coordY];
-			if (previousTile == null || currentCheck != previousTile)
+			if (currentCheck.type != (int)TileType.tile.MOUNTAIN && (previousTile == null || currentCheck != previousTile))
 				candidates.Add(currentCheck);
 		}
 
 		if (coordX != manager.cascade.width-1) { 
 			currentCheck = manager.getTile[coordX+1, coordY];
-			if (previousTile == null || currentCheck != previousTile)
+			if (currentCheck.type != (int)TileType.tile.MOUNTAIN && (previousTile == null || currentCheck != previousTile))
 				candidates.Add(currentCheck);
 		}
 
 		if (coordY != manager.cascade.height-1) { 
 			currentCheck = manager.getTile[coordX, coordY+1];
-			if (previousTile == null || currentCheck != previousTile)
+			if (currentCheck.type != (int)TileType.tile.MOUNTAIN && (previousTile == null || currentCheck != previousTile))
 				candidates.Add(currentCheck);
 		}
 
 		previousTile = currentTile;
+		if (candidates.Count == 0) {
+			Kill();
+			return;
+		}
+
 		currentTile = candidates[Random.Range(0, candidates.Count)];
 
 		// Apply air effects here.
