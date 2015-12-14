@@ -229,6 +229,10 @@ public class CascadeManager {
 
 	// Make a storm on a random adjacent tile (inclusive of this tile).
 	public void OnThunder (Tile currentTile) {
+		// Oh god too many clouds please stop
+		if (Random.Range(0, 6) == 0)
+			return;
+
 		UpdateSize();
 		int coordX = currentTile.x;
 		int coordY = currentTile.y;
@@ -260,7 +264,7 @@ public class CascadeManager {
 		}
 
 		currentCheck = candidates[Random.Range(0, candidates.Count)];
-		//manager.AddStorm(currentCheck.x,currentCheck.y);
+		manager.AddStorm(currentCheck.x,currentCheck.y);
 
 	}
 
