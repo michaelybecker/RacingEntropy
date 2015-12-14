@@ -39,8 +39,8 @@ public static class Resource
 
 	public static Texture2D Title = (Texture2D)Resources.Load (("Gui/Title"), typeof(Texture2D));
 	public static Texture2D TitleBackground = (Texture2D)Resources.Load (("Gui/TitleBackground"), typeof(Texture2D));
-	public static Texture2D Lose = (Texture2D)Resources.Load (("Gui/Game Over 2"), typeof(Texture2D));
-	public static Texture2D Win = (Texture2D)Resources.Load (("Gui/Game Win"), typeof(Texture2D));
+	public static Texture2D Lose = (Texture2D)Resources.Load (("Gui/GameOver2"), typeof(Texture2D));
+	public static Texture2D Win = (Texture2D)Resources.Load (("Gui/GameWin"), typeof(Texture2D));
 
 	//Materials
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
@@ -60,6 +60,7 @@ public static class Resource
 	//Music 
 	public static AudioClip mainTheme = (AudioClip)Resources.Load ("Sound/Music/Main_Theme/Main", typeof(AudioClip));
 	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOverRev2", typeof(AudioClip));
+	public static AudioClip winTheme = (AudioClip)Resources.Load ("Sound/Music/Winning_Theme/WinningMusic", typeof(AudioClip));
 
 	public static AudioClip[] elementSound = new AudioClip[]
 	{

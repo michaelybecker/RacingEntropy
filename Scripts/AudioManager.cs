@@ -31,7 +31,6 @@ public class AudioManager : MonoBehaviour
 	{
 		if (Global.lose)
 		{
-			Debug.Log("Playing sad music");
 			if(Global.playingTheme)
 			{
 				mainTheme.Stop ();
@@ -42,7 +41,6 @@ public class AudioManager : MonoBehaviour
 		}
 		else if (Global.win)
 		{
-			Debug.Log("Playing happy music");
 			if(Global.playingTheme)
 			{
 				mainTheme.Stop ();
@@ -53,7 +51,6 @@ public class AudioManager : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Reset music");
 			if(!Global.playingTheme)
 			{
 				loseTheme.Stop ();

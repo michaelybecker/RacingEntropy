@@ -64,7 +64,6 @@ public class PlantManager : MonoBehaviour
 		if(plantTiles.Count == 0) 
 		{
 			Global.lose = true;
-			Debug.Log("Awww sad music!!!!");
 		}
 	}
 
