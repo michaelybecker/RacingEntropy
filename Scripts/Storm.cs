@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 // TO DO: Need to kill fires and plants on the tile.  Don't currently know the commands for that, TileManager should probably have that option.
 
-public class Storm : MonoBehaviour {
+public class Storm : MonoBehaviour 
+{
 
 	public TileManager manager;
 	public Tile currentTile;
@@ -16,7 +17,7 @@ public class Storm : MonoBehaviour {
 		MeshFilter filter = gameObject.AddComponent<MeshFilter> ();
 		MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
 		
-		filter.mesh = Resource.fireMesh;
+		filter.mesh = Resource.stormMesh;
 		renderer.material = Resource.stormMaterial;
 
 		transform.position = new Vector3 (

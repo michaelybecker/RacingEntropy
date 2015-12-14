@@ -5,6 +5,7 @@ public static class Resource
 {
 	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
+	public static Mesh stormMesh = (Mesh)Resources.Load(("Tiles/stormClouds"), typeof( Mesh ));
 
 	public static Mesh baseMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
@@ -26,6 +27,12 @@ public static class Resource
 	public static Texture2D Fire_Btn = (Texture2D)Resources.Load (("Gui/Fire_Btn"), typeof(Texture2D));
 	public static Texture2D Water_Btn = (Texture2D)Resources.Load (("Gui/Water_Btn"), typeof(Texture2D));
 	public static Texture2D Menu_Btn = (Texture2D)Resources.Load (("Gui/Menu_Btn"), typeof(Texture2D));
+
+	public static Texture2D Air_Cursor = (Texture2D)Resources.Load (("Gui/Air_Cursor"), typeof(Texture2D));
+	public static Texture2D Earth_Cursor = (Texture2D)Resources.Load (("Gui/Earth_Cursor"), typeof(Texture2D));
+	public static Texture2D Fire_Cursor = (Texture2D)Resources.Load (("Gui/Fire_Cursor"), typeof(Texture2D));
+	public static Texture2D Water_Cursor = (Texture2D)Resources.Load (("Gui/Water_Cursor"), typeof(Texture2D));
+	public static Texture2D Menu_Cursor = (Texture2D)Resources.Load (("Gui/Menu_Btn"), typeof(Texture2D));
 
 	public static Texture2D NG_Btn = (Texture2D)Resources.Load (("Gui/NG_Btn"), typeof(Texture2D));
 	public static Texture2D ContinueGame_Btn = (Texture2D)Resources.Load (("Gui/ContinueGame_Btn"), typeof(Texture2D));
