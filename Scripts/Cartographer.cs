@@ -10,24 +10,21 @@ public class Cartographer : MonoBehaviour {
 
 	public float spacing;
 
-	//public bool debugBuild; // For testing absent supporting scripts.
+	public bool debugBuild; // For testing absent supporting scripts.
 	public int debugSize;
+	public int debugDifficulty;
+
+	private int currentSize;
 
 	public TileManager manager;
 
 	public float noise;
 
-	/*public void Awake () 
-	{
+	public void Awake () {
 		if (debugBuild)
-			GenerateBiomes (debugSize, debugSize);
+			BuildDifficulty (debugDifficulty);
 		if (manager == null)
 			manager = gameObject.GetComponent<TileManager>();
-	}*/
-
-	public void GenerateDifficulty(int level) 
-	{
-		GenerateBiomes (10*level,10*level);
 	}
 
 	// Basic functionality: generate a completely random level of X width and Y height.
@@ -145,7 +142,7 @@ public class Cartographer : MonoBehaviour {
 		int endX = Random.Range(width-placementRange, width-minPlace);
 		int endY = Random.Range(height-placementRange, height-minPlace);
 
-		mapData[endX, endY] =  7;
+		mapData[endX, endY] = 7;
 
 		manager.CreateMap(mapData);
 
@@ -154,5 +151,93 @@ public class Cartographer : MonoBehaviour {
 
 		manager.AddPlant(startX, startY); // Single tile start for now.
 		
+	}
+
+	// Build a level based on the provided difficulty value.
+	// Higher difficulty means more disasters and a larger size.
+	// Might also randomize noise slightly.
+	public void BuildDifficulty(int difficulty) {
+		// Let's just handle this bad input case here:
+		while (difficulty <= 0)
+			difficulty++;
+
+		noise = 0.1f + Random.Range(-0.02f, 0.02f);
+
+		int size = debugSize + (difficulty*Mathf.CeilToInt(((float)debugSize)/10f));
+		currentSize = size;
+		GenerateBiomes(size, size);  
+
+		// Then scatter disasters between the player and goal at random, with quantity and perhaps position depending on difficulty.
+		// Need a math function to spawn disasters evenly (roughly) across the opposite axis as player/goal.
+
+		// So I need to divide the world into thirds.
+		int sectionSize = Mathf.FloorToInt (((float)size)/3f);
+
+		// Let's talk sections.  They're organized like a snake (or a keypad with the middle line reversed).
+		/*
+		*	7 8 9
+		*	6 5 4
+		*	1 2 3
+		*/
+		// The goal is in the section 9 area while the first plant is in the section 1 area.
+
+		int midDiff = (difficulty/2) + (difficulty%2);
+		int[] disasterSections = new int[difficulty];
+		for (int i = 0; i < midDiff; i++)
+			disasterSections[i] = 5; // Stick half the disasters, rounding up, in the middle section.
+
+		// Now I need to halve the remaining ones, and put each half in oppsite side regions.
+		int sideDiff = difficulty-midDiff;
+
+		int botDiff = sideDiff/2;
+		int topDiff = botDiff + (sideDiff%2);
+
+		for (int i = midDiff; i < midDiff+topDiff; i++)
+			disasterSections[i] = Random.Range(6, 9);
+
+		for (int i = midDiff+topDiff; i < difficulty; i++)
+			disasterSections[i] = Random.Range(2, 5);
+
+		// Now we have cases for each section.  I wish that I had smarter math for this, but I don't.
+		// Or do I?
+
+		// Making readable variables.
+		int close = sectionSize;
+		int mid = sectionSize*2;
+		int far = sectionSize*3;
+		for (int i = 0; i < disasterSections.Length ; i++) {
+			switch (disasterSections[i]) {
+				case 5:
+					SpawnDisaster(Random.Range(close, mid), Random.Range(close, mid));
+					break;
+				case 2:
+					SpawnDisaster(Random.Range(close, mid), Random.Range(0, close));
+					break;
+				case 3:
+					SpawnDisaster(Random.Range(mid, far), Random.Range(0, close));
+					break;
+				case 4:
+					SpawnDisaster(Random.Range(mid, far), Random.Range(close, mid));
+					break;
+				case 6:
+					SpawnDisaster(Random.Range(0, close), Random.Range(close, mid));
+					break;
+				case 7:
+					SpawnDisaster(Random.Range(0, close), Random.Range(mid, far));
+					break;
+				case 8:
+					SpawnDisaster(Random.Range(close, mid), Random.Range(mid, far));
+					break;
+
+			}
+		}
+
+	}
+
+	private void SpawnDisaster (int ecks, int why) {
+		if (ecks < 0 || ecks >= currentSize || why < 0 || why >= currentSize)
+			Debug.Log("Attempting to spawn disaster outside of map.");
+		// This is where I'll put the actual call when the manager or whatever is able to execute it.  For now, this stays empty.
+
 	}
 }
