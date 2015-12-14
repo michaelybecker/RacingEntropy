@@ -36,11 +36,11 @@ public class TileManager : MonoBehaviour
 	//Plant manager
 	public PlantManager plant;
 	public List<Fire> fires = new List<Fire>();
+	public List<Storm> storms = new List<Storm>();
 
 	public void Awake()
 	{
 		cascade = new CascadeManager(this);
-		NewLevel (1);
 	}
 
 	//Adds a new tile
@@ -96,9 +96,18 @@ public class TileManager : MonoBehaviour
 
 	public void NewLevel(int difficulty)
 	{
+		tileFromObject.Clear();
+		objectFromTile.Clear ();
+		//if(fires.Count > 0)for(int i = fires.Count; i >= 0; i--) fires[i].Kill();
+		fires.Clear ();
+		//if(storms.Count > 0)for(int i = storms.Count; i >=0; i--) storms[i].Kill();
+		storms.Clear ();
+		plant.plantTiles.Clear ();
+
 		Global.win = false;
 		Global.lose = false;
 		Global.playingTheme = false;
+
 		mapControl.BuildDifficulty (difficulty);
 	}
 
@@ -106,9 +115,7 @@ public class TileManager : MonoBehaviour
 	public void CreateMap(int[,] map)
 	{
 		getTile = new Tile[map.GetLength(0),map.GetLength(1)];
-		tileFromObject.Clear();
-		objectFromTile.Clear ();
-		fires.Clear ();
+
 		for ( int i=transform.childCount-1; i>=0; --i )
 		{
 			var child = transform.GetChild(i).gameObject;
@@ -137,6 +144,7 @@ public class TileManager : MonoBehaviour
 	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
+		Debug.Log ("We are changing things");
 		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element]);
 
 		Tile changedTile = tileFromObject [tile];
@@ -148,6 +156,13 @@ public class TileManager : MonoBehaviour
 			for(int i = 0; i < fires.Count; i++)
 			{
 				fires[i].Grow();
+			}
+		}
+		if(storms.Count > 0)
+		{
+			for(int i = 0; i < storms.Count; i++)
+			{
+				storms[i].Turn();
 			}
 		}
 		//changedTile.Change (element);
@@ -176,7 +191,15 @@ public class TileManager : MonoBehaviour
 		newFire.manager = this;
 		newFire.StartFire(getTile[x,y]);
 		fires.Add (newFire);
+	}
 
+	public void AddStorm(int x, int y)
+	{
+		GameObject newStormObject = new GameObject ("Storm" + x + "," + y);
+		Storm newStorm = newStormObject.AddComponent<Storm>();
+		newStorm.manager = this;
+		newStorm.StartStorm(getTile[x,y]);
+		storms.Add (newStorm);
 	}
 }
 

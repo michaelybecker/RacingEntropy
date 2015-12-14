@@ -49,7 +49,6 @@ public class GUIMain : MonoBehaviour
 
 	void Update()
 	{
-		Global.pause = false;
 		if (Input.GetMouseButtonDown (0)) 
 		{
 			if (!Global.pause) 

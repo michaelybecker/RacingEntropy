@@ -156,7 +156,8 @@ public class Cartographer : MonoBehaviour {
 	// Build a level based on the provided difficulty value.
 	// Higher difficulty means more disasters and a larger size.
 	// Might also randomize noise slightly.
-	public void BuildDifficulty(int difficulty) {
+	public void BuildDifficulty(int difficulty) 
+	{
 		// Let's just handle this bad input case here:
 		while (difficulty <= 0)
 			difficulty++;
@@ -164,7 +165,6 @@ public class Cartographer : MonoBehaviour {
 		noise = 0.1f + Random.Range(-0.02f, 0.02f);
 
 		int size = debugSize + (difficulty*Mathf.CeilToInt(((float)debugSize)/10f));
-		Debug.Log (size);
 		currentSize = size;
 		GenerateBiomes(size, size);  
 

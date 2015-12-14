@@ -89,21 +89,25 @@ public class MenuController : MonoBehaviour
 		if (GUI.Button (new Rect (0, 0, MenuWidth, Buffer), Resource.LowDifficulty_Btn)) {
 			//send "1" to create map function
 			tiles.NewLevel (1);
+			Global.pause = false;
 			SettingsWindowOpen = false;
 		}
 		if (GUI.Button (new Rect (0, Buffer, MenuWidth, Buffer), Resource.MediumDifficulty_Btn)) {
 			//send "2" to create map function
 			tiles.NewLevel (2);
+			Global.pause = false;
 			SettingsWindowOpen = false;
 		}
 		if (GUI.Button (new Rect (0, Buffer * 2, MenuWidth, Buffer), Resource.HardDifficulty_Btn)) {
 			//send "3" to create map function
 			tiles.NewLevel (3);
+			Global.pause = false;
 			SettingsWindowOpen = false;
 		}
 		if (GUI.Button (new Rect (0, Buffer * 3, MenuWidth, Buffer), Resource.Back_Btn)) {
 			//back to the previous menu
 			StartWindowOpen = true;
+			Global.pause = false;
 			SettingsWindowOpen = false;
 		}
 
@@ -112,6 +116,7 @@ public class MenuController : MonoBehaviour
 
 	void LoseMenu(int ID)
 	{
+		//Debug.Log (Global.lose + "" + Global.pause);
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width/3), Resource.Lose, ScaleMode.ScaleToFit);
 
 		GUI.BeginGroup (new Rect ((Screen.width / 2) - (MenuWidth / 2), Screen.height - MenuHeight, MenuWidth, MenuHeight));
@@ -123,7 +128,6 @@ public class MenuController : MonoBehaviour
 			Global.pause = true;
 			Global.lose = false;
 			Global.win = false;
-			Debug.Log ("Settings :" + SettingsWindowOpen + "loseWindow" + LoseWindowOpen + "start " + StartWindowOpen);
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{

@@ -17,8 +17,8 @@ public class CascadeManager {
 
 	public TileManager manager;
 
-	private int width;
-	private int height;
+	public int width;
+	public int height;
 
 	private int[] elevations = new int[]{1,0,1,-1,3,1,2,1};
 	//private int[] telements = new int[]{3,2,2,2,0,1,0,1};
@@ -180,12 +180,13 @@ public class CascadeManager {
 
 	}
 
-	private void OnAir (Tile currentTile) {
+	private void OnAir (Tile currentTile) 
+	{
 		int coordX = currentTile.x;
 		int coordY = currentTile.y;
 
 		Tile currentCheck = manager.getTile[coordX,coordY];
-		//manager.AddStorm(currentCheck.x,currentCheck.y);
+		manager.AddStorm(currentCheck.x,currentCheck.y);
 
 		
 		// Currently air doesn't do anything anyway, so... take a moment.

@@ -10,7 +10,25 @@ public class Storm : MonoBehaviour {
 	public Tile currentTile;
 	public Tile previousTile;
 
-	public void Turn () {
+	public void StartStorm(Tile newTile)
+	{
+		currentTile = newTile;
+		MeshFilter filter = gameObject.AddComponent<MeshFilter> ();
+		MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
+		
+		filter.mesh = Resource.fireMesh;
+		renderer.material = Resource.stormMaterial;
+
+		transform.position = new Vector3 (
+				manager.objectFromTile[currentTile].transform.position.x,
+				manager.objectFromTile[currentTile].transform.position.y+manager.worldScale.y, 
+				manager.objectFromTile[currentTile].transform.position.z);
+
+		previousTile = currentTile;
+	}
+
+	public void Turn () 
+	{
 		manager.cascade.UpdateSize();
 		// Check the four adjacent tiles to make sure that they exist.
 
@@ -55,7 +73,17 @@ public class Storm : MonoBehaviour {
 		// Apply air effects here.
 		currentTile.Change((int)TileType.element.AIR);
 		manager.Change(manager.objectFromTile[currentTile],currentTile);
+		Debug.Log(currentTile.x + "," + currentTile.y);
 
+		transform.position = new Vector3 (
+			manager.objectFromTile[currentTile].transform.position.x,
+			manager.objectFromTile[currentTile].transform.position.y+manager.worldScale.y, 
+			manager.objectFromTile[currentTile].transform.position.z);
 	}
 
+	public void Kill()
+	{
+		manager.storms.Remove (this);
+		DestroyImmediate (gameObject);
+	}
 }

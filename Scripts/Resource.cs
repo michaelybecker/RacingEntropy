@@ -45,6 +45,7 @@ public static class Resource
 	//Materials
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
 	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
+	public static Material stormMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
 
 	public static Material[] tileMaterial = new Material[]{
 		(Material)Resources.Load (("Tiles/Materials/Desert"), typeof(Material)),
@@ -61,6 +62,10 @@ public static class Resource
 	public static AudioClip mainTheme = (AudioClip)Resources.Load ("Sound/Music/Main_Theme/Main", typeof(AudioClip));
 	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOverRev2", typeof(AudioClip));
 	public static AudioClip winTheme = (AudioClip)Resources.Load ("Sound/Music/Winning_Theme/WinningMusic", typeof(AudioClip));
+
+	public static AudioClip Click = (AudioClip)Resources.Load ("Sound/FX/gameplay/Click", typeof(AudioClip));
+	public static AudioClip startButton = (AudioClip)Resources.Load ("Sound/FX/gameplay/StartButton", typeof(AudioClip));
+	public static AudioClip wannaQuit = (AudioClip)Resources.Load ("Sound/FX/gameplay/WannaQuit", typeof(AudioClip));
 
 	public static AudioClip[] elementSound = new AudioClip[]
 	{

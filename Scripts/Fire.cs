@@ -68,7 +68,6 @@ public class Fire : MonoBehaviour
 
 	public void Kill()
 	{
-		Debug.Log ("killing self");
 		manager.fires.Remove (this);
 		DestroyImmediate (gameObject);
 	}
