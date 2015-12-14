@@ -266,6 +266,9 @@ public class CascadeManager {
 		currentCheck = candidates[Random.Range(0, candidates.Count)];
 		manager.AddStorm(currentCheck.x,currentCheck.y);
 
+		currentCheck.Change((int)TileType.element.AIR);
+		manager.Change(manager.objectFromTile[currentCheck],currentCheck);
+
 	}
 
 	// Spread fire like a volcano.
