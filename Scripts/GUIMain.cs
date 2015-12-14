@@ -16,7 +16,7 @@ public class GUIMain : MonoBehaviour
 
 	void OnGUI ()
 	{
-		menu.StartWindowOpen = true;
+		//menu.StartWindowOpen = true;
 
 		GUI.skin = style;
 		ButtonWidth = ButtonHeight = Buffer;
