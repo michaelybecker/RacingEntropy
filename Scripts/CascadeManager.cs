@@ -363,7 +363,7 @@ public class CascadeManager {
 			// Exclude all but the lowest-elevation candidates
 			List<Tile> secondCut = new List<Tile>();
 			foreach (Tile currentCandidate in candidates) {
-				if (currentCandidate.type == bestValue)
+				if (elevations[(int)currentCandidate.type] == bestValue)
 					secondCut.Add(currentCandidate);
 			}
 
