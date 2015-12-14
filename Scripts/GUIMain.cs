@@ -21,40 +21,43 @@ public class GUIMain : MonoBehaviour
 			menu.StartWindowOpen = true;
 			firstRun = false;
 		}
-
+			
 		GUI.skin = style;
-		ButtonWidth = ButtonHeight = Buffer;
-		if (GUI.Button (new Rect (0, 0, ButtonWidth * 2, ButtonWidth), Resource.Menu_Btn)) {
-			sounds.Play (Resource.Click, 1f);
-			menu.StartWindowOpen = true;
-		}
 
-		//Buttons
-		GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
+		if (!Global.pause) 
+		{	
+			ButtonWidth = ButtonHeight = Buffer;
+			if (GUI.Button (new Rect (0, 0, ButtonWidth * 2, ButtonWidth), Resource.Menu_Btn)) {
+				sounds.Play (Resource.Click, 1f);
+				menu.StartWindowOpen = true;
+			}
 
-		if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
-			element = (int)TileType.element.FIRE;
-			Cursor.SetCursor (Resource.Fire_Cursor,Vector2.zero,CursorMode.Auto);
-			sounds.Play (Resource.Click, 1f);
-		}
-		if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn)) {
-			element = (int)TileType.element.WATER;
-			Cursor.SetCursor (Resource.Water_Cursor,Vector2.zero,CursorMode.Auto);
-			sounds.Play (Resource.Click, 1f);
-		}
-		if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn)) {
-			element = (int)TileType.element.EARTH;
-			Cursor.SetCursor (Resource.Earth_Cursor,Vector2.zero,CursorMode.Auto);
-			sounds.Play (Resource.Click, 1f);
-		}
-		if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn)) {
-			element = (int)TileType.element.AIR;
-			Cursor.SetCursor (Resource.Air_Cursor,Vector2.zero,CursorMode.Auto);
-			sounds.Play (Resource.Click, 1f);
-		}
+			//Buttons
+			GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
 
-		GUI.EndGroup ();
+			if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
+				element = (int)TileType.element.FIRE;
+				Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+			if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn)) {
+				element = (int)TileType.element.WATER;
+				Cursor.SetCursor (Resource.Water_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+			if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn)) {
+				element = (int)TileType.element.EARTH;
+				Cursor.SetCursor (Resource.Earth_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+			if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn)) {
+				element = (int)TileType.element.AIR;
+				Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
 
+			GUI.EndGroup ();
+		}
 	}
 
 	void Update()
