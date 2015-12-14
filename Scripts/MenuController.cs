@@ -69,7 +69,7 @@ public class MenuController : MonoBehaviour
 		}
 		if(GUI.Button(new Rect(0,Buffer*2,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
-			//exit game
+			Application.Quit ();
 		}
 
 		GUI.EndGroup();
@@ -131,7 +131,7 @@ public class MenuController : MonoBehaviour
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
-			//Exit Game
+			Application.Quit ();
 		}
 
 		GUI.EndGroup ();
@@ -153,7 +153,7 @@ public class MenuController : MonoBehaviour
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
 		{
-			//Exit Game
+			Application.Quit ();
 		}
 
 		GUI.EndGroup ();

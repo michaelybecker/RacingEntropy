@@ -32,15 +32,19 @@ public class GUIMain : MonoBehaviour
 
 		if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
 			element = (int)TileType.element.FIRE;
+			Cursor.SetCursor (Resource.Fire_Cursor,Vector2.zero,CursorMode.Auto);
 		}
 		if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn)) {
 			element = (int)TileType.element.WATER;
+			Cursor.SetCursor (Resource.Water_Cursor,Vector2.zero,CursorMode.Auto);
 		}
 		if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn)) {
 			element = (int)TileType.element.EARTH;
+			Cursor.SetCursor (Resource.Earth_Cursor,Vector2.zero,CursorMode.Auto);
 		}
 		if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn)) {
 			element = (int)TileType.element.AIR;
+			Cursor.SetCursor (Resource.Air_Cursor,Vector2.zero,CursorMode.Auto);
 		}
 
 		GUI.EndGroup ();
