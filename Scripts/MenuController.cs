@@ -120,6 +120,9 @@ public class MenuController : MonoBehaviour
 		{
 			SettingsWindowOpen = true;
 			LoseWindowOpen = false;
+			Global.pause = true;
+			Global.lose = false;
+			Global.win = false;
 			Debug.Log ("Settings :" + SettingsWindowOpen + "loseWindow" + LoseWindowOpen + "start " + StartWindowOpen);
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
@@ -140,6 +143,8 @@ public class MenuController : MonoBehaviour
 		{
 			SettingsWindowOpen = true;
 			WinWindowOpen = false;
+			Global.win = false;
+			Global.lose = false;
 			Debug.Log ("Settings :" + SettingsWindowOpen + "winWindow" + WinWindowOpen + "start " + StartWindowOpen);
 		}
 		if(GUI.Button(new Rect(0,Buffer,MenuWidth,Buffer),Resource.QuitGame_Btn))
