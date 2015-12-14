@@ -67,7 +67,7 @@ public static class TileHelper
 			case (int)TileType.element.WATER:
 				return (int)TileType.tile.CRAGS;
 			case (int)TileType.element.EARTH:
-				return -1;//(int)TileType.tile.CRAGS;	
+				return (int)TileType.tile.CRAGS;	
 			case (int)TileType.element.FIRE:
 				return -1;//(int)TileType.tile.DESERT;
 			case (int)TileType.element.AIR:

@@ -32,14 +32,35 @@ public class Disaster : MonoBehaviour {
 
 		MeshFilter filter = gameObject.AddComponent<MeshFilter> ();
 		MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
-		
-		filter.mesh = Resource.disasterMesh; // This needs to be type dependent.
-		renderer.material = Resource.disasterMaterial; // This needs to be type dependent.
+
+		switch(type)
+		{
+		case 0:
+			filter.mesh = Resource.disasterMesh; // This needs to be type dependent.
+			renderer.material = Resource.thunderMaterial; // This needs to be type dependent.
+			break;
+		case 1:
+			filter.mesh = Resource.disasterMesh; // This needs to be type dependent.
+			renderer.material = Resource.eruptionMaterial; // This needs to be type dependent.
+			break;
+		case 2:
+			filter.mesh = Resource.disasterMesh; // This needs to be type dependent.
+			renderer.material = Resource.floodMaterial; // This needs to be type dependent.
+			break;
+		case 3:
+			filter.mesh = Resource.disasterMesh; // This needs to be type dependent.
+			renderer.material = Resource.quakeMaterial; // This needs to be type dependent.
+			break;
+		}
 
 		transform.position = new Vector3 (
 				manager.objectFromTile[currentTile].transform.position.x,
 				manager.objectFromTile[currentTile].transform.position.y+manager.worldScale.y, 
 				manager.objectFromTile[currentTile].transform.position.z);
 	}
-
+	public void Kill()
+	{
+		manager.disasters.Remove (this);
+		DestroyImmediate (gameObject);
+	}
 }

@@ -57,7 +57,10 @@ public static class Resource
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
 	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
 	public static Material stormMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
-	public static Material disasterMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
+	public static Material thunderMaterial = (Material)Resources.Load (("Tiles/Materials/Thunder"), typeof(Material));
+	public static Material eruptionMaterial = (Material)Resources.Load (("Tiles/Materials/Volcano"), typeof(Material));
+	public static Material floodMaterial = (Material)Resources.Load (("Tiles/Materials/Flood"), typeof(Material));
+	public static Material quakeMaterial = (Material)Resources.Load (("Tiles/Materials/Quake"), typeof(Material));
 
 	public static Material[] tileMaterial = new Material[]{
 		(Material)Resources.Load (("Tiles/Materials/Desert"), typeof(Material)),

@@ -159,8 +159,8 @@ public class Cartographer : MonoBehaviour {
 	// Might also randomize noise slightly.
 	public void BuildDifficulty(int difficulty) {
 		// Let's just handle this bad input case here:
-		while (difficulty <= 0)
-			difficulty++;
+		//while (difficulty <= 0)
+			//difficulty++;
 
 		noise = 0.1f + Random.Range(-0.02f, 0.02f);
 

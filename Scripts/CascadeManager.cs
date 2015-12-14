@@ -221,7 +221,7 @@ public class CascadeManager {
 		int coordY = currentTile.y;
 
 		Tile currentCheck = manager.getTile[coordX,coordY];
-		//manager.AddStorm(currentCheck.x,currentCheck.y);
+		manager.AddStorm(currentCheck.x,currentCheck.y);
 
 		
 		// Currently air doesn't do anything anyway, so... take a moment.

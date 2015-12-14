@@ -7,4 +7,6 @@ public static class Global
 	public static bool lose = false;
 	public static bool pause = false;
 	public static bool playingTheme = true;
+
+	public static int levelNumber = 0;
 }

@@ -99,17 +99,22 @@ public class TileManager : MonoBehaviour
 	{
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
-		//if(fires.Count > 0)for(int i = fires.Count; i >= 0; i--) fires[i].Kill();
+		while (fires.Count > 0)
+			fires [fires.Count - 1].Kill ();
 		fires.Clear ();
-		//if(storms.Count > 0)for(int i = storms.Count; i >=0; i--) storms[i].Kill();
+		while (storms.Count > 0)
+			storms [storms.Count - 1].Kill ();
 		storms.Clear ();
+		while (disasters.Count > 0)
+			disasters [disasters.Count - 1].Kill ();
+		disasters.Clear ();
 		plant.plantTiles.Clear ();
 
 		Global.win = false;
 		Global.lose = false;
 		Global.playingTheme = false;
 
-		mapControl.BuildDifficulty (difficulty);
+		mapControl.BuildDifficulty ((difficulty-1)+(difficulty*Global.levelNumber));
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
