@@ -66,7 +66,7 @@ public static class Resource
 	public static GameObject[] disasterParticles = new GameObject[]
 	{
 		(GameObject)Resources.Load (("Particles/Cloud"), typeof(GameObject)),
-		(GameObject)Resources.Load (("Particles/Smoke"), typeof(GameObject)),
+		(GameObject)Resources.Load (("Particles/VolcanoSmoke"), typeof(GameObject)),
 		(GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)),
 		(GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)),
 	};

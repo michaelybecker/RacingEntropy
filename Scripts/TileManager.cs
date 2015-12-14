@@ -45,6 +45,7 @@ public class TileManager : MonoBehaviour
 
 	public void Awake()
 	{
+		NewLevel (10);
 		cascade = new CascadeManager(this);
 	}
 
@@ -140,6 +141,8 @@ public class TileManager : MonoBehaviour
 			for(int y = 0; y < map.GetLength(1); y++)
 			{
 				Add(map[x,y],x,y);
+				Global.numOfTiles++;
+				Global.tileTypes[map[x,y]]++;
 			}
 		}
 		boardSize = new Vector2 (map.GetLength(0)*worldScale.x,map.GetLength(1)*worldScale.z);
@@ -154,14 +157,8 @@ public class TileManager : MonoBehaviour
 		ChangeType (tile, element);
 	}
 
-	//Change the tile based on the gameObject
-	public void ChangeType(GameObject tile, int element)
+	public void Turn()
 	{
-		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element],0.5f);
-
-		Tile changedTile = tileFromObject [tile];
-		cascade.OnElement (changedTile,element);
-		Change (tile, changedTile);
 		plant.Grow ();
 		if(fires.Count > 0)
 		{
@@ -184,6 +181,19 @@ public class TileManager : MonoBehaviour
 				disasters[i].Turn();
 			}
 		}
+		Global.turns++;
+		Debug.Log ("Turns made " + Global.turns);
+	}
+
+	//Change the tile based on the gameObject
+	public void ChangeType(GameObject tile, int element)
+	{
+		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element],0.5f);
+
+		Tile changedTile = tileFromObject [tile];
+		cascade.OnElement (changedTile,element);
+		Change (tile, changedTile);
+		Turn ();
 	}
 
 	public void Change(GameObject tile, Tile changedTile)
