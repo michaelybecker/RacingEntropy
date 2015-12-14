@@ -144,10 +144,11 @@ public class Cartographer : MonoBehaviour {
 
 		mapData[endX, endY] = 7;
 
-		manager.CreateMap(mapData);
-
 		int startX = Random.Range(minPlace, placementRange);
 		int startY = Random.Range(minPlace, placementRange);
+		mapData[startX,startY] = (int)TileType.tile.PLAIN;
+
+		manager.CreateMap(mapData);
 
 		manager.AddPlant(startX, startY); // Single tile start for now.
 		
@@ -156,8 +157,7 @@ public class Cartographer : MonoBehaviour {
 	// Build a level based on the provided difficulty value.
 	// Higher difficulty means more disasters and a larger size.
 	// Might also randomize noise slightly.
-	public void BuildDifficulty(int difficulty) 
-	{
+	public void BuildDifficulty(int difficulty) {
 		// Let's just handle this bad input case here:
 		while (difficulty <= 0)
 			difficulty++;
@@ -166,7 +166,7 @@ public class Cartographer : MonoBehaviour {
 
 		int size = debugSize + (difficulty*Mathf.CeilToInt(((float)debugSize)/10f));
 		currentSize = size;
-		GenerateBiomes(size, size);  
+		GenerateBiomes(size, size);
 
 		// Then scatter disasters between the player and goal at random, with quantity and perhaps position depending on difficulty.
 		// Need a math function to spawn disasters evenly (roughly) across the opposite axis as player/goal.
@@ -206,6 +206,10 @@ public class Cartographer : MonoBehaviour {
 		int close = sectionSize;
 		int mid = sectionSize*2;
 		int far = sectionSize*3;
+		close++;
+		mid++;
+		far++;
+		Debug.Log(close + ", " + mid + ", " + far);
 		for (int i = 0; i < disasterSections.Length ; i++) {
 			switch (disasterSections[i]) {
 				case 5:
@@ -239,6 +243,7 @@ public class Cartographer : MonoBehaviour {
 		if (ecks < 0 || ecks >= currentSize || why < 0 || why >= currentSize)
 			Debug.Log("Attempting to spawn disaster outside of map.");
 		// This is where I'll put the actual call when the manager or whatever is able to execute it.  For now, this stays empty.
-		manager.AddDisaster (ecks, why);
+		manager.AddDisaster(ecks, why);
+
 	}
 }
