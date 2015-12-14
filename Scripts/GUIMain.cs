@@ -59,16 +59,17 @@ public class GUIMain : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown (0)) 
+		if (!Global.pause) 
 		{
-			if (!Global.pause) 
+			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+			RaycastHit click;
+			if (Physics.Raycast (ray, out click)) 
 			{
-				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-				RaycastHit click;
-				if (Physics.Raycast (ray, out click)) 
+				if (Input.GetMouseButtonDown (0)) 
 				{
 					tiles.ChangeType (click.transform.gameObject, element);
 				}
+				tiles.OnHover (click.transform.gameObject);
 			}
 		}
 	}
