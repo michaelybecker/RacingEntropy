@@ -164,6 +164,7 @@ public class Cartographer : MonoBehaviour {
 		noise = 0.1f + Random.Range(-0.02f, 0.02f);
 
 		int size = debugSize + (difficulty*Mathf.CeilToInt(((float)debugSize)/10f));
+		Debug.Log (size);
 		currentSize = size;
 		GenerateBiomes(size, size);  
 

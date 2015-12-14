@@ -99,7 +99,7 @@ public class TileManager : MonoBehaviour
 		Global.win = false;
 		Global.lose = false;
 		Global.playingTheme = false;
-		mapControl.GenerateDifficulty (difficulty);
+		mapControl.BuildDifficulty (difficulty);
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
@@ -109,7 +109,11 @@ public class TileManager : MonoBehaviour
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
 		fires.Clear ();
-		//TODO kill all children
+		for ( int i=transform.childCount-1; i>=0; --i )
+		{
+			var child = transform.GetChild(i).gameObject;
+			Destroy( child );
+		}
 
 		for(int x = 0; x < map.GetLength(0); x++)
 		{
