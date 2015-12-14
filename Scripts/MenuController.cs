@@ -25,19 +25,19 @@ public class MenuController : MonoBehaviour
 		if (StartWindowOpen) 
 		{
 			Rect window = new Rect (0, 0, Screen.width, Screen.height);
-			window = GUI.ModalWindow (0, window, StartMenu, Resource.TitleBackground);
+			window = GUI.ModalWindow (0, window, StartMenu, "");
 			Global.pause = true;
 		}
 		if (SettingsWindowOpen) 
 		{
 			Rect window = new Rect (0, 0, Screen.width, Screen.height);
-			window = GUI.ModalWindow (0, window, SettingsMenu, Resource.TitleBackground);
+			window = GUI.ModalWindow (0, window, SettingsMenu, "");
 			Global.pause = true;
 		}
 		if(ExitWindowOpen)
 		{
 			Rect window = new Rect (0, 0, Screen.width, Screen.height);
-			window = GUI.ModalWindow (0, window, ExitMenu, Resource.TitleBackground);
+			window = GUI.ModalWindow (0, window, ExitMenu, "");
 			Global.pause = true;
 		}
 		if (Global.lose) 
