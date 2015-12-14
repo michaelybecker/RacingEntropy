@@ -12,9 +12,11 @@ public class NightLose : MonoBehaviour {
 	void Update () {
 
 		if (Global.lose) {
-			GameObject.Find("Weather").GetComponent<InstantGoodDay>().SetNumericHour(0000);
+			GameObject.Find ("Weather").GetComponent<InstantGoodDay> ().SetNumericHour (0000);
 //			Debug.Log (GameObject.Find("Weather").GetComponent<InstantGoodDay>().GetMilitaryHour());
 
+		} else {
+			GameObject.Find ("Weather").GetComponent<InstantGoodDay> ().SetNumericHour (0920);
 		}
 	
 	}
