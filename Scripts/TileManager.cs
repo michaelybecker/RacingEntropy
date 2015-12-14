@@ -37,6 +37,7 @@ public class TileManager : MonoBehaviour
 	public PlantManager plant;
 	public List<Fire> fires = new List<Fire>();
 	public List<Storm> storms = new List<Storm>();
+	public List<Disaster> disasters = new List<Disaster>();
 
 	public void Awake()
 	{
@@ -165,6 +166,13 @@ public class TileManager : MonoBehaviour
 				storms[i].Turn();
 			}
 		}
+		if(disasters.Count > 0)
+		{
+			for(int i = 0; i < disasters.Count; i++)
+			{
+				disasters[i].Turn();
+			}
+		}
 		//changedTile.Change (element);
 	}
 
@@ -201,5 +209,14 @@ public class TileManager : MonoBehaviour
 		newStorm.StartStorm(getTile[x,y]);
 		storms.Add (newStorm);
 	}
-}
 
+	public void AddDisaster(int x, int y) 
+	{
+		GameObject newDisasterObject = new GameObject ("Disaster" + x + "," + y);
+		Disaster newDisaster = newDisasterObject.AddComponent<Disaster>();
+		newDisaster.manager = this;
+		newDisaster.StartDisaster(getTile[x,y]);
+		disasters.Add (newDisaster);
+
+	}
+}
