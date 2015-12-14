@@ -35,7 +35,7 @@ public class TileManager : MonoBehaviour
 	public Vector2 boardSize;
 	//Plant manager
 	public PlantManager plant;
-	public List<FireManager> fires = new List<FireManager>();
+	public List<Fire> fires = new List<Fire>();
 
 	public void Awake()
 	{
@@ -148,7 +148,6 @@ public class TileManager : MonoBehaviour
 			for(int i = 0; i < fires.Count; i++)
 			{
 				fires[i].Grow();
-				fires[i].KillFire(changedTile);
 			}
 		}
 		//changedTile.Change (element);
@@ -173,10 +172,11 @@ public class TileManager : MonoBehaviour
 	public void AddFire(int x, int y)
 	{
 		GameObject newFireObject = new GameObject ("Fire" + x + "," + y);
-		FireManager newFire = newFireObject.AddComponent<FireManager>();
+		Fire newFire = newFireObject.AddComponent<Fire>();
 		newFire.manager = this;
-		newFire.AddFire (x,y);
+		newFire.StartFire(getTile[x,y]);
 		fires.Add (newFire);
+
 	}
 }
 

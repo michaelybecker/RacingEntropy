@@ -82,7 +82,6 @@ public class PlantManager : MonoBehaviour
 		if(newTile.type == (int)TileType.tile.GOAL)
 		{
 			Global.win = true;
-			Debug.Log("YEAH!!!!");
 		}
 		//TODO add plant mesh thingy
 		MeshFilter filter = newPlant.AddComponent<MeshFilter> ();
