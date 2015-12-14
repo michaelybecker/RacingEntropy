@@ -18,7 +18,10 @@ public class Cartographer : MonoBehaviour {
 
 	public TileManager manager;
 
-	public float noise;
+	private float noise;
+	public float baseNoise = 0.2f;
+
+	public int debugDifficultyMultiplier = 1;
 
 	public void Awake () {
 		if (debugBuild)
@@ -134,8 +137,8 @@ public class Cartographer : MonoBehaviour {
 		}
 		// End loops
 
-		int placementRange = debugSize/5;
-		int minPlace = 1;
+		int placementRange = width/5;
+		int minPlace = 1 + width/8;
 		if (placementRange <= 1)
 			minPlace = 0;
 
@@ -144,9 +147,19 @@ public class Cartographer : MonoBehaviour {
 
 		mapData[endX, endY] = 7;
 
+		// Make the starting tile and each adjacent tile plains.
 		int startX = Random.Range(minPlace, placementRange);
 		int startY = Random.Range(minPlace, placementRange);
 		mapData[startX,startY] = (int)TileType.tile.PLAIN;
+
+		if (startX != 0)
+			mapData[startX-1,startY] = (int)TileType.tile.PLAIN;
+
+		if (startY != 0)
+			mapData[startX,startY-1] = (int)TileType.tile.PLAIN;
+
+		mapData[startX+1,startY] = (int)TileType.tile.PLAIN;
+		mapData[startX,startY+1] = (int)TileType.tile.PLAIN;
 
 		manager.CreateMap(mapData);
 
@@ -158,13 +171,16 @@ public class Cartographer : MonoBehaviour {
 	// Higher difficulty means more disasters and a larger size.
 	// Might also randomize noise slightly.
 	public void BuildDifficulty(int difficulty) {
-		// Let's just handle this bad input case here:
-		//while (difficulty <= 0)
-			//difficulty++;
 
-		noise = 0.1f + Random.Range(-0.02f, 0.02f);
+		difficulty *= debugDifficultyMultiplier; // For testing.
 
-		int size = debugSize + (difficulty*Mathf.CeilToInt(((float)debugSize)/10f));
+		noise = baseNoise;
+		if (difficulty == 0)
+			noise/=2f;
+		// noise += Random.Range(-0.02f, 0.02f);
+		int scaler = (difficulty*Mathf.CeilToInt(((float)debugSize)/15f));
+		int size = debugSize + scaler;
+		//Debug.Log(size);
 		currentSize = size;
 		GenerateBiomes(size, size);
 
@@ -182,7 +198,7 @@ public class Cartographer : MonoBehaviour {
 		*/
 		// The goal is in the section 9 area while the first plant is in the section 1 area.
 
-		int midDiff = (difficulty/2) + (difficulty%2);
+		int midDiff = (difficulty/3) + (difficulty%3);
 		int[] disasterSections = new int[difficulty];
 		for (int i = 0; i < midDiff; i++)
 			disasterSections[i] = 5; // Stick half the disasters, rounding up, in the middle section.
@@ -206,25 +222,34 @@ public class Cartographer : MonoBehaviour {
 		int close = sectionSize;
 		int mid = sectionSize*2;
 		int far = sectionSize*3;
-		close++;
+		close+=2;
 		mid++;
 		far++;
+		while (far > size)
+			far--;
+		while (mid >= far)
+			mid--;
+		while (close >= mid)
+			close--;
+		//Debug.Log(close + ", " + mid + ", " + far);
 		for (int i = 0; i < disasterSections.Length ; i++) {
 			switch (disasterSections[i]) {
 				case 5:
 					SpawnDisaster(Random.Range(close, mid), Random.Range(close, mid));
 					break;
 				case 2:
-					SpawnDisaster(Random.Range(close, mid), Random.Range(0, close));
+					//SpawnDisaster(Random.Range(close, mid), Random.Range(0, close));
+					goto case 3;
 					break;
 				case 3:
 					SpawnDisaster(Random.Range(mid, far), Random.Range(0, close));
 					break;
 				case 4:
-					SpawnDisaster(Random.Range(mid, far), Random.Range(close, mid));
+					SpawnDisaster(Random.Range(mid, far), Random.Range(close, mid)); // Need to reign this in a little bit...
 					break;
 				case 6:
-					SpawnDisaster(Random.Range(0, close), Random.Range(close, mid));
+					//SpawnDisaster(Random.Range(0, close), Random.Range(close, mid));
+					goto case 7;
 					break;
 				case 7:
 					SpawnDisaster(Random.Range(0, close), Random.Range(mid, far));
@@ -241,8 +266,25 @@ public class Cartographer : MonoBehaviour {
 	private void SpawnDisaster (int ecks, int why) {
 		if (ecks < 0 || ecks >= currentSize || why < 0 || why >= currentSize)
 			Debug.Log("Attempting to spawn disaster outside of map.");
-		// This is where I'll put the actual call when the manager or whatever is able to execute it.  For now, this stays empty.
+		// Don't spawn two disasters on the same tile.  Not really a mechanics issue, but definitely a graphical problem.
+		while (isDisaster(ecks, why)) {
+			if (Random.Range(0, 2) == 0) {
+				ecks--;
+			} else {
+				why--;
+			}
+		}
 		manager.AddDisaster(ecks, why);
 
+	}
+
+	private bool isDisaster (int ecks, int why) {
+		foreach (Disaster d in manager.disasters) {
+			if (d.currentTile.x == ecks && d.currentTile.y == why) {
+				//Debug.Log("Shifting overlapping disasters.");
+				return true;
+			}
+		}
+		return false;
 	}
 }
