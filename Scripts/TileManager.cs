@@ -30,6 +30,7 @@ public class TileManager : MonoBehaviour
 	//Tile to game object
 	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
 	public Dictionary<Tile,GameObject> objectFromTile = new Dictionary<Tile,GameObject>();
+	public Dictionary<GameObject,GameObject> getFlair = new Dictionary<GameObject,GameObject> ();
 	//Scale of the world corresponding to the X,Y coordinates
 	public Vector3 worldScale;
 	public Vector2 boardSize;
@@ -38,6 +39,9 @@ public class TileManager : MonoBehaviour
 	public List<Fire> fires = new List<Fire>();
 	public List<Storm> storms = new List<Storm>();
 	public List<Disaster> disasters = new List<Disaster>();
+
+	//Hover functions
+	private GameObject lastHover;
 
 	public void Awake()
 	{
@@ -68,6 +72,7 @@ public class TileManager : MonoBehaviour
 		//adds it to the dictionary
 		tileFromObject.Add (newTile, tile);
 		objectFromTile.Add (tile, newTile);
+		getFlair.Add (newTile,tileFlair);
 
 		//Creates a collider for Jade to hit with a raycast (can't remember if a rigidbody is needed....
 		BoxCollider collider = newTile.AddComponent<BoxCollider> ();
@@ -99,6 +104,8 @@ public class TileManager : MonoBehaviour
 	{
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
+		getFlair.Clear ();
+		lastHover = null;
 		while (fires.Count > 0)
 			fires [fires.Count - 1].Kill ();
 		fires.Clear ();
@@ -150,7 +157,6 @@ public class TileManager : MonoBehaviour
 	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
-		Debug.Log ("We are changing things");
 		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element],0.5f);
 
 		Tile changedTile = tileFromObject [tile];
@@ -178,17 +184,27 @@ public class TileManager : MonoBehaviour
 				disasters[i].Turn();
 			}
 		}
-		//changedTile.Change (element);
 	}
 
 	public void Change(GameObject tile, Tile changedTile)
 	{
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
-		Transform flair = objectFromTile [changedTile].transform.Find ("Flair");
+		Transform flair = getFlair [tile].transform;
 		flair.GetComponent<MeshRenderer>().material = changedTile.material;
-		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;
-
+		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;		
 		plant.KillPlant (changedTile);
+	}
+
+	public void OnHover(GameObject tile)
+	{
+		if (lastHover != null)
+		{
+			lastHover.GetComponent<MeshRenderer>().material = tileFromObject[lastHover].material;
+			getFlair[lastHover].GetComponent<MeshRenderer> ().material = tileFromObject[lastHover].material;
+		}
+		tile.GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
+		getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
+		lastHover = tile;
 	}
 
 	//Add a plant to a certain tile
@@ -222,6 +238,7 @@ public class TileManager : MonoBehaviour
 		newDisaster.manager = this;
 		newDisaster.StartDisaster(getTile[x,y]);
 		disasters.Add (newDisaster);
-
+		//Remove existing flair on that tile
+		getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;
 	}
 }

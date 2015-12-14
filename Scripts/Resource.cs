@@ -7,9 +7,18 @@ public static class Resource
 	 * MESHES
 	 * ******************************************************************************/
 	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Plant"), typeof( Mesh ));
+
+	//Disaster meshes
 	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 	public static Mesh stormMesh = (Mesh)Resources.Load(("Tiles/stormClouds"), typeof( Mesh ));
-	public static Mesh disasterMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
+	//{STORM,VOLCANO,FLOOD,EARTHQUAKE};
+	public static Mesh[] disasterMesh = new Mesh[]
+	{
+		(Mesh)Resources.Load(("Tiles/stormClouds"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Tiles/Volcano"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Tiles/Earthquake"), typeof( Mesh )),
+	};
 
 	public static Mesh baseMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
 
@@ -31,10 +40,13 @@ public static class Resource
 	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
 	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
 	public static Material stormMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
-	public static Material thunderMaterial = (Material)Resources.Load (("Tiles/Materials/Thunder"), typeof(Material));
-	public static Material eruptionMaterial = (Material)Resources.Load (("Tiles/Materials/Volcano"), typeof(Material));
-	public static Material floodMaterial = (Material)Resources.Load (("Tiles/Materials/Flood"), typeof(Material));
-	public static Material quakeMaterial = (Material)Resources.Load (("Tiles/Materials/Quake"), typeof(Material));
+	public static Material[] disasterMaterial = new Material[]
+	{
+		(Material)Resources.Load (("Tiles/Materials/Thunder"), typeof(Material)),
+		(Material)Resources.Load (("Tiles/Materials/Volcano"), typeof(Material)),
+		(Material)Resources.Load (("Tiles/Materials/Flood"), typeof(Material)),
+		(Material)Resources.Load (("Tiles/Materials/Quake"), typeof(Material)),
+	};
 
 	public static Material[] tileMaterial = new Material[]{
 		(Material)Resources.Load (("Tiles/Materials/Desert"), typeof(Material)),
@@ -51,6 +63,13 @@ public static class Resource
 	 * PARTICLE EFFECTS
 	 * ****************************************************************/
 	public static ParticleSystem fireParticle = (ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem));
+	public static ParticleSystem[] disasterParticles = new ParticleSystem[]
+	{
+		(ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem)),
+		(ParticleSystem)Resources.Load (("Particles/Volcano"), typeof(ParticleSystem)),
+		(ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem)),
+		(ParticleSystem)Resources.Load (("Particles/Fire"), typeof(ParticleSystem)),
+	};
 
 	/******************************************************************
 	 * UV MAPS

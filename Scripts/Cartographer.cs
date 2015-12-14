@@ -209,7 +209,6 @@ public class Cartographer : MonoBehaviour {
 		close++;
 		mid++;
 		far++;
-		Debug.Log(close + ", " + mid + ", " + far);
 		for (int i = 0; i < disasterSections.Length ; i++) {
 			switch (disasterSections[i]) {
 				case 5:
