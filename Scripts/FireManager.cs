@@ -7,7 +7,7 @@ public class FireManager : MonoBehaviour
 	//Data holder for map data
 	public TileManager manager;
 	//list of tiles with fires
-	public List<Tile> fireTiles = new List<Tile>();
+	public Dictionary<Tile,GameObject> fireTiles = new Dictionary<Tile,GameObject>();
 	
 	private intVector2[] directions = new intVector2[]{
 		new intVector2(1,0),
@@ -19,23 +19,24 @@ public class FireManager : MonoBehaviour
 	
 	public void Grow()
 	{
-		Debug.Log ("should be growing");
 		intVector2 idealSpace = null;
 		float mostFertile = 0;
 		
-		for(int i = 0 ; i < fireTiles.Count; i++)
+		//foreach(KeyValuePair<Tile,GameObject> fire in fireTiles)
+		List<Tile> fire = new List<Tile> (fireTiles.Keys);
+		for(int i = 0; i < fire.Count; i++)
 		{
 			foreach(intVector2 dir in directions)
 			{
-				if(fireTiles[i].x+dir.x >= 0 && fireTiles[i].x+dir.x < manager.getTile.GetLength(0) &&
-				   fireTiles[i].y+dir.y >= 0 && fireTiles[i].y+dir.y < manager.getTile.GetLength(1))
+				if(fire[i].x+dir.x >= 0 && fire[i].x+dir.x < manager.getTile.GetLength(0) &&
+				   fire[i].y+dir.y >= 0 && fire[i].y+dir.y < manager.getTile.GetLength(1))
 				{
-					Tile tempTile = manager.getTile[fireTiles[i].x+dir.x,fireTiles[i].y+dir.y];
+					Tile tempTile = manager.getTile[fire[i].x+dir.x,fire[i].y+dir.y];
 					if(tempTile.fire == false)
 					{
 						if(tempTile.growthFactor > mostFertile)
 						{
-							idealSpace = new intVector2(fireTiles[i].x+dir.x,fireTiles[i].y+dir.y);
+							idealSpace = new intVector2(fire[i].x+dir.x,fire[i].y+dir.y);
 							mostFertile = tempTile.flammability;
 						}
 					}
@@ -50,7 +51,7 @@ public class FireManager : MonoBehaviour
 		if(idealSpace != null) 
 		{
 			Tile growTile = manager.getTile[idealSpace.x,idealSpace.y];
-			AddFire(idealSpace);
+			AddFire(idealSpace.x,idealSpace.y);
 		}
 	}
 	
@@ -58,15 +59,16 @@ public class FireManager : MonoBehaviour
 	{
 		tile.fire = false;
 		tile.burnout = 0;
-		Transform fire = manager.objectFromTile [tile].transform.Find ("fire");
-		fireTiles.Remove (tile);
-		if(fire != null)
+		if(fireTiles.ContainsKey(tile))
 		{
-			DestroyImmediate(fire.gameObject);
+			GameObject fire = fireTiles[tile];
+			fireTiles.Remove (tile);
+			DestroyImmediate(fire);
 		}
 		//If you have succesfully put out the fires destroy it
 		if(fireTiles.Count == 0) 
 		{
+			Debug.Log("Deleting fire object");
 			manager.fires.Remove(this);
 			DestroyImmediate(transform.gameObject);
 		}
@@ -83,7 +85,7 @@ public class FireManager : MonoBehaviour
 		Tile newTile = manager.tileFromObject [tile];
 		GameObject newfire = new GameObject ("fire");
 		newTile.fire = true;
-		fireTiles.Add (newTile);
+		if(!fireTiles.ContainsKey(newTile))fireTiles.Add (newTile,newfire);
 
 		//Modify the tile according to if it were hit with a fire element
 		manager.getTile [x, y].Change ((int)TileType.element.FIRE);
@@ -94,16 +96,10 @@ public class FireManager : MonoBehaviour
 		
 		filter.mesh = Resource.fireMesh;
 		renderer.material = Resource.fireMaterial;
-		newTile.burnout = (int)(1 / newTile.flammability)+1;
-		Debug.Log (newTile.burnout + " until burn out");
+		newTile.burnout = newTile.flammability;
 		
-		newfire.transform.parent = tile.transform;
+		newfire.transform.parent = transform;
 		newfire.transform.position = new Vector3 (tile.transform.position.x, tile.transform.position.y+manager.worldScale.y, tile.transform.position.z);
-	}
-	
-	public void AddFire(intVector2 pos)
-	{
-		AddFire (pos.x, pos.y);
 	}
 }
 

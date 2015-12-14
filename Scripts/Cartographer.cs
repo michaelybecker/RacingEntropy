@@ -27,8 +27,7 @@ public class Cartographer : MonoBehaviour {
 
 	public void GenerateDifficulty(int level) 
 	{
-		noise = 0.1f;
-		GenerateRandom (10*level,10*level);
+		GenerateBiomes (10*level,10*level);
 	}
 
 	// Basic functionality: generate a completely random level of X width and Y height.

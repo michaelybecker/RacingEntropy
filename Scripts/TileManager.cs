@@ -96,6 +96,9 @@ public class TileManager : MonoBehaviour
 
 	public void NewLevel(int difficulty)
 	{
+		Global.win = false;
+		Global.lose = false;
+		Global.playingTheme = false;
 		mapControl.GenerateDifficulty (difficulty);
 	}
 
@@ -103,6 +106,11 @@ public class TileManager : MonoBehaviour
 	public void CreateMap(int[,] map)
 	{
 		getTile = new Tile[map.GetLength(0),map.GetLength(1)];
+		tileFromObject.Clear();
+		objectFromTile.Clear ();
+		fires.Clear ();
+		//TODO kill all children
+
 		for(int x = 0; x < map.GetLength(0); x++)
 		{
 			for(int y = 0; y < map.GetLength(1); y++)
@@ -125,7 +133,7 @@ public class TileManager : MonoBehaviour
 	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
-		audioControl.Play (Resource.elementSound [element]);
+		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element]);
 
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);
@@ -135,8 +143,8 @@ public class TileManager : MonoBehaviour
 		{
 			for(int i = 0; i < fires.Count; i++)
 			{
-				fires[i].KillFire(changedTile);
 				fires[i].Grow();
+				fires[i].KillFire(changedTile);
 			}
 		}
 		//changedTile.Change (element);
