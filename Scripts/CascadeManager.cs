@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-// TO DO: Implement disaster cascades.
-
 public class CascadeManager {
 
 	// So for each cascading element, I'm going to need a whole array of affected tiles because I don't want to hit the same tile twice.
@@ -316,6 +314,7 @@ public class CascadeManager {
 		// Now also throw fire a distance.
 
 		int reach = 3;
+		reach = Random.Range(1, reach+1); // Making volcanos a bit less destructive at the edges of their influence.
 
 		// So, select values that are within reach but not off the board.
 
@@ -469,7 +468,8 @@ public class CascadeManager {
 	public void OnQuake (Tile currentTile) {
 		UpdateSize();
 
-		int reach = 5;
+		int reach = 6;
+		reach = Random.Range(1, reach+1); // Making earthquakes a bit more localized.
 
 		// So, select values that are within reach but not off the board.
 
