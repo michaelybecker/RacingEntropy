@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-// TO DO: Need to kill fires and plants on the tile.  Don't currently know the commands for that, TileManager should probably have that option.
-
 public class Storm : MonoBehaviour 
 {
 
@@ -30,6 +28,8 @@ public class Storm : MonoBehaviour
 
 	public void Turn () 
 	{
+		if (Random.Range(0, 10) == 0)
+			Kill();
 		manager.cascade.UpdateSize();
 		// Check the four adjacent tiles to make sure that they exist.
 
