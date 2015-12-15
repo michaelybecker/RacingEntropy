@@ -67,7 +67,7 @@ public class Tile
 				flammability = 0;
 				break;
 			case (int)TileType.tile.MOUNTAIN:
-				growthFactor = 0.05f;
+				growthFactor = 0.0f;
 				flammability = 0;
 				break;
 			case (int)TileType.tile.PLAIN:

@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour
 	int ButtonHeight = 40;
 	int MenuWidth;
 	int MenuHeight;
+	int chosenLevel;
 	public bool StartWindowOpen = true;
 	//public bool SettingsWindowOpen = false;
 	public bool LoseWindowOpen = false;
@@ -73,6 +74,7 @@ public class MenuController : MonoBehaviour
 		{
 			//SettingsWindowOpen = true;
 			tiles.NewLevel (1);
+			chosenLevel = 1;
 			StartWindowOpen = false;
 			Global.pause = false;
 			sound.Play (Resource.startButton, 1f);
@@ -81,6 +83,7 @@ public class MenuController : MonoBehaviour
 		if(GUI.Button(new Rect(ButtonWidth,0,ButtonWidth,ButtonHeight),Resource.MediumDifficulty_Btn))
 		{
 			tiles.NewLevel (2);
+			chosenLevel = 2;
 			StartWindowOpen = false;
 			Global.pause = false;
 			sound.Play (Resource.startButton, 1f);
@@ -89,6 +92,7 @@ public class MenuController : MonoBehaviour
 		if(GUI.Button(new Rect(ButtonWidth*2,0,ButtonWidth,ButtonHeight),Resource.HardDifficulty_Btn))
 		{
 			tiles.NewLevel (3);
+			chosenLevel = 3;
 			StartWindowOpen = false;
 			Global.pause = false;
 			sound.Play (Resource.startButton, 1f);
@@ -164,7 +168,8 @@ public class MenuController : MonoBehaviour
 		{
 			//SettingsWindowOpen = true;
 			LoseWindowOpen = false;
-			Global.pause = true;
+			StartWindowOpen = true;
+			Global.pause = false;
 			Global.lose = false;
 			Global.win = false;
 		}
@@ -188,8 +193,9 @@ public class MenuController : MonoBehaviour
 
 		if(GUI.Button(new Rect(0,0,MenuWidth,ButtonHeight),Resource.NG_Btn))
 		{
-			//SettingsWindowOpen = true;
+			tiles.NewLevel(chosenLevel);
 			WinWindowOpen = false;
+			Global.pause = false;
 			Global.win = false;
 			Global.lose = false;
 		}

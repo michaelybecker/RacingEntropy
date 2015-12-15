@@ -43,7 +43,11 @@ public class Disaster : MonoBehaviour {
 				manager.objectFromTile[currentTile].transform.position.x,
 				manager.objectFromTile[currentTile].transform.position.y+manager.worldScale.y, 
 				manager.objectFromTile[currentTile].transform.position.z);
-		particles.transform.position = transform.position;
+		particles.transform.position = new Vector3(
+			transform.position.x + Resource.disasterParticleOffset[type].x,
+			transform.position.y + Resource.disasterParticleOffset[type].y,
+			transform.position.z + Resource.disasterParticleOffset[type].z
+			);
 	}
 	public void Kill()
 	{

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class GUIMain : MonoBehaviour 
@@ -15,15 +15,13 @@ public class GUIMain : MonoBehaviour
 
 	int element;
 
-	public LayerMask castMask = -257;
-
 	void OnGUI ()
 	{
 		if (firstRun) {
 			menu.StartWindowOpen = true;
 			firstRun = false;
 		}
-
+			
 		GUI.skin = style;
 
 		if (!Global.pause) 
@@ -68,7 +66,7 @@ public class GUIMain : MonoBehaviour
 		{
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit click;
-			if (Physics.Raycast (ray, out click, Mathf.Infinity, castMask)) // Added layerMask to avoid hitting mouseDrag plane.
+			if (Physics.Raycast (ray, out click)) 
 			{
 				if (Input.GetMouseButtonDown (0)) 
 				{
