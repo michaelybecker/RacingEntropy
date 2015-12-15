@@ -14,9 +14,9 @@ public static class Resource
 	//{STORM,VOLCANO,FLOOD,EARTHQUAKE};
 	public static Mesh[] disasterMesh = new Mesh[]
 	{
-		(Mesh)Resources.Load(("Tiles/stormClouds"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Tiles/Hurricane"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Volcano"), typeof( Mesh )),
-		(Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Tiles/Flood"), typeof( Mesh )),
 		(Mesh)Resources.Load(("Tiles/Earthquake"), typeof( Mesh )),
 	};
 
@@ -63,12 +63,20 @@ public static class Resource
 	 * PARTICLE EFFECTS
 	 * ****************************************************************/
 	public static GameObject fireParticle = ((GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)));
+	
+	public static Vector3[] disasterParticleOffset = new Vector3[]
+	{
+		new Vector3(0f,0f,0f),
+		new Vector3(0.023f,0.35f,0.037f),
+		new Vector3(0f,0f,0f),
+		new Vector3(0f,0.04f,0.01f),
+	};
 	public static GameObject[] disasterParticles = new GameObject[]
 	{
 		(GameObject)Resources.Load (("Particles/Cloud"), typeof(GameObject)),
 		(GameObject)Resources.Load (("Particles/VolcanoSmoke"), typeof(GameObject)),
-		(GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)),
-		(GameObject)Resources.Load (("Particles/Fire"), typeof(GameObject)),
+		(GameObject)Resources.Load (("Particles/VolcanoSmoke"), typeof(GameObject)),
+		(GameObject)Resources.Load (("Particles/EarthquakeDust"), typeof(GameObject)),
 	};
 
 	/******************************************************************

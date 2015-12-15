@@ -240,7 +240,6 @@ public class Cartographer : MonoBehaviour {
 				case 2:
 					//SpawnDisaster(Random.Range(close, mid), Random.Range(0, close));
 					goto case 3;
-					break;
 				case 3:
 					SpawnDisaster(Random.Range(mid, far), Random.Range(0, close));
 					break;
@@ -250,7 +249,6 @@ public class Cartographer : MonoBehaviour {
 				case 6:
 					//SpawnDisaster(Random.Range(0, close), Random.Range(close, mid));
 					goto case 7;
-					break;
 				case 7:
 					SpawnDisaster(Random.Range(0, close), Random.Range(mid, far));
 					break;
