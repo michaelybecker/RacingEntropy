@@ -33,7 +33,14 @@ public class GUIMain : MonoBehaviour
 				sounds.Play (Resource.Click, 1f);
 				menu.StartWindowOpen = true;
 			}
-			
+			//Score and level
+			GUI.BeginGroup (new Rect(ButtonWidth * 2, ButtonWidth/3,Screen.width-(ButtonWidth * 4),ButtonWidth/3));
+			GUI.DrawTexture(new Rect(0,0,Screen.width-(ButtonWidth * 2),ButtonWidth/3),Resource.CenterConsole);
+			GUI.Label(new Rect(0,0,ButtonWidth*2,ButtonWidth),"Level:" + Global.levelNumber);
+			GUI.DrawTexture(new Rect(Screen.width-(ButtonWidth * 2),0,Screen.width-(ButtonWidth * 2),ButtonWidth/3),Resource.CenterConsole);
+			GUI.Label(new Rect(Screen.width-(ButtonWidth * 5),0,ButtonWidth,ButtonWidth),"Turns:" + Global.turns);
+			GUI.EndGroup();
+
 			//Buttons
 			GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
 			

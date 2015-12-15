@@ -129,6 +129,7 @@ public static class Resource
 	public static Texture2D MediumDifficulty_Btn = (Texture2D)Resources.Load (("Gui/MediumDifficulty_Btn"), typeof(Texture2D));
 	public static Texture2D LowDifficulty_Btn = (Texture2D)Resources.Load (("Gui/LowDifficulty_Btn"), typeof(Texture2D));
 	public static Texture2D Back_Btn = (Texture2D)Resources.Load (("Gui/Back_Btn"), typeof(Texture2D));
+	public static Texture2D CenterConsole = (Texture2D)Resources.Load (("Gui/CenterConsole"), typeof(Texture2D));
 	
 	public static Texture2D Title = (Texture2D)Resources.Load (("Gui/Title"), typeof(Texture2D));
 	public static Texture2D TitleBackground = (Texture2D)Resources.Load (("Gui/TitleBackground"), typeof(Texture2D));
