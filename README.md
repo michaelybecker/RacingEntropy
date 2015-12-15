@@ -7,7 +7,7 @@
 ####built during [Ludum Dare 34](http://ludumdare.com/compo/2015/12/09/welcome-to-ludum-dare-34/) by:
 
 #####Code by Jade Elizabeth, Eliot Hemingway and Jake Merz
-#####3D Art by James Lewis & Cameron Stark
+#####Art by James Lewis & Cameron Stark
 #####Music and Sound Design by Michael Hazani
 #####Project Management and Documentation by Sacha Retif
 
