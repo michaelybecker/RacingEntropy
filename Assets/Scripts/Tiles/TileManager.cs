@@ -40,8 +40,24 @@ public class TileManager : MonoBehaviour
 	public List<Storm> storms = new List<Storm>();
 	public List<Disaster> disasters = new List<Disaster>();
 
+	private float lastTime = 0;
+	private float gameTurn = 0.5f;
+
 	//Hover functions
 	private GameObject lastHover;
+
+	public void Update()
+	{
+		if(Global.pause == false)
+		{
+			if(Time.time > lastTime+gameTurn)
+			{
+				lastTime = Time.time;
+				Turn ();
+			}
+		}
+		if (Input.GetKeyDown (KeyCode.Space)) Global.pause = !Global.pause;
+	}
 
 	public void Awake()
 	{
@@ -194,7 +210,7 @@ public class TileManager : MonoBehaviour
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);
 		Change (tile, changedTile);
-		Turn ();
+		//Turn ();
 	}
 
 	public void Change(GameObject tile, Tile changedTile)
