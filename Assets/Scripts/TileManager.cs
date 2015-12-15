@@ -103,6 +103,7 @@ public class TileManager : MonoBehaviour
 
 	public void NewLevel(int difficulty)
 	{
+		Global.turns = 0;
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
 		getFlair.Clear ();
