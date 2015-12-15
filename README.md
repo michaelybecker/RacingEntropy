@@ -1,4 +1,4 @@
-![](http://oi67.tinypic.com/2m41zkp.jpg)
+![](http://i.imgur.com/mtuKfXo.png)
 
 ##An eco-friendly casual game
 
