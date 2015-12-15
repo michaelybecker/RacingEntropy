@@ -9,7 +9,7 @@ public static class Resource
 	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Plant"), typeof( Mesh ));
 
 	//Disaster meshes
-	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Base"), typeof( Mesh ));
+	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Fire"), typeof( Mesh ));
 	public static Mesh stormMesh = (Mesh)Resources.Load(("Tiles/stormClouds"), typeof( Mesh ));
 	//{STORM,VOLCANO,FLOOD,EARTHQUAKE};
 	public static Mesh[] disasterMesh = new Mesh[]
@@ -86,6 +86,7 @@ public static class Resource
 	/**********************************************************
 	 * SOUND OBJECTS
 	 * ******************************************************/
+	public static AudioClip ambience = (AudioClip)Resources.Load ("Sound/Music/ambience", typeof(AudioClip));
 	public static AudioClip mainTheme = (AudioClip)Resources.Load ("Sound/Music/Main_Theme/Main", typeof(AudioClip));
 	public static AudioClip loseTheme = (AudioClip)Resources.Load ("Sound/Music/GameOver_Theme/GameOverRev2", typeof(AudioClip));
 	public static AudioClip winTheme = (AudioClip)Resources.Load ("Sound/Music/Winning_Theme/WinMusic", typeof(AudioClip));

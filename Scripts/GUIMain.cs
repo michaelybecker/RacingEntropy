@@ -10,20 +10,22 @@ public class GUIMain : MonoBehaviour
 	int ButtonHeight;
 	int ButtonWidth;
 	public GUISkin style;
-
+	
 	bool firstRun = true;
-
+	
 	int element;
-
+	
+	public LayerMask castMask = -257;
+	
 	void OnGUI ()
 	{
 		if (firstRun) {
 			menu.StartWindowOpen = true;
 			firstRun = false;
 		}
-			
+		
 		GUI.skin = style;
-
+		
 		if (!Global.pause) 
 		{	
 			ButtonWidth = ButtonHeight = Buffer;
@@ -31,10 +33,10 @@ public class GUIMain : MonoBehaviour
 				sounds.Play (Resource.Click, 1f);
 				menu.StartWindowOpen = true;
 			}
-
+			
 			//Buttons
 			GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
-
+			
 			if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
 				element = (int)TileType.element.FIRE;
 				Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
@@ -55,18 +57,18 @@ public class GUIMain : MonoBehaviour
 				Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
 				sounds.Play (Resource.Click, 1f);
 			}
-
+			
 			GUI.EndGroup ();
 		}
 	}
-
+	
 	void Update()
 	{
 		if (!Global.pause) 
 		{
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit click;
-			if (Physics.Raycast (ray, out click)) 
+			if (Physics.Raycast (ray, out click, Mathf.Infinity, castMask)) // Added layerMask to avoid hitting mouseDrag plane.
 			{
 				if (Input.GetMouseButtonDown (0)) 
 				{

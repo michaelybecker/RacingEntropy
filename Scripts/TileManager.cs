@@ -213,7 +213,7 @@ public class TileManager : MonoBehaviour
 			getFlair[lastHover].GetComponent<MeshRenderer> ().material = tileFromObject[lastHover].material;
 		}
 		tile.GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
-		getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
+		if(getFlair.ContainsKey(tile))getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
 		lastHover = tile;
 	}
 

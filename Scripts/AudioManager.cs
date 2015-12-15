@@ -3,21 +3,27 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
-	public AudioSource player;
-	public AudioSource mainTheme;
-	public AudioSource loseTheme;
-	public AudioSource winTheme;
+	private AudioSource player;
+	private AudioSource ambiance;
+	private AudioSource mainTheme;
+	private AudioSource loseTheme;
+	private AudioSource winTheme;
 
 	void Awake()
 	{
 		player = gameObject.AddComponent<AudioSource> ();
 
 		Global.playingTheme = true;
+		ambiance = gameObject.AddComponent<AudioSource> ();
+		ambiance.clip = Resource.ambience;
+		ambiance.loop = true;
+		ambiance.volume  = 0.025f;
+		ambiance.Play ();
+
 		mainTheme = gameObject.AddComponent<AudioSource> ();
 		mainTheme.clip = Resource.mainTheme;
 		mainTheme.loop = true;
 		mainTheme.volume  = 0.5f;
-		mainTheme.Play ();
 
 		loseTheme = gameObject.AddComponent<AudioSource> ();
 		loseTheme.clip = Resource.loseTheme;
