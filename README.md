@@ -1,10 +1,10 @@
 ![](http://i.imgur.com/mtuKfXo.png)
 
-##An eco-friendly casual game
+#Racing Entropy: An Eco-friendly Casual Game
 
-### featuring cute flowers and natural elements and what not
+## Featuring Cute Flowers and Natural Elements and What Not
 
-####built during [Ludum Dare 34](http://ludumdare.com/compo/2015/12/09/welcome-to-ludum-dare-34/) by:
+####Made in Seattle, WA for [Ludum Dare 34](http://ludumdare.com/compo/2015/12/09/welcome-to-ludum-dare-34/)
 
 #####Code by Jade Elizabeth, Eliot Hemingway and Jake Merz
 #####Art by James Lewis & Cameron Stark
