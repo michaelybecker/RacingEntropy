@@ -43,7 +43,32 @@ public class GUIMain : MonoBehaviour
 
 			//Buttons
 			GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
-			
+
+			if(Input.GetKeyDown(KeyCode.Q))
+			{
+				element = (int)TileType.element.FIRE;
+				Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+			if(Input.GetKeyDown(KeyCode.W))
+			{
+				element = (int)TileType.element.WATER;
+				Cursor.SetCursor (Resource.Water_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+			if(Input.GetKeyDown(KeyCode.E))
+			{
+				element = (int)TileType.element.EARTH;
+				Cursor.SetCursor (Resource.Earth_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+			if(Input.GetKeyDown(KeyCode.R))
+			{
+				element = (int)TileType.element.AIR;
+				Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
+				sounds.Play (Resource.Click, 1f);
+			}
+
 			if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
 				element = (int)TileType.element.FIRE;
 				Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
