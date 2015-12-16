@@ -215,7 +215,7 @@ public class TileManager : MonoBehaviour
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);
 		Change (tile, changedTile);
-		Turn ();
+		//Turn ();
 	}
 
 	public void Change(GameObject tile, Tile changedTile)
