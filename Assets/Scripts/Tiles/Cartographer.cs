@@ -38,7 +38,8 @@ public class Cartographer : MonoBehaviour {
 		for (int why = 0; why < height; why++) {
 			for (int ecks = 0; ecks < width; ecks++) {
 				// Set each tile to a completely random type.
-				mapData[ecks, why] = Random.Range (0, 7);
+				//added a -1 in order to have a null tile
+				mapData[ecks, why] = Random.Range (-1, 7);
 				
 			}
 		}
