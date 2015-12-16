@@ -7,8 +7,8 @@ public class MenuController : MonoBehaviour
 	public TileManager tiles;
 	public GUISkin style;
 	public AudioManager sound;
-	int ButtonWidth = 150;
-	int ButtonHeight = 40;
+	int ButtonWidth = 400;
+	int ButtonHeight = 80;
 	int MenuWidth;
 	int MenuHeight;
 	int chosenLevel;

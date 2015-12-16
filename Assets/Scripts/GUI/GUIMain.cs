@@ -29,6 +29,7 @@ public class GUIMain : MonoBehaviour
 		if (!Global.pause) 
 		{	
 			ButtonWidth = ButtonHeight = Buffer;
+			ButtonWidth *= 2;
 			if (GUI.Button (new Rect (0, 0, ButtonWidth * 2, ButtonWidth), Resource.Menu_Btn)) {
 				sounds.Play (Resource.Click, 1f);
 				menu.StartWindowOpen = true;
