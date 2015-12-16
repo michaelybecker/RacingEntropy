@@ -9,6 +9,7 @@ Library/
 # ===================================== #
 ExportedObj/
 obj/
+ProjectSettings/
 *.svd
 *.userprefs
 /*.csproj
