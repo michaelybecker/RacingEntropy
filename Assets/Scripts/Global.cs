@@ -18,4 +18,6 @@ public static class Global
 	public static int numOfTiles;
 	public static int numOfPlants;
 	public static int[] tileTypes = new int[10];
+
+	public static Vector3 center;
 }

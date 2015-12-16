@@ -119,6 +119,7 @@ public class TileManager : MonoBehaviour
 
 	public void NewLevel(int difficulty)
 	{
+		transform.position = Vector3.zero;
 		Global.turns = 0;
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
@@ -140,6 +141,10 @@ public class TileManager : MonoBehaviour
 		Global.playingTheme = false;
 
 		mapControl.BuildDifficulty ((difficulty-1)+(difficulty*Global.levelNumber));
+		Global.center = objectFromTile [getTile[getTile.GetLength (0) - 1, getTile.GetLength (1) - 1]].transform.position;
+		Global.center.Scale(new Vector3(-0.25f,-0.25f,-0.25f));
+		Debug.Log (Global.center);
+		transform.position = Global.center;
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
