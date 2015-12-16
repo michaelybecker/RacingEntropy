@@ -102,14 +102,14 @@ public class TileManager : MonoBehaviour
 		//Creates the mesh holder and adds a mesh
 		MeshFilter filter = newTile.AddComponent<MeshFilter> ();
 		MeshRenderer renderer = newTile.AddComponent<MeshRenderer>();
-		MeshFilter flairFilter = tileFlair.AddComponent<MeshFilter> ();
-		MeshRenderer flairRenderer = tileFlair.AddComponent<MeshRenderer>();
+		//MeshFilter flairFilter = tileFlair.AddComponent<MeshFilter> ();
+		//MeshRenderer flairRenderer = tileFlair.AddComponent<MeshRenderer>();
 
-		filter.mesh = Resource.baseMesh;
-		flairFilter.mesh = tile.mesh;
+		filter.mesh = tile.mesh;//Resource.baseMesh;
+		//flairFilter.mesh = tile.mesh;
 
 		renderer.material = tile.material;
-		flairRenderer.material = tile.material;
+		//flairRenderer.material = tile.material;
 		//TODO add a texture and shader
 
 		//position the gameobject
@@ -244,12 +244,13 @@ public class TileManager : MonoBehaviour
 	public void Change(GameObject tile, Tile changedTile)
 	{
 		//Set the material
+		tile.GetComponent<MeshFilter>().mesh = changedTile.mesh;	
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
 		//Add the flair
-		Transform flair = getFlair [tile].transform;
+		//Transform flair = getFlair [tile].transform;
 		//Set the flair material and mesh
-		flair.GetComponent<MeshRenderer>().material = changedTile.material;
-		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;		
+		//flair.GetComponent<MeshRenderer>().material = changedTile.material;
+		//flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;		
 		//If there was a plant here, kill it
 		plant.KillPlant (changedTile);
 	}
@@ -262,12 +263,12 @@ public class TileManager : MonoBehaviour
 		{
 			//un-highlight it and reset the material
 			lastHover.GetComponent<MeshRenderer>().material = tileFromObject[lastHover].material;
-			getFlair[lastHover].GetComponent<MeshRenderer> ().material = tileFromObject[lastHover].material;
+			//getFlair[lastHover].GetComponent<MeshRenderer> ().material = tileFromObject[lastHover].material;
 		}
 		//Set the material color to be a bit brighter
 		tile.GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
 		//Set the flair color to be a bit brighter
-		if(getFlair.ContainsKey(tile))getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
+		//if(getFlair.ContainsKey(tile))getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
 		//Set the last hovering tile so it can be reset
 		lastHover = tile;
 	}
@@ -305,6 +306,6 @@ public class TileManager : MonoBehaviour
 		newDisaster.StartDisaster(getTile[x,y]);
 		disasters.Add (newDisaster);
 		//Remove existing flair on that tile
-		getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;
+		//getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;
 	}
 }

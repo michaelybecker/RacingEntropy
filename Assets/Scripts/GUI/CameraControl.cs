@@ -36,8 +36,21 @@ public class CameraControl : MonoBehaviour
 	
 	public void OnGUI () 
 	{
-
-		if(Input.touchCount > 0)
+		//Android zoom
+		if (Input.touchCount >= 2)
+		{
+			Vector2 touch0, touch1;
+			float distance;
+			touch0 = Input.GetTouch(0).position;
+			touch1 = Input.GetTouch(1).position;
+			distance = Vector2.Distance(touch0, touch1);
+			targetZoom += distance;
+			if (targetZoom > maxZoom)
+				targetZoom = maxZoom;
+			if (targetZoom < minZoom)
+				targetZoom = minZoom;
+		}
+		else if(Input.touchCount > 0)
 		{
 			// ... then check how far the mouse has been dragged.
 			Debug.Log("Dragging");
@@ -58,7 +71,7 @@ public class CameraControl : MonoBehaviour
 			transform.Translate (movement, Space.World);
 		}
 		// If we're dragging the right mouse button,
-		else if (Event.current.type == EventType.MouseDrag && Event.current.button == 1) 
+		if (Event.current.type == EventType.MouseDrag && Event.current.button == 1) 
 		{
 			// ... then check how far the mouse has been dragged.
 			Vector2 origin = Event.current.mousePosition;
@@ -82,21 +95,6 @@ public class CameraControl : MonoBehaviour
 		if (Event.current.type == EventType.ScrollWheel) 
 		{
 			targetZoom += Event.current.delta.y;
-			if (targetZoom > maxZoom)
-				targetZoom = maxZoom;
-			if (targetZoom < minZoom)
-				targetZoom = minZoom;
-		}
-
-		//Android zoom
-		if (Input.touchCount >= 2)
-		{
-			Vector2 touch0, touch1;
-			float distance;
-			touch0 = Input.GetTouch(0).position;
-			touch1 = Input.GetTouch(1).position;
-			distance = Vector2.Distance(touch0, touch1);
-			targetZoom += distance;
 			if (targetZoom > maxZoom)
 				targetZoom = maxZoom;
 			if (targetZoom < minZoom)
