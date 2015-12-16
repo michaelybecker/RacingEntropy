@@ -8,7 +8,7 @@ public class CameraControl : MonoBehaviour
 	
 	public LayerMask castMask = 256;
 	
-	public float minZoom = 0f;
+	public float minZoom = -10f;
 	public float maxZoom = 50f;
 	public float initialZoom = 5f;
 	
@@ -56,14 +56,32 @@ public class CameraControl : MonoBehaviour
 			
 			transform.Translate (movement, Space.World);
 		}
-		
-		if (Event.current.type == EventType.ScrollWheel) {
+
+		//PC scroll
+		if (Event.current.type == EventType.ScrollWheel) 
+		{
 			targetZoom += Event.current.delta.y;
 			if (targetZoom > maxZoom)
 				targetZoom = maxZoom;
 			if (targetZoom < minZoom)
 				targetZoom = minZoom;
 		}
+
+		//Android zoom
+		/*if (Input.touchCount >= 2)
+		{
+			Debug.Log("zooming");
+			Vector2 touch0, touch1;
+			float distance;
+			touch0 = Input.GetTouch(0).position;
+			touch1 = Input.GetTouch(1).position;
+			distance = Vector2.Distance(touch0, touch1);
+			targetZoom += distance;
+			if (targetZoom > maxZoom)
+				targetZoom = maxZoom;
+			if (targetZoom < minZoom)
+				targetZoom = minZoom;
+		}*/
 	}
 	
 	public void Update () 
