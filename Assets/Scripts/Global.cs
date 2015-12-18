@@ -16,7 +16,7 @@ public static class Global
 
 	//Number of each type of tile
 	public static int numOfTiles;
-	public static int numOfPlants;
+	public static int[] plantTypes = new int[10];
 	public static int[] tileTypes = new int[10];
 
 	public static Vector3 center;

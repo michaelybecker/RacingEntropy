@@ -23,7 +23,8 @@ public class Cartographer : MonoBehaviour {
 
 	public int debugDifficultyMultiplier = 1;
 
-	public void Awake () {
+	public void Awake () 
+	{
 		if (debugBuild)
 			BuildDifficulty (debugDifficulty);
 		if (manager == null)
@@ -53,14 +54,14 @@ public class Cartographer : MonoBehaviour {
 		int endX = Random.Range(width-placementRange, width-minPlace);
 		int endY = Random.Range(height-placementRange, height-minPlace);
 
-		mapData[endX, endY] =  7;
+		//mapData[endX, endY] =  7;
 
 		manager.CreateMap(mapData);
 
 		int startX = Random.Range(minPlace, placementRange);
 		int startY = Random.Range(minPlace, placementRange);
 
-		manager.AddPlant(startX, startY); // Single tile start for now.
+		//manager.AddPlant(startX, startY); // Single tile start for now.
 	}
 
 	// Second layer of functionality: generate different clumps of terrain based on moisture and elevation maps.
@@ -146,7 +147,7 @@ public class Cartographer : MonoBehaviour {
 		int endX = Random.Range(width-placementRange, width-minPlace);
 		int endY = Random.Range(height-placementRange, height-minPlace);
 
-		mapData[endX, endY] = 7;
+		//mapData[endX, endY] = 7;
 
 		// Make the starting tile and each adjacent tile plains.
 		int startX = Random.Range(minPlace, placementRange);
@@ -164,8 +165,7 @@ public class Cartographer : MonoBehaviour {
 
 		manager.CreateMap(mapData);
 
-		manager.AddPlant(startX, startY); // Single tile start for now.
-		
+		//manager.AddPlant(startX, startY); // Single tile start for now.
 	}
 
 	// Build a level based on the provided difficulty value.

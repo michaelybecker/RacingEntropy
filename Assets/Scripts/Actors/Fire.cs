@@ -26,7 +26,6 @@ public class Fire : MonoBehaviour
 		filter.mesh = Resource.fireMesh;
 		renderer.material = Resource.fireMaterial;
 
-		Vector3 FirePosition = 
 		transform.position = new Vector3 (
 				manager.objectFromTile[tile].transform.position.x,
 				manager.objectFromTile[tile].transform.position.y+manager.worldScale.y, 
@@ -59,15 +58,14 @@ public class Fire : MonoBehaviour
 				}
 			}
 		}
-		if(bestTile != tile)manager.AddFire(bestTile.x,bestTile.y);
-		else Debug.Log("nothing else flammable around");
+		if(bestTile != tile) manager.AddFire(bestTile.x,bestTile.y);
 		burnout--;
-		if (burnout < 0)
-			Kill ();
+		if (burnout < 0) Kill ();
 	}
 
 	public void Kill()
 	{
+		tile.fire = false;
 		manager.fires.Remove (this);
 		DestroyImmediate (gameObject);
 	}

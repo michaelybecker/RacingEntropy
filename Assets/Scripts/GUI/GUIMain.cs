@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GUIMain : MonoBehaviour 
 {
@@ -33,12 +34,15 @@ public class GUIMain : MonoBehaviour
 				sounds.Play (Resource.Click, 1f);
 				menu.StartWindowOpen = true;
 			}
+
 			//Score and level
-			GUI.BeginGroup (new Rect(ButtonWidth * 2, ButtonWidth/3,Screen.width-(ButtonWidth * 4),ButtonWidth/3));
-			GUI.DrawTexture(new Rect(0,0,Screen.width-(ButtonWidth * 2),ButtonWidth/3),Resource.CenterConsole);
-			GUI.Label(new Rect(0,0,ButtonWidth*2,ButtonWidth),"Level:" + Global.levelNumber);
-			GUI.DrawTexture(new Rect(Screen.width-(ButtonWidth * 2),0,Screen.width-(ButtonWidth * 2),ButtonWidth/3),Resource.CenterConsole);
-			GUI.Label(new Rect(Screen.width-(ButtonWidth * 5),0,ButtonWidth,ButtonWidth),"Turns:" + Global.turns);
+			List<WinCondition> win = new List<WinCondition>(tiles.winControl.currentConditions.Keys);
+			GUI.BeginGroup (new Rect(ButtonWidth * 2, ButtonWidth/3,Screen.width-(ButtonWidth * 4),ButtonWidth));
+			GUI.DrawTexture(new Rect(0,0,Screen.width-(ButtonWidth * 4),ButtonWidth),Resource.CenterConsole);
+			for(int i = 0; i < win.Count; i++)
+			{
+				GUI.Label(new Rect(0,i*20,Screen.width-(ButtonWidth * 4),ButtonWidth),win[i].description);
+			}
 			GUI.EndGroup();
 
 			//Buttons

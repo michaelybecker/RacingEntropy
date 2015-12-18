@@ -15,7 +15,7 @@ public class Tile
 	public int type;
 
 	//Plant factor
-	public bool plant;//plant that is growing
+	public Plant plant;//pointer to plant growing on specified tile
 	public float growthFactor;
 	public float plantGrowth;
 
@@ -37,11 +37,17 @@ public class Tile
 
 	public void Change(int element)
 	{
-		setTile (TileHelper.CombinationLookup(type,element));
+		Global.tileTypes[type]--;
+		int newType = TileHelper.CombinationLookup (type, element);
+		if(newType != -1)
+		{
+			setTile (newType);
+			Global.tileTypes[type]++;
+		}
 	}
 
 	//Set the tile parameters
-	private void setTile(int newType)
+	public void setTile(int newType)
 	{
 		if(newType != -1)
 		{
