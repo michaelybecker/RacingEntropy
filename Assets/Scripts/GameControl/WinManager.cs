@@ -21,12 +21,19 @@ public partial class WinManager: MonoBehaviour
 		conditions = new List<WinCondition> (){
 			new WinCondition(FlagSetup,FlagWin,FlagLose),//Original game mode
 			new WinCondition(PlainPlantSetup,PlainPlantWin,PlainPlantLose), //grow a certain amount of plants
+			new WinCondition(DesertTilesSetup,DesertTilesWin,DesertTilesLose), //Have a certain number of tile types
 		};
 	}
 
 	public void NewWinConditions(int quantity,int difficulty)
 	{
 		currentConditions = new Dictionary<WinCondition, int> ();
+		//if the game wants to add more win conditions than there are win abilites, set a cap and increase the difficulty insread
+		if(quantity > conditions.Count) 
+		{
+			difficulty += (quantity - conditions.Count);
+			quantity = conditions.Count;
+		}
 		for(int i = 0; i < quantity; i++)
 		{
 			//Select a new random win condition
@@ -85,6 +92,8 @@ public partial class WinManager: MonoBehaviour
 		}
 		//Set the global win to true
 		Global.win = fullWin;
+		if (fullWin)
+			Global.levelNumber++;
 	}
 
 	public void HasLost()

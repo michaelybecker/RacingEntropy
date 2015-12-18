@@ -37,10 +37,10 @@ public class Tile
 
 	public void Change(int element)
 	{
-		Global.tileTypes[type]--;
 		int newType = TileHelper.CombinationLookup (type, element);
 		if(newType != -1)
 		{
+			Global.tileTypes[type]--;
 			setTile (newType);
 			Global.tileTypes[type]++;
 		}

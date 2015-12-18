@@ -59,5 +59,11 @@ public partial class WinManager : MonoBehaviour
 		}
 		manager.AddPlant (randx, randy, (int)TileType.tile.PLAIN);
 	}
+
+	//Have a certain number of tiles
+	public void DesertTilesSetup(int difficulty)
+	{
+		//Don't need to do anything special for setup
+	}
 }
 

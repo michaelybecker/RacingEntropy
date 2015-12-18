@@ -12,7 +12,6 @@ public partial class PlantManager : MonoBehaviour
 
 	//The plants
 	public List<Plant> plantTiles = new List<Plant>();
-	public Dictionary<Tile,GameObject> plantObject = new Dictionary<Tile, GameObject>();
 	
 	public void Awake()
 	{
@@ -30,15 +29,15 @@ public partial class PlantManager : MonoBehaviour
 
 	public void AddPlant(Tile newTile, int type)
 	{
-		if(type != -1)
+		if(type != -1 && newTile.plant == null)
 		{
 			GameObject tile = manager.objectFromTile [newTile];
 			GameObject newPlant = new GameObject ("Plant");
-			if(plantObject.ContainsKey(newTile)) KillPlant(newTile);
-			plantObject.Add(newTile,newPlant);
+			//if(plantObject.ContainsKey(newTile)) KillPlant(newTile);
+			//plantObject.Add(newTile,newPlant);
 			newPlant.transform.Rotate (new Vector3 (0,135,0));
 
-			Plant plantObj = new Plant (functions [type], newTile, type);
+			Plant plantObj = new Plant (functions [type],newPlant , newTile, type);
 			plantTiles.Add (plantObj);
 
 			newTile.plant = plantObj;
@@ -71,9 +70,8 @@ public partial class PlantManager : MonoBehaviour
 		if(plantTiles.Contains(plantTile.plant))
 		{
 			Global.plantTypes[plantTile.plant.type]--;
+			plantTile.plant.Kill();
 			plantTiles.Remove (plantTile.plant);
-			Destroy(plantObject[plantTile]);
-			plantObject.Remove (plantTile);
 		}
 		plantTile.plant = null;
 	}

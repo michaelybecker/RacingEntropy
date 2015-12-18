@@ -141,7 +141,7 @@ public class TileManager : MonoBehaviour
 		transform.position = Global.center;
 
 		//Create new win conditions
-		winControl.NewWinConditions (1,difficulty);
+		winControl.NewWinConditions (Global.levelNumber+1,difficulty);
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM

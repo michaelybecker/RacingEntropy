@@ -23,5 +23,8 @@ public partial class WinManager : MonoBehaviour
 			return true;
 		return false;
 	}
+
+	//Can't really lose this one...
+	public bool DesertTilesLose(int difficulty, ref string printOut){return false;}
 }
 
