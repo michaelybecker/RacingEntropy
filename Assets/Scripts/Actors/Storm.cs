@@ -29,7 +29,10 @@ public class Storm : MonoBehaviour
 	public void Turn () 
 	{
 		if (Random.Range(0, 10) == 0)
+		{
 			Kill();
+			return;
+		}
 		manager.cascade.UpdateSize();
 		// Check the four adjacent tiles to make sure that they exist.
 
@@ -69,7 +72,8 @@ public class Storm : MonoBehaviour
 		}
 
 		previousTile = currentTile;
-		if (candidates.Count == 0) {
+		if (candidates.Count == 0) 
+		{
 			Kill();
 			return;
 		}
@@ -79,7 +83,6 @@ public class Storm : MonoBehaviour
 		// Apply air effects here.
 		currentTile.Change((int)TileType.element.AIR);
 		manager.Change(manager.objectFromTile[currentTile],currentTile);
-		Debug.Log(currentTile.x + "," + currentTile.y);
 
 		transform.position = new Vector3 (
 			manager.objectFromTile[currentTile].transform.position.x,

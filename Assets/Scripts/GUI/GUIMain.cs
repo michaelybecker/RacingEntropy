@@ -36,12 +36,11 @@ public class GUIMain : MonoBehaviour
 			}
 
 			//Score and level
-			List<WinCondition> win = new List<WinCondition>(tiles.winControl.currentConditions.Keys);
 			GUI.BeginGroup (new Rect(ButtonWidth * 2, ButtonWidth/3,Screen.width-(ButtonWidth * 4),ButtonWidth));
 			GUI.DrawTexture(new Rect(0,0,Screen.width-(ButtonWidth * 4),ButtonWidth),Resource.CenterConsole);
-			for(int i = 0; i < win.Count; i++)
+			for(int i = 0; i < tiles.winControl.currentConditions.Count; i++)
 			{
-				GUI.Label(new Rect(0,i*20,Screen.width-(ButtonWidth * 4),ButtonWidth),win[i].description);
+				GUI.Label(new Rect(0,i*20,Screen.width-(ButtonWidth * 4),ButtonWidth),tiles.winControl.currentConditions[i].description);
 			}
 			GUI.EndGroup();
 

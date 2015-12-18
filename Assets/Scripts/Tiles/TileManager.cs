@@ -111,6 +111,7 @@ public class TileManager : MonoBehaviour
 
 	public void NewLevel(int difficulty)
 	{
+		Debug.Log ("Started to build a new level");
 		//Set the position to zero
 		transform.position = Vector3.zero;
 
@@ -134,12 +135,14 @@ public class TileManager : MonoBehaviour
 
 		//build the map
 		mapControl.BuildDifficulty ((difficulty-1)+(difficulty*Global.levelNumber));
+		Debug.Log ("Succesfully built the map");
 
 		//Change the map position so it is centered
 		Global.center = objectFromTile [getTile[getTile.GetLength (0) - 1, getTile.GetLength (1) - 1]].transform.position;
 		Global.center.Scale(new Vector3(-0.25f,-0.25f,-0.25f));
 		transform.position = Global.center;
 
+		Debug.Log ("Setting up the win conditions");
 		//Create new win conditions
 		winControl.NewWinConditions (Global.levelNumber+1,difficulty);
 	}

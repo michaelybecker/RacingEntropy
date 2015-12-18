@@ -7,27 +7,30 @@ public partial class WinManager: MonoBehaviour
 	public TileManager manager;
 	public List<WinCondition> conditions;
 	//The win condition and the difficulty of the win condition
-	public Dictionary<WinCondition,int> currentConditions;
+	public List<WinCondition> currentConditions = new List<WinCondition>();
 
 	//Delegates for setting up, winning and losing the game
-	public delegate void setupFunction(int difficulty);
-	public delegate bool winFunction(int difficulty, ref string printOut);
-	public delegate bool loseFunction(int difficulty, ref string printOut);
+	public delegate void setupFunction(int difficulty, int type);
+	public delegate bool winFunction(int difficulty, int type, ref string printOut);
+	public delegate bool loseFunction(int difficulty, int type, ref string printOut);
 
 	public void Awake()
 	{
 		//Needs to be in a function as you cant call non-static variables
 		//from outside of a function, which is lame...
-		conditions = new List<WinCondition> (){
+		conditions = new List<WinCondition> ()
+		{
+			new WinCondition(SurvivalSetup,SurvivalWin,SurvivalLose), //survive for x amount of time
 			new WinCondition(FlagSetup,FlagWin,FlagLose),//Original game mode
-			new WinCondition(PlainPlantSetup,PlainPlantWin,PlainPlantLose), //grow a certain amount of plants
-			new WinCondition(DesertTilesSetup,DesertTilesWin,DesertTilesLose), //Have a certain number of tile types
+			new WinCondition(GrowPlantSetup,GrowPlantWin,GrowPlantLose), //grow a certain amount of plants
+			new WinCondition(NumberOfTilesSetup,NumberOfTilesWin,NumberOfTilesLose), //Have a certain number of tile types
 		};
 	}
 
 	public void NewWinConditions(int quantity,int difficulty)
 	{
-		currentConditions = new Dictionary<WinCondition, int> ();
+		currentConditions.Clear ();
+		List<int> existingRules = new List<int> ();
 		//if the game wants to add more win conditions than there are win abilites, set a cap and increase the difficulty insread
 		if(quantity > conditions.Count) 
 		{
@@ -36,12 +39,21 @@ public partial class WinManager: MonoBehaviour
 		}
 		for(int i = 0; i < quantity; i++)
 		{
+			//Randomly select the type of terrain to grow...
+			int newTile = Random.Range(0,TileType.tileString.Length);
+
+			int newRule = Random.Range(0,conditions.Count);
+			while(existingRules.Contains(newRule))newRule = Random.Range(0,conditions.Count);//find one that isn't being used...
+			existingRules.Add(newRule);
+
+			Debug.Log("Adding new rule " + newRule);
 			//Select a new random win condition
-			WinCondition newCondition = conditions[Random.Range(0,conditions.Count)];
+			WinCondition newCondition = conditions[newRule];
+			newCondition.difficulty = difficulty;
+			newCondition.type = newTile;
+
 			//If it already exists in the dictionary, select a new one
-			if(!currentConditions.ContainsKey(newCondition))
-				currentConditions.Add(newCondition,difficulty);
-			else i--;
+			currentConditions.Add(newCondition);
 		}
 		GameSetup ();
 	}
@@ -58,12 +70,10 @@ public partial class WinManager: MonoBehaviour
 		Global.tileTypes = new int[10];
 		Global.plantTypes = new int[10];
 
-		
-		List<WinCondition> conditionList = new List<WinCondition>(currentConditions.Keys);
-		for(int i = 0; i < conditionList.Count; i++)
+		for(int i = 0; i < currentConditions.Count; i++)
 		{
 			//Setup the game according to the rules
-			conditionList[i].setup(currentConditions[conditionList[i]]);
+			currentConditions[i].setup(currentConditions[i].difficulty,currentConditions[i].type);
 		}
 	}
 
@@ -76,13 +86,12 @@ public partial class WinManager: MonoBehaviour
 	public void HasWon()
 	{
 		bool fullWin = true;
-		bool[] win = new bool[currentConditions.Keys.Count];
-		List<WinCondition> conditionList = new List<WinCondition>(currentConditions.Keys);
+		bool[] win = new bool[currentConditions.Count];
+
 		//Check all the win conditions
-		for(int i = 0; i < conditionList.Count; i++)
+		for(int i = 0; i < currentConditions.Count; i++)
 		{
-			WinCondition condition = conditionList[i];
-			if(condition.win(currentConditions[condition],ref condition.description)) 
+			if(currentConditions[i].win(currentConditions[i].difficulty, currentConditions[i].type, ref currentConditions[i].description)) 
 				win[i] = true;
 		}
 		//if all the win conditions are true, you have won
@@ -98,12 +107,10 @@ public partial class WinManager: MonoBehaviour
 
 	public void HasLost()
 	{
-		List<WinCondition> conditionList = new List<WinCondition>(currentConditions.Keys);
-		//Check all the win conditions
-		for(int i = 0; i < conditionList.Count; i++)
+		//Check all the lose conditions
+		for(int i = 0; i < currentConditions.Count; i++)
 		{
-			WinCondition condition = conditionList[i];
-			if(condition.lose(currentConditions[condition],ref condition.description)) 
+			if(currentConditions[i].lose(currentConditions[i].difficulty, currentConditions[i].type, ref currentConditions[i].description)) 
 				Global.lose = true;
 		}
 	}
@@ -124,6 +131,9 @@ public class WinCondition
 	public WinManager.setupFunction setup;
 	public WinManager.winFunction win;
 	public WinManager.loseFunction lose;
+
+	public int difficulty;
+	public int type;
 
 	public WinCondition(WinManager.setupFunction setupFunction,WinManager.winFunction winFunction,WinManager.loseFunction loseFunction)
 	{

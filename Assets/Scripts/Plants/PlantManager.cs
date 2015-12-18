@@ -72,8 +72,8 @@ public partial class PlantManager : MonoBehaviour
 			Global.plantTypes[plantTile.plant.type]--;
 			plantTile.plant.Kill();
 			plantTiles.Remove (plantTile.plant);
+			plantTile.plant = null;
 		}
-		plantTile.plant = null;
 	}
 
 	private bool inRange(int newX, int newY)

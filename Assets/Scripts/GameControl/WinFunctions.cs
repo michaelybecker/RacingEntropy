@@ -6,12 +6,13 @@ public partial class WinManager: MonoBehaviour
 	/**************************************
 	 * Ideas for win conditions:
 	 * Specific plant to flag,
-	 * Pattern creation
+	 * Stay alive for so long
 	 * Kill all plants
-	 * 0 of a specific tile on the map
+	 * 0 of a specific tile on the map,
+	 * Pattern creation
 	 * *************************************/
 	//if a plant has reached the flay, you win!
-	public bool FlagWin (int difficulty, ref string printOut)
+	public bool FlagWin (int difficulty, int type, ref string printOut)
 	{
 		int achieved = 0;
 		foreach (Tile goal in goals) 
@@ -28,25 +29,37 @@ public partial class WinManager: MonoBehaviour
 	}
 
 	//If you have the required number of plants you win
-	public bool PlainPlantWin (int difficulty, ref string printOut)
+	public bool GrowPlantWin (int difficulty, int type, ref string printOut)
 	{
 		int check = 10 * difficulty;
 
-		printOut = "Get " + Global.plantTypes [(int)TileType.tile.PLAIN] + "/" + check + " Plain plants";
+		printOut = "Get " + Global.plantTypes [type] + "/" + check + " " + TileType.tileString[type] + " plants";
 
-		if (Global.plantTypes [(int)TileType.tile.PLAIN] >= check)
+		if (Global.plantTypes [type] >= check)
 			return true;
 		return false;
 	}
 
 	//If you have the required types of tiles
-	public bool DesertTilesWin(int difficulty, ref string printOut)
+	public bool NumberOfTilesWin(int difficulty, int type, ref string printOut)
 	{
 		int check = 10 * difficulty;
 
-		printOut = "Have " + Global.tileTypes [(int)TileType.tile.DESERT] + "/" + check + " Desert tiles accross the map";
+		printOut = "Have " + Global.tileTypes [type] + "/" + check + " " + TileType.tileString[type] + " tiles accross the map";
 
-		if (Global.tileTypes [(int)TileType.tile.DESERT] >= check)
+		if (Global.tileTypes [type] >= check)
+			return true;
+		return false;
+	}
+
+	//If the timer has exceeded the needed amount of time
+	public bool SurvivalWin(int difficulty, int type, ref string printOut)
+	{
+		int check = 10 * difficulty;
+		float currentTime = Time.time - survivalTime;
+		printOut = "Survive for " + check + "/" + currentTime.ToString ("F2") + "seconds";
+
+		if (currentTime > check)
 			return true;
 		return false;
 	}
