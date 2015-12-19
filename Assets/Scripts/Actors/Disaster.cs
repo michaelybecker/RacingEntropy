@@ -26,9 +26,16 @@ public class Disaster : MonoBehaviour {
 		}
 	}
 
-	public void StartDisaster (Tile t) {
-		currentTile = t;
+	public void StartDisaster (Tile t) 
+	{
 		type = Random.Range(0, 4);
+		StartDisaster (t, type);
+	}
+
+	public void StartDisaster (Tile t, int newType) 
+	{
+		type = newType;
+		currentTile = t;
 
 		MeshFilter filter = gameObject.AddComponent<MeshFilter> ();
 		MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();

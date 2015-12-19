@@ -28,6 +28,7 @@ public class Tile
 	public Tile(int newType, Vector3 newPosition, int X, int Y)
 	{
 		//Set the tile parameters
+		Global.tileTypes[newType]++;
 		setTile (newType);
 		position = newPosition;
 

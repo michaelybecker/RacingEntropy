@@ -11,6 +11,12 @@ public partial class WinManager : MonoBehaviour
 		new intVector2(-1,0),
 	};
 
+	public void BaseSetup(int difficulty)
+	{
+		//build the map
+		//TODO move the map building to here
+	}
+
 	//Holder for the flags
 	public List<Tile> goals = new List<Tile> ();
 	//Get to the flag with any plant
@@ -56,7 +62,6 @@ public partial class WinManager : MonoBehaviour
 				manager.getTile [newX,newY].setTile(type);
 				manager.Change (manager.getTile [newX,newY]);
 			}
-			else i--;
 		}
 		manager.AddPlant (randx, randy, type);
 	}

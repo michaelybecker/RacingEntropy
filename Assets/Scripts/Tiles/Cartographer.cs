@@ -152,7 +152,7 @@ public class Cartographer : MonoBehaviour {
 		// Make the starting tile and each adjacent tile plains.
 		int startX = Random.Range(minPlace, placementRange);
 		int startY = Random.Range(minPlace, placementRange);
-		mapData[startX,startY] = (int)TileType.tile.PLAIN;
+		/*mapData[startX,startY] = (int)TileType.tile.PLAIN;
 
 		if (startX != 0)
 			mapData[startX-1,startY] = (int)TileType.tile.PLAIN;
@@ -161,7 +161,7 @@ public class Cartographer : MonoBehaviour {
 			mapData[startX,startY-1] = (int)TileType.tile.PLAIN;
 
 		mapData[startX+1,startY] = (int)TileType.tile.PLAIN;
-		mapData[startX,startY+1] = (int)TileType.tile.PLAIN;
+		mapData[startX,startY+1] = (int)TileType.tile.PLAIN;*/
 
 		manager.CreateMap(mapData);
 
@@ -262,7 +262,7 @@ public class Cartographer : MonoBehaviour {
 
 	}
 
-	private void SpawnDisaster (int ecks, int why) {
+	public void SpawnDisaster (int ecks, int why) {
 		if (ecks < 0 || ecks >= currentSize || why < 0 || why >= currentSize)
 			Debug.Log("Attempting to spawn disaster outside of map.");
 		// Don't spawn two disasters on the same tile.  Not really a mechanics issue, but definitely a graphical problem.

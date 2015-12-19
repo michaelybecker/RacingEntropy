@@ -45,7 +45,6 @@ public class TileManager : MonoBehaviour
 	public List<Disaster> disasters = new List<Disaster>();
 
 	private float lastTime = 0;
-	private float gameTurn = 0.5f;
 
 	//Hover functions
 	private GameObject lastHover;
@@ -53,7 +52,7 @@ public class TileManager : MonoBehaviour
 	//When the game starts, do this
 	public void Start()
 	{
-		NewLevel (10);
+		NewRandomLevel (10);
 		cascade = new CascadeManager(this);
 	}
 
@@ -109,12 +108,11 @@ public class TileManager : MonoBehaviour
 		tileFlair.transform.parent = newTile.transform;
 	}
 
-	public void NewLevel(int difficulty)
+	public void ClearLastMap()
 	{
-		Debug.Log ("Started to build a new level");
 		//Set the position to zero
 		transform.position = Vector3.zero;
-
+		
 		//Clear all the dictionaries
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
@@ -128,23 +126,38 @@ public class TileManager : MonoBehaviour
 		while (disasters.Count > 0)
 			disasters [disasters.Count - 1].Kill ();
 		disasters.Clear ();
-		plant.plantTiles.Clear ();
-
+		plant.Clear ();
+		
 		//Set the lastHover to null so it is ignored
 		lastHover = null;
+	}
 
-		//build the map
-		mapControl.BuildDifficulty ((difficulty-1)+(difficulty*Global.levelNumber));
-		Debug.Log ("Succesfully built the map");
-
+	public void CenterMap()
+	{
 		//Change the map position so it is centered
-		Global.center = objectFromTile [getTile[getTile.GetLength (0) - 1, getTile.GetLength (1) - 1]].transform.position;
-		Global.center.Scale(new Vector3(-0.25f,-0.25f,-0.25f));
+		Global.center = objectFromTile [getTile [getTile.GetLength (0) - 1, getTile.GetLength (1) - 1]].transform.position;
+		Global.center.Scale (new Vector3 (-0.25f, -0.25f, -0.25f));
 		transform.position = Global.center;
+	}
+		
+	public void TutorialLevel(int level)
+	{
+		winControl.NewTutorial (level);
+	}
 
-		Debug.Log ("Setting up the win conditions");
+	public void NewRandomLevel(int difficulty)
+	{
+		//If this is accidentally set to 0 it really means a tutorial
+		if (difficulty == 0) 
+		{
+			TutorialLevel (Global.tutorialProgress);
+			return;
+		}
+		mapControl.BuildDifficulty ((difficulty-1)+(difficulty*Global.levelNumber));
 		//Create new win conditions
 		winControl.NewWinConditions (Global.levelNumber+1,difficulty);
+
+		CenterMap ();
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
@@ -154,6 +167,7 @@ public class TileManager : MonoBehaviour
 		getTile = new Tile[map.GetLength(0),map.GetLength(1)];
 
 		//Clear the old game map
+		ClearLastMap ();
 		for (int i = transform.childCount-1; i >= 0; i--)
 		{
 			GameObject child = transform.GetChild(i).gameObject;
@@ -185,7 +199,7 @@ public class TileManager : MonoBehaviour
 	{
 		if(Global.pause == false)
 		{
-			if(Time.time > lastTime+gameTurn)
+			if(Time.time > lastTime+Global.gameSpeed)
 			{
 				lastTime = Time.time;
 				Turn ();
@@ -314,6 +328,17 @@ public class TileManager : MonoBehaviour
 		Disaster newDisaster = newDisasterObject.AddComponent<Disaster>();
 		newDisaster.manager = this;
 		newDisaster.StartDisaster(getTile[x,y]);
+		disasters.Add (newDisaster);
+		//Remove existing flair on that tile
+		getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;
+	}
+
+	public void AddDisaster(int x, int y, int type) 
+	{
+		GameObject newDisasterObject = new GameObject ("Disaster" + x + "," + y);
+		Disaster newDisaster = newDisasterObject.AddComponent<Disaster>();
+		newDisaster.manager = this;
+		newDisaster.StartDisaster(getTile[x,y],type);
 		disasters.Add (newDisaster);
 		//Remove existing flair on that tile
 		getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;

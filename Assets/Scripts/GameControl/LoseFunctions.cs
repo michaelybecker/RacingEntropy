@@ -25,6 +25,7 @@ public partial class WinManager : MonoBehaviour
 	}
 
 	//Can't really lose this one...
+	public bool NoLose(int difficulty, int type, ref string printOut){return false;}
 	public bool NumberOfTilesLose(int difficulty, int type, ref string printOut){return false;}
 
 	//If there are no more plants you lose

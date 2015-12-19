@@ -6,6 +6,7 @@ public partial class WinManager: MonoBehaviour
 {
 	public TileManager manager;
 	public List<WinCondition> conditions;
+	public List<WinCondition> tutorial;
 	//The win condition and the difficulty of the win condition
 	public List<WinCondition> currentConditions = new List<WinCondition>();
 
@@ -25,6 +26,42 @@ public partial class WinManager: MonoBehaviour
 			new WinCondition(GrowPlantSetup,GrowPlantWin,GrowPlantLose, false), //grow a certain amount of plants
 			new WinCondition(NumberOfTilesSetup,NumberOfTilesWin,NumberOfTilesLose, false), //Have a certain number of tile types
 		};
+
+		tutorial = new List<WinCondition> ()
+		{
+			new WinCondition(TutorialOneSetup,TutorialOneWin,NoLose,true),//Level one introduce water
+			new WinCondition(TutorialTwoSetup,TutorialTwoWin,NoLose,true),//Level two introduce earth
+			new WinCondition(TutorialThreeSetup,TutorialThreeWin,NoLose,true),//Level three introduce fire
+			new WinCondition(TutorialFourSetup,TutorialFourWin,NoLose,true),//Level four introduce air, though it's totally fucking useless...
+			new WinCondition(TutorialFiveSixSevenSetup,TutorialFiveWin,NoLose,true),//Level five putting it all together
+			new WinCondition(TutorialFiveSixSevenSetup,TutorialSixWin,NoLose,true),//Level six putting it all together
+			new WinCondition(TutorialFiveSixSevenSetup,TutorialSevenWin,NoLose,true),//Level seven putting it all together
+			new WinCondition(TutorialEightSetup,TutorialEightWin,TutorialEightLose,true),//Level eight plant introduction
+			new WinCondition(TutorialEightSetup,TutorialEightWin,TutorialEightLose,true),//Level nine plant introduction
+			new WinCondition(TutorialNineSetup,TutorialNineWin,TutorialNineLose,true),//Level ten flag introduction
+			new WinCondition(TutorialNineSetup,TutorialNineWin,TutorialNineLose,true),//Level eleven flag introduction
+			new WinCondition(TutorialTenSetup,TutorialTenWin,NoLose,true),//Level twelve flag introduction
+		};
+	}
+
+	public void NewTutorial(int level)
+	{
+		currentConditions.Clear ();
+
+		//if you have passed the tutorial, start loading random levels
+		if(level >= tutorial.Count)
+		{
+			manager.NewRandomLevel(1);
+			return;
+		}
+		WinCondition newCondition = new WinCondition(tutorial[level]);
+		newCondition.difficulty = 0;
+		newCondition.type = 0;
+		
+		//If it already exists in the dictionary, select a new one
+		currentConditions.Add(newCondition);
+
+		GameSetup ();
 	}
 
 	public void NewWinConditions(int quantity,int difficulty)

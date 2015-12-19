@@ -64,6 +64,17 @@ public partial class PlantManager : MonoBehaviour
 			plantTiles[i].function(newTile);
 		}
 	}
+
+	public void Clear()
+	{
+		for(int i = 0; i < plantTiles.Count; i++) 
+		{
+			Global.plantTypes[plantTiles[i].type]--;
+			plantTiles[i].tile.plant = null;
+			plantTiles[i].Kill();
+			plantTiles.Remove (plantTiles[i]);
+		}
+	}
 	
 	public void KillPlant(Tile plantTile)
 	{

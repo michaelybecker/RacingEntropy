@@ -22,6 +22,7 @@ public partial class WinManager: MonoBehaviour
 		printOut = "Grow to all the flagposts!" + achieved + "/" + difficulty;
 		if (achieved >= difficulty) 
 		{
+			Global.levelNumber++;
 			goals.Clear();
 			return true;
 		}
@@ -45,7 +46,7 @@ public partial class WinManager: MonoBehaviour
 	{
 		int check = 10 * difficulty;
 
-		printOut = "Have " + Global.tileTypes [type] + "/" + check + " " + TileType.tileString[type] + " tiles accross the map";
+		printOut = "Add " + Global.tileTypes [type] + "/" + check + " " + TileType.tileString[type] + " tiles accross the map";
 
 		if (Global.tileTypes [type] >= check)
 			return true;

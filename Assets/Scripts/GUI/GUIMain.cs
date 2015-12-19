@@ -72,25 +72,41 @@ public class GUIMain : MonoBehaviour
 				sounds.Play (Resource.Click, 1f);
 			}
 
-			if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
-				element = (int)TileType.element.FIRE;
-				Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
-				sounds.Play (Resource.Click, 1f);
+			if(Global.elementUnlock[(int)TileType.element.FIRE])
+			{
+				if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) 
+				{
+					element = (int)TileType.element.FIRE;
+					Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
 			}
-			if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn)) {
-				element = (int)TileType.element.WATER;
-				Cursor.SetCursor (Resource.Water_Cursor, Vector2.zero, CursorMode.Auto);
-				sounds.Play (Resource.Click, 1f);
+			if(Global.elementUnlock[(int)TileType.element.WATER])
+			{
+				if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn))
+				{
+					element = (int)TileType.element.WATER;
+					Cursor.SetCursor (Resource.Water_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
 			}
-			if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn)) {
-				element = (int)TileType.element.EARTH;
-				Cursor.SetCursor (Resource.Earth_Cursor, Vector2.zero, CursorMode.Auto);
-				sounds.Play (Resource.Click, 1f);
+			if(Global.elementUnlock[(int)TileType.element.EARTH])
+			{
+				if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn))
+				{
+					element = (int)TileType.element.EARTH;
+					Cursor.SetCursor (Resource.Earth_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
 			}
-			if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn)) {
-				element = (int)TileType.element.AIR;
-				Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
-				sounds.Play (Resource.Click, 1f);
+			if(Global.elementUnlock[(int)TileType.element.AIR])
+			{
+				if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn))
+				{
+					element = (int)TileType.element.AIR;
+					Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
 			}
 			
 			GUI.EndGroup ();
