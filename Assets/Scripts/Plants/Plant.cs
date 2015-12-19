@@ -7,7 +7,8 @@ public class Plant
 	public GameObject instance;
 	public TileType.growFunction function;
 	public int type;
-	
+
+	//Creates a new plant with a function defining growth patterns
 	public Plant(TileType.growFunction newFunction, GameObject newInstance, Tile newTile, int newType)
 	{
 		instance = newInstance;

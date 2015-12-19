@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class Storm : MonoBehaviour 
 {
-
 	public TileManager manager;
 	public Tile currentTile;
 	public Tile previousTile;
 
+	//Creates the object
 	public void StartStorm(Tile newTile)
 	{
 		currentTile = newTile;
@@ -26,6 +26,7 @@ public class Storm : MonoBehaviour
 		previousTile = currentTile;
 	}
 
+	//Action on every turn
 	public void Turn () 
 	{
 		if (Random.Range(0, 10) == 0)
@@ -44,7 +45,7 @@ public class Storm : MonoBehaviour
 
 		List<Tile> candidates = new List<Tile>();
 
-		// Four checks
+		// Four checks to see if it walled in
 		Tile currentCheck;
 
 		if (coordY != 0) {
@@ -90,6 +91,7 @@ public class Storm : MonoBehaviour
 			manager.objectFromTile[currentTile].transform.position.z);
 	}
 
+	//Destroy itself and remove all traces of it's existence
 	public void Kill()
 	{
 		manager.storms.Remove (this);

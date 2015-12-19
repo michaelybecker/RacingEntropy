@@ -6,8 +6,10 @@ public class Fire : MonoBehaviour
 	public TileManager manager;
 	public Tile tile;
 
+	//turns until it selfdestructs
 	private int burnout;
-	
+
+	//the 4 cardinal directions
 	private intVector2[] directions = new intVector2[]{
 		new intVector2(1,0),
 		new intVector2(0,1),
@@ -15,6 +17,7 @@ public class Fire : MonoBehaviour
 		new intVector2(0,-1)
 	};
 
+	//Create a new fire
 	public void StartFire(Tile newTile)
 	{
 		tile = newTile;
@@ -35,6 +38,7 @@ public class Fire : MonoBehaviour
 		manager.Change (manager.objectFromTile [tile], tile);
 	}
 
+	//Grow in one of the cardinal directions
 	public void Grow()
 	{
 		int flamability = 0;
@@ -63,6 +67,7 @@ public class Fire : MonoBehaviour
 		if (burnout < 0) Kill ();
 	}
 
+	//Destroy itself and remove all traces of it's existence
 	public void Kill()
 	{
 		tile.fire = false;

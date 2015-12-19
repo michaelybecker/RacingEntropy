@@ -11,6 +11,8 @@ public partial class PlantManager : MonoBehaviour
 		new intVector2(-1,0),
 	};
 
+	//Template used for growing flowers
+	//Finds the best tile option out of the options in the 4 cardinal directions
 	public void flowerTemplate(Tile tile, int type)
 	{
 		List<Tile> tileOptions = new List<Tile> ();
@@ -34,6 +36,7 @@ public partial class PlantManager : MonoBehaviour
 				}
 			}
 		}
+		//Add a plant at that point
 		if(tileOptions.Count > 0)
 		{
 			if(Random.Range(0,4) == 0)AddPlant(tileOptions[Random.Range(0,tileOptions.Count)],type);

@@ -6,6 +6,7 @@ public partial class WinManager : MonoBehaviour
 {
 	public int tutorialProgression;
 
+	//Introduce water
 	public void TutorialOneSetup(int difficulty, int type)
 	{
 		Global.elementUnlock = new bool[]{false,false,true,false};
@@ -25,6 +26,7 @@ public partial class WinManager : MonoBehaviour
 		};
 		manager.CreateMap(newMap);
 	}
+	//Introduce earth
 	public void TutorialTwoSetup(int difficulty, int type)
 	{
 		Global.elementUnlock = new bool[]{true,false,false,false};
@@ -44,6 +46,7 @@ public partial class WinManager : MonoBehaviour
 		};
 		manager.CreateMap(newMap);
 	}
+	//introduce fire
 	public void TutorialThreeSetup(int difficulty, int type)
 	{
 		Global.elementUnlock = new bool[]{false,false,false,true};
@@ -63,6 +66,7 @@ public partial class WinManager : MonoBehaviour
 		};
 		manager.CreateMap(newMap);
 	}
+	//introduce air
 	public void TutorialFourSetup(int difficulty, int type)
 	{
 		Global.elementUnlock = new bool[]{false,true,false,false};
@@ -82,6 +86,7 @@ public partial class WinManager : MonoBehaviour
 		};
 		manager.CreateMap(newMap);
 	}
+	//quick puzzles to get aquainted with the system
 	public void TutorialFiveSixSevenSetup(int difficulty, int type)
 	{
 		Global.elementUnlock = new bool[]{true,true,true,true};

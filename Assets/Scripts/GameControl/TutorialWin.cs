@@ -149,6 +149,8 @@ public partial class WinManager : MonoBehaviour
 		return false;
 	}
 
+	//Get to all the flagposts
+	//TODO automatically win... WTF!?!?!?!
 	public bool TutorialNineWin (int difficulty, int type, ref string printOut)
 	{
 		int achieved = 0;

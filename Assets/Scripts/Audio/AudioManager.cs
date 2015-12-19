@@ -3,12 +3,16 @@ using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
+	//Audio for random sound effects
 	private AudioSource player;
+	//ambiance playing in the background at all times
 	private AudioSource ambiance;
+	//Theme music for when particular actions happen
 	private AudioSource mainTheme;
 	private AudioSource loseTheme;
 	private AudioSource winTheme;
 
+	//On startup set up the audio objects
 	void Awake()
 	{
 		player = gameObject.AddComponent<AudioSource> ();
@@ -36,8 +40,10 @@ public class AudioManager : MonoBehaviour
 		winTheme.volume  = 0.5f;
 	}
 
+	//Check to see the status of the game and if it needs to change themes
 	void Update()
 	{
+		//Make sure that only one theme is playing at a time
 		if (Global.lose)
 		{
 			if(Global.playingTheme)
@@ -70,6 +76,7 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
+	//Play a sound effect
 	public void Play(AudioClip audio, float volume)
 	{
 		player.PlayOneShot (audio,volume);
