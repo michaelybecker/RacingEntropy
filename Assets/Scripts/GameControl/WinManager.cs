@@ -20,35 +20,41 @@ public partial class WinManager: MonoBehaviour
 		//from outside of a function, which is lame...
 		conditions = new List<WinCondition> ()
 		{
-			new WinCondition(SurvivalSetup,SurvivalWin,SurvivalLose), //survive for x amount of time
-			new WinCondition(FlagSetup,FlagWin,FlagLose),//Original game mode
-			new WinCondition(GrowPlantSetup,GrowPlantWin,GrowPlantLose), //grow a certain amount of plants
-			new WinCondition(NumberOfTilesSetup,NumberOfTilesWin,NumberOfTilesLose), //Have a certain number of tile types
+			new WinCondition(SurvivalSetup,SurvivalWin,SurvivalLose, true), //survive for x amount of time
+			new WinCondition(FlagSetup,FlagWin,FlagLose, true),//Original game mode
+			new WinCondition(GrowPlantSetup,GrowPlantWin,GrowPlantLose, false), //grow a certain amount of plants
+			new WinCondition(NumberOfTilesSetup,NumberOfTilesWin,NumberOfTilesLose, false), //Have a certain number of tile types
 		};
 	}
 
 	public void NewWinConditions(int quantity,int difficulty)
 	{
 		currentConditions.Clear ();
-		List<int> existingRules = new List<int> ();
 		//if the game wants to add more win conditions than there are win abilites, set a cap and increase the difficulty insread
-		if(quantity > conditions.Count) 
+		/*if(quantity > conditions.Count) 
 		{
 			difficulty += (quantity - conditions.Count);
 			quantity = conditions.Count;
-		}
+		}*/
 		for(int i = 0; i < quantity; i++)
 		{
 			//Randomly select the type of terrain to grow...
 			int newTile = Random.Range(0,TileType.tileString.Length);
 
 			int newRule = Random.Range(0,conditions.Count);
-			while(existingRules.Contains(newRule))newRule = Random.Range(0,conditions.Count);//find one that isn't being used...
-			existingRules.Add(newRule);
+			/*while(existingRules.Contains(newRule))
+			{
+				//If it's okay to duplicate the rule, then break
+				int index = existingRules.IndexOf(newRule);
+				if(!conditions[existingRules[index]].onlyOne) 
+					break;
+				newRule = Random.Range(0,conditions.Count);//find one that isn't being used...
+			}*/
 
 			Debug.Log("Adding new rule " + newRule);
+
 			//Select a new random win condition
-			WinCondition newCondition = conditions[newRule];
+			WinCondition newCondition = new WinCondition(conditions[newRule]);
 			newCondition.difficulty = difficulty;
 			newCondition.type = newTile;
 
@@ -132,13 +138,26 @@ public class WinCondition
 	public WinManager.winFunction win;
 	public WinManager.loseFunction lose;
 
-	public int difficulty;
-	public int type;
+	public int difficulty = new int();
+	public int type = new int();
+	public bool onlyOne = new bool();
 
-	public WinCondition(WinManager.setupFunction setupFunction,WinManager.winFunction winFunction,WinManager.loseFunction loseFunction)
+	public WinCondition(WinManager.setupFunction setupFunction,WinManager.winFunction winFunction,WinManager.loseFunction loseFunction, bool one)
 	{
 		setup = setupFunction;
 		win = winFunction;
 		lose = loseFunction;
+		onlyOne = one;
+	}
+
+	public WinCondition(WinCondition clone)
+	{
+		setup = (WinManager.setupFunction)clone.setup.Clone();
+		win = (WinManager.winFunction)clone.win.Clone();
+		lose = (WinManager.loseFunction)clone.lose.Clone();
+		onlyOne = clone.onlyOne;
+
+		difficulty = clone.difficulty;
+		type = clone.type;
 	}
 }

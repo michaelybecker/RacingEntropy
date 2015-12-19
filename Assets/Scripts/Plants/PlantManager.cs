@@ -18,7 +18,7 @@ public partial class PlantManager : MonoBehaviour
 		//DESERT,MARSH,FOREST,LAKE,MOUNTAIN,PLAIN,CRAGS
 		functions = new List<TileType.growFunction>()
 		{
-			plainFlower,plainFlower,plainFlower,plainFlower,plainFlower,plainFlower,plainFlower,plainFlower,plainFlower,plainFlower,
+			DesertFlower,MarshFlower,ForestFlower,LakeFlower,MountainFlower,PlainFlower,CragFlower,
 		};
 	}
 
