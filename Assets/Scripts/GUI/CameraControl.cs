@@ -79,7 +79,6 @@ public class CameraControl : MonoBehaviour
 	
 	public void Update () 
 	{
-		float oldZoom = currentZoom; // Need to track this.
 		float newZoom = Mathf.Lerp(currentZoom, targetZoom, zoomSnap);
 		float shift = currentZoom - newZoom;
 		currentZoom = newZoom;
@@ -94,8 +93,7 @@ public class CameraControl : MonoBehaviour
 			ecks *= Camera.main.aspect;
 			float why = Input.mousePosition.y/Screen.height;
 			why -= 1f-why;
-			Vector3 movement = new Vector3(ecks*shift, why*shift, 0);
-			Camera.main.transform.Translate(movement, Space.Self);
+			Camera.main.transform.Translate(new Vector3(ecks*shift, why*shift, 0), Space.Self);
 		} else {
 			// Old perspective-based movement
 			transform.Translate (new Vector3(0, 0, shift*zoomScale), Space.Self);
