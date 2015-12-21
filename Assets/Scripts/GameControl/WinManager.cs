@@ -157,7 +157,10 @@ public partial class WinManager: MonoBehaviour
 		//Set the global win to true and increase the difficulty
 		Global.win = fullWin;
 		if (fullWin)
+		{
+			goals.Clear();
 			Global.levelNumber++;
+		}
 	}
 
 	//check if the player has lost

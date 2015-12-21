@@ -23,7 +23,6 @@ public partial class WinManager: MonoBehaviour
 		if (achieved >= difficulty) 
 		{
 			Global.levelNumber++;
-			goals.Clear();
 			return true;
 		}
 		return false;
