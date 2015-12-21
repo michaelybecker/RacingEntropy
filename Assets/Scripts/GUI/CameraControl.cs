@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CameraControl : MonoBehaviour 
@@ -8,7 +8,7 @@ public class CameraControl : MonoBehaviour
 	
 	public LayerMask castMask = 256;
 	
-	public float minZoom = 0f;
+	public float minZoom = 2f;
 	public float maxZoom = 50f;
 	public float initialZoom = 5f;
 	
@@ -17,6 +17,12 @@ public class CameraControl : MonoBehaviour
 	
 	public float zoomSnap = 0.5f;
 	public float zoomScale = 0.6f;
+
+	public bool Orthographic = true;
+
+	public void Awake () {
+
+	}
 	
 	public void Init()
 	{
@@ -68,9 +74,26 @@ public class CameraControl : MonoBehaviour
 	
 	public void Update () 
 	{
+		float oldZoom = currentZoom; // Need to track this.
 		float newZoom = Mathf.Lerp(currentZoom, targetZoom, zoomSnap);
 		float shift = currentZoom - newZoom;
 		currentZoom = newZoom;
-		transform.Translate (new Vector3(0, 0, shift*zoomScale), Space.Self);
+
+		if (Camera.main.orthographic) {
+			// Basic orthographic zooming.
+			Camera.main.orthographicSize = currentZoom;
+
+			// Displace camera position towards or away from mouse position.
+			float ecks = Input.mousePosition.x/Screen.width;
+			ecks -= 1f-ecks;
+			ecks *= Camera.main.aspect;
+			float why = Input.mousePosition.y/Screen.height;
+			why -= 1f-why;
+			Vector3 movement = new Vector3(ecks*shift, why*shift, 0);
+			Camera.main.transform.Translate(movement, Space.Self);
+		} else {
+			// Old perspective-based movement
+			transform.Translate (new Vector3(0, 0, shift*zoomScale), Space.Self);
+		}
 	}
 }
