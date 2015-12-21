@@ -17,6 +17,7 @@ public class CameraControl : MonoBehaviour
 	
 	public float zoomSnap = 0.5f;
 	public float zoomScale = 0.6f;
+	public float zoomCurving = 2f;
 
 	public bool Orthographic = true;
 
@@ -65,6 +66,10 @@ public class CameraControl : MonoBehaviour
 		
 		if (Event.current.type == EventType.ScrollWheel) {
 			targetZoom += Event.current.delta.y;
+
+			// Zoom more if you are zoomed out and less if you are zoomed in.  Beware: magic number here!
+			targetZoom += Event.current.delta.y*(zoomCurving*((currentZoom-minZoom) / (maxZoom-minZoom))-0.75f);
+
 			if (targetZoom > maxZoom)
 				targetZoom = maxZoom;
 			if (targetZoom < minZoom)
