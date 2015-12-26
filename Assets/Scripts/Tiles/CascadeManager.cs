@@ -69,6 +69,9 @@ public class CascadeManager {
 				case (int)TileType.element.AIR:
 					OnAir(toDo.Dequeue());
 					break;
+				default:
+					Debug.Log("not an applicable element");
+					break;
 			}
 		}
 

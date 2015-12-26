@@ -16,6 +16,9 @@ public class intVector2
 
 public class TileManager : MonoBehaviour
 {
+	/************************************************
+	 * Setting up the game and objects which will be used
+	 * **********************************************/
 	//Game map
 	public Tile[,] getTile;
 
@@ -26,6 +29,8 @@ public class TileManager : MonoBehaviour
 	public CascadeManager cascade;
 	public Cartographer mapControl;
 	public AudioManager audioControl;
+	public WinManager winControl;
+	public PlantManager plant;
 
 	//Tile to game object
 	public Dictionary<GameObject,Tile> tileFromObject = new Dictionary<GameObject,Tile>();
@@ -35,17 +40,19 @@ public class TileManager : MonoBehaviour
 	public Vector3 worldScale;
 	public Vector2 boardSize;
 	//Plant manager
-	public PlantManager plant;
 	public List<Fire> fires = new List<Fire>();
 	public List<Storm> storms = new List<Storm>();
 	public List<Disaster> disasters = new List<Disaster>();
 
+	private float lastTime = 0;
+
 	//Hover functions
 	private GameObject lastHover;
 
-	public void Awake()
+	//When the game starts, do this
+	public void Start()
 	{
-		NewLevel (10);
+		NewRandomLevel (10);
 		cascade = new CascadeManager(this);
 	}
 
@@ -101,13 +108,15 @@ public class TileManager : MonoBehaviour
 		tileFlair.transform.parent = newTile.transform;
 	}
 
-	public void NewLevel(int difficulty)
+	public void ClearLastMap()
 	{
-		Global.turns = 0;
+		//Set the position to zero
+		transform.position = Vector3.zero;
+		
+		//Clear all the dictionaries
 		tileFromObject.Clear();
 		objectFromTile.Clear ();
 		getFlair.Clear ();
-		lastHover = null;
 		while (fires.Count > 0)
 			fires [fires.Count - 1].Kill ();
 		fires.Clear ();
@@ -117,50 +126,93 @@ public class TileManager : MonoBehaviour
 		while (disasters.Count > 0)
 			disasters [disasters.Count - 1].Kill ();
 		disasters.Clear ();
-		plant.plantTiles.Clear ();
+		plant.Clear ();
+		
+		//Set the lastHover to null so it is ignored
+		lastHover = null;
+	}
 
-		Global.win = false;
-		Global.lose = false;
-		Global.playingTheme = false;
+	public void CenterMap()
+	{
+		//Change the map position so it is centered
+		Global.center = objectFromTile [getTile [getTile.GetLength (0) - 1, getTile.GetLength (1) - 1]].transform.position;
+		Global.center.Scale (new Vector3 (-0.25f, -0.25f, -0.25f));
+		transform.position = Global.center;
+	}
+		
+	public void TutorialLevel(int level)
+	{
+		winControl.NewTutorial (level);
+	}
 
+	public void NewRandomLevel(int difficulty)
+	{
+		//If this is accidentally set to 0 it really means a tutorial
+		if (difficulty == 0) 
+		{
+			TutorialLevel (Global.tutorialProgress);
+			return;
+		}
 		mapControl.BuildDifficulty ((difficulty-1)+(difficulty*Global.levelNumber));
+		//Create new win conditions
+		winControl.NewWinConditions (Global.levelNumber+1,difficulty);
+
+		CenterMap ();
 	}
 
 	//Create map using a multidimensional array of ints corresponding to the TileType.type ENUM
 	public void CreateMap(int[,] map)
 	{
+		//Create a new array with the size of the fed int array
 		getTile = new Tile[map.GetLength(0),map.GetLength(1)];
 
-		for ( int i=transform.childCount-1; i>=0; --i )
+		//Clear the old game map
+		ClearLastMap ();
+		for (int i = transform.childCount-1; i >= 0; i--)
 		{
-			var child = transform.GetChild(i).gameObject;
+			GameObject child = transform.GetChild(i).gameObject;
 			Destroy( child );
 		}
 
+		//Go through the fed int array and set the map
 		for(int x = 0; x < map.GetLength(0); x++)
 		{
 			for(int y = 0; y < map.GetLength(1); y++)
 			{
+				//Add a new tile
 				Add(map[x,y],x,y);
+				//Update the types of & number of tiles on the map
 				Global.numOfTiles++;
-				Global.tileTypes[map[x,y]]++;
 			}
 		}
+		//Set the board size
 		boardSize = new Vector2 (map.GetLength(0)*worldScale.x,map.GetLength(1)*worldScale.z);
+		//Position the camera accordingly
 		cameraControl.Init();
 	}
 
-	//Change the tile object
-	public void ChangeType(int x, int y, int element)
+	/*************************************************
+	 * Control over game flow
+	 * ***********************************************/
+	//Updating the map during game cycles
+	public void Update()
 	{
-		//get the game object
-		GameObject tile = objectFromTile[getTile[x,y]];
-		ChangeType (tile, element);
+		if(Global.pause == false)
+		{
+			if(Time.time > lastTime+Global.gameSpeed)
+			{
+				lastTime = Time.time;
+				Turn ();
+			}
+		}
+		if (Input.GetKeyDown (KeyCode.Space)) Global.pause = !Global.pause;
 	}
 
+	//Do a turn
 	public void Turn()
 	{
-		plant.Grow ();
+		//Grow the plants/fires/storms/disasters
+		plant.Grow();
 		if(fires.Count > 0)
 		{
 			for(int i = 0; i < fires.Count; i++)
@@ -182,30 +234,58 @@ public class TileManager : MonoBehaviour
 				disasters[i].Turn();
 			}
 		}
+		//Increase the turn count
 		Global.turns++;
-		Debug.Log ("Turns made " + Global.turns);
+
+		//Test to see if you've won
+		winControl.Turn();
 	}
 
+	/***********************************************
+	 * Adding and modifying objects to the map
+	 * **********************************************/
+	//Change the tile object
+	public void ChangeType(int x, int y, int element)
+	{
+		//get the game object
+		GameObject tile = objectFromTile[getTile[x,y]];
+		//Change it's type accoring to the TileHelper chart
+		ChangeType (tile, element);
+	}
+	
 	//Change the tile based on the gameObject
 	public void ChangeType(GameObject tile, int element)
 	{
-		if(Resource.elementSound[element] != null)audioControl.Play (Resource.elementSound [element],0.5f);
-
+		//Play the sound corresponding to element type
+		audioControl.Play (Resource.elementSound [element],0.5f);
+		
+		//Apply an elemental effect
 		Tile changedTile = tileFromObject [tile];
 		cascade.OnElement (changedTile,element);
 		Change (tile, changedTile);
-		Turn ();
+		//Turn ();
 	}
 
+	public void Change(Tile changedTile)
+	{
+		Change (objectFromTile[changedTile],changedTile);
+	}
+
+	//Actually change a tile
 	public void Change(GameObject tile, Tile changedTile)
 	{
+		//If there was a plant here, kill it
+		plant.KillPlant (changedTile);
+		//Set the material
 		tile.GetComponent<MeshRenderer>().material = changedTile.material;
+		//Add the flair
 		Transform flair = getFlair [tile].transform;
+		//Set the flair material and mesh
 		flair.GetComponent<MeshRenderer>().material = changedTile.material;
 		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;		
-		plant.KillPlant (changedTile);
 	}
 
+	//When the mouse is hovering over a tile
 	public void OnHover(GameObject tile)
 	{
 		if (lastHover != null)
@@ -219,9 +299,9 @@ public class TileManager : MonoBehaviour
 	}
 
 	//Add a plant to a certain tile
-	public void AddPlant(int x, int y)
+	public void AddPlant(int x, int y, int type)
 	{
-		plant.AddPlant (x, y);
+		plant.AddPlant (x, y, type);
 	}
 
 	public void AddFire(int x, int y)
@@ -248,6 +328,17 @@ public class TileManager : MonoBehaviour
 		Disaster newDisaster = newDisasterObject.AddComponent<Disaster>();
 		newDisaster.manager = this;
 		newDisaster.StartDisaster(getTile[x,y]);
+		disasters.Add (newDisaster);
+		//Remove existing flair on that tile
+		getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;
+	}
+
+	public void AddDisaster(int x, int y, int type) 
+	{
+		GameObject newDisasterObject = new GameObject ("Disaster" + x + "," + y);
+		Disaster newDisaster = newDisasterObject.AddComponent<Disaster>();
+		newDisaster.manager = this;
+		newDisaster.StartDisaster(getTile[x,y],type);
 		disasters.Add (newDisaster);
 		//Remove existing flair on that tile
 		getFlair [objectFromTile [getTile [x, y]]].transform.GetComponent<MeshFilter> ().mesh = null;

@@ -23,7 +23,8 @@ public class Cartographer : MonoBehaviour {
 
 	public int debugDifficultyMultiplier = 1;
 
-	public void Awake () {
+	public void Awake () 
+	{
 		if (debugBuild)
 			BuildDifficulty (debugDifficulty);
 		if (manager == null)
@@ -38,7 +39,8 @@ public class Cartographer : MonoBehaviour {
 		for (int why = 0; why < height; why++) {
 			for (int ecks = 0; ecks < width; ecks++) {
 				// Set each tile to a completely random type.
-				mapData[ecks, why] = Random.Range (0, 7);
+				//added a -1 in order to have a null tile
+				mapData[ecks, why] = Random.Range (-1, 7);
 				
 			}
 		}
@@ -52,14 +54,14 @@ public class Cartographer : MonoBehaviour {
 		int endX = Random.Range(width-placementRange, width-minPlace);
 		int endY = Random.Range(height-placementRange, height-minPlace);
 
-		mapData[endX, endY] =  7;
+		//mapData[endX, endY] =  7;
 
 		manager.CreateMap(mapData);
 
 		int startX = Random.Range(minPlace, placementRange);
 		int startY = Random.Range(minPlace, placementRange);
 
-		manager.AddPlant(startX, startY); // Single tile start for now.
+		//manager.AddPlant(startX, startY); // Single tile start for now.
 	}
 
 	// Second layer of functionality: generate different clumps of terrain based on moisture and elevation maps.
@@ -145,12 +147,12 @@ public class Cartographer : MonoBehaviour {
 		int endX = Random.Range(width-placementRange, width-minPlace);
 		int endY = Random.Range(height-placementRange, height-minPlace);
 
-		mapData[endX, endY] = 7;
+		//mapData[endX, endY] = 7;
 
 		// Make the starting tile and each adjacent tile plains.
 		int startX = Random.Range(minPlace, placementRange);
 		int startY = Random.Range(minPlace, placementRange);
-		mapData[startX,startY] = (int)TileType.tile.PLAIN;
+		/*mapData[startX,startY] = (int)TileType.tile.PLAIN;
 
 		if (startX != 0)
 			mapData[startX-1,startY] = (int)TileType.tile.PLAIN;
@@ -159,12 +161,11 @@ public class Cartographer : MonoBehaviour {
 			mapData[startX,startY-1] = (int)TileType.tile.PLAIN;
 
 		mapData[startX+1,startY] = (int)TileType.tile.PLAIN;
-		mapData[startX,startY+1] = (int)TileType.tile.PLAIN;
+		mapData[startX,startY+1] = (int)TileType.tile.PLAIN;*/
 
 		manager.CreateMap(mapData);
 
-		manager.AddPlant(startX, startY); // Single tile start for now.
-		
+		//manager.AddPlant(startX, startY); // Single tile start for now.
 	}
 
 	// Build a level based on the provided difficulty value.
@@ -261,7 +262,7 @@ public class Cartographer : MonoBehaviour {
 
 	}
 
-	private void SpawnDisaster (int ecks, int why) {
+	public void SpawnDisaster (int ecks, int why) {
 		if (ecks < 0 || ecks >= currentSize || why < 0 || why >= currentSize)
 			Debug.Log("Attempting to spawn disaster outside of map.");
 		// Don't spawn two disasters on the same tile.  Not really a mechanics issue, but definitely a graphical problem.

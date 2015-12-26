@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GUIMain : MonoBehaviour 
 {
@@ -33,36 +34,79 @@ public class GUIMain : MonoBehaviour
 				sounds.Play (Resource.Click, 1f);
 				menu.StartWindowOpen = true;
 			}
+
 			//Score and level
-			GUI.BeginGroup (new Rect(ButtonWidth * 2, ButtonWidth/3,Screen.width-(ButtonWidth * 4),ButtonWidth/3));
-			GUI.DrawTexture(new Rect(0,0,Screen.width-(ButtonWidth * 2),ButtonWidth/3),Resource.CenterConsole);
-			GUI.Label(new Rect(0,0,ButtonWidth*2,ButtonWidth),"Level:" + Global.levelNumber);
-			GUI.DrawTexture(new Rect(Screen.width-(ButtonWidth * 2),0,Screen.width-(ButtonWidth * 2),ButtonWidth/3),Resource.CenterConsole);
-			GUI.Label(new Rect(Screen.width-(ButtonWidth * 5),0,ButtonWidth,ButtonWidth),"Turns:" + Global.turns);
+			GUI.BeginGroup (new Rect(ButtonWidth * 2, ButtonWidth/3,Screen.width-(ButtonWidth * 4),ButtonWidth));
+			GUI.DrawTexture(new Rect(0,0,Screen.width-(ButtonWidth * 4),ButtonWidth),Resource.CenterConsole);
+			for(int i = 0; i < tiles.winControl.currentConditions.Count; i++)
+			{
+				GUI.Label(new Rect(0,i*20,Screen.width-(ButtonWidth * 4),ButtonWidth),tiles.winControl.currentConditions[i].description);
+			}
 			GUI.EndGroup();
 
 			//Buttons
 			GUI.BeginGroup (new Rect (Screen.width - ButtonWidth, Buffer * 3, ButtonWidth, Screen.height));
-			
-			if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) {
+
+			if(Input.GetKeyDown(KeyCode.Q))
+			{
 				element = (int)TileType.element.FIRE;
 				Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
 				sounds.Play (Resource.Click, 1f);
 			}
-			if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn)) {
+			if(Input.GetKeyDown(KeyCode.W))
+			{
 				element = (int)TileType.element.WATER;
 				Cursor.SetCursor (Resource.Water_Cursor, Vector2.zero, CursorMode.Auto);
 				sounds.Play (Resource.Click, 1f);
 			}
-			if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn)) {
+			if(Input.GetKeyDown(KeyCode.E))
+			{
 				element = (int)TileType.element.EARTH;
 				Cursor.SetCursor (Resource.Earth_Cursor, Vector2.zero, CursorMode.Auto);
 				sounds.Play (Resource.Click, 1f);
 			}
-			if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn)) {
+			if(Input.GetKeyDown(KeyCode.R))
+			{
 				element = (int)TileType.element.AIR;
 				Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
 				sounds.Play (Resource.Click, 1f);
+			}
+
+			if(Global.elementUnlock[(int)TileType.element.FIRE])
+			{
+				if (GUI.Button (new Rect (0, 0, ButtonWidth, ButtonHeight), Resource.Fire_Btn)) 
+				{
+					element = (int)TileType.element.FIRE;
+					Cursor.SetCursor (Resource.Fire_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
+			}
+			if(Global.elementUnlock[(int)TileType.element.WATER])
+			{
+				if (GUI.Button (new Rect (0, ButtonHeight, ButtonWidth, ButtonHeight), Resource.Water_Btn))
+				{
+					element = (int)TileType.element.WATER;
+					Cursor.SetCursor (Resource.Water_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
+			}
+			if(Global.elementUnlock[(int)TileType.element.EARTH])
+			{
+				if (GUI.Button (new Rect (0, ButtonHeight * 2, ButtonWidth, ButtonHeight), Resource.Earth_Btn))
+				{
+					element = (int)TileType.element.EARTH;
+					Cursor.SetCursor (Resource.Earth_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
+			}
+			if(Global.elementUnlock[(int)TileType.element.AIR])
+			{
+				if (GUI.Button (new Rect (0, ButtonHeight * 3, ButtonWidth, ButtonHeight), Resource.Air_Btn))
+				{
+					element = (int)TileType.element.AIR;
+					Cursor.SetCursor (Resource.Air_Cursor, Vector2.zero, CursorMode.Auto);
+					sounds.Play (Resource.Click, 1f);
+				}
 			}
 			
 			GUI.EndGroup ();
