@@ -46,8 +46,8 @@ public partial class PlantManager : MonoBehaviour
 			MeshFilter filter = newPlant.AddComponent<MeshFilter> ();
 			MeshRenderer renderer = newPlant.AddComponent<MeshRenderer>();
 			
-			filter.mesh = Resource.plantMesh;
-			renderer.material = Resource.plantMaterial;
+			filter.mesh = Resource.plantMesh[type];
+			renderer.material = Resource.plantMaterial[type];
 			
 			newPlant.transform.parent = tile.transform;
 			newPlant.transform.position = new Vector3 (tile.transform.position.x, tile.transform.position.y+manager.worldScale.y, tile.transform.position.z);

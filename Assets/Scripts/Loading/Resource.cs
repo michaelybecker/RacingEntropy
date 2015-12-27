@@ -6,7 +6,17 @@ public static class Resource
 	/********************************************************************************
 	 * MESHES
 	 * ******************************************************************************/
-	public static Mesh plantMesh = (Mesh)Resources.Load(("Tiles/Plant"), typeof( Mesh ));
+	//Plant meshes, replace "Plant" with type of plant
+	public static Mesh[] plantMesh = new Mesh[]{
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+		(Mesh)Resources.Load(("Plants/Plant"), typeof( Mesh )),
+	};
 
 	//Disaster meshes
 	public static Mesh fireMesh = (Mesh)Resources.Load(("Tiles/Fire"), typeof( Mesh ));
@@ -37,7 +47,16 @@ public static class Resource
 	/*************************************************************************************
 	 * MATERIALS FOR MESHES
 	 * ************************************************************************************/
-	public static Material plantMaterial = (Material)Resources.Load (("Tiles/Materials/Plant"), typeof(Material));
+	public static Material[] plantMaterial = new Material[]{
+		(Material)Resources.Load (("Plants/Materials/Desert"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Marsh"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Forest"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Lake"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Mountain"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Grass"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Crags"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Goal"), typeof(Material)),
+	};
 	public static Material fireMaterial = (Material)Resources.Load (("Tiles/Materials/Fire"), typeof(Material));
 	public static Material stormMaterial = (Material)Resources.Load (("Tiles/Materials/Storm"), typeof(Material));
 	public static Material[] disasterMaterial = new Material[]
