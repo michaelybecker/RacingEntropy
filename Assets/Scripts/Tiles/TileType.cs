@@ -13,4 +13,5 @@ public static class TileType
 
 	//Delegate template for calculating points at any given tile
 	public delegate void growFunction (Tile tile);
+	public delegate void spreadFunction (Tile tile);
 }

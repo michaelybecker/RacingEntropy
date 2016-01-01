@@ -17,7 +17,6 @@ public class Tile
 	//Plant factor
 	public Plant plant;//pointer to plant growing on specified tile
 	public float growthFactor;
-	public float plantGrowth;
 
 	//Fire factor
 	public bool fire;
@@ -58,7 +57,7 @@ public class Tile
 			switch(type)
 			{
 			case (int)TileType.tile.DESERT:
-				growthFactor = 0.0f;
+				growthFactor = 0.1f;
 				flammability = 0;
 				break;
 			case (int)TileType.tile.MARSH:
@@ -70,11 +69,11 @@ public class Tile
 				flammability = 3;
 				break;
 			case (int)TileType.tile.LAKE:
-				growthFactor = 0.0f;
+				growthFactor = 0.25f;
 				flammability = 0;
 				break;
 			case (int)TileType.tile.MOUNTAIN:
-				growthFactor = 0.0f;
+				growthFactor = 0.1f;
 				flammability = 0;
 				break;
 			case (int)TileType.tile.PLAIN:
@@ -82,7 +81,7 @@ public class Tile
 				flammability = 1;
 				break;
 			case (int)TileType.tile.CRAGS:
-				growthFactor = 0.075f;
+				growthFactor = 0.125f;
 				flammability = 0;
 				break;
 			case (int)TileType.tile.GOAL:

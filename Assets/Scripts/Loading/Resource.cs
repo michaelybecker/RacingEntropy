@@ -53,7 +53,7 @@ public static class Resource
 		(Material)Resources.Load (("Plants/Materials/Forest"), typeof(Material)),
 		(Material)Resources.Load (("Plants/Materials/Lake"), typeof(Material)),
 		(Material)Resources.Load (("Plants/Materials/Mountain"), typeof(Material)),
-		(Material)Resources.Load (("Plants/Materials/Grass"), typeof(Material)),
+		(Material)Resources.Load (("Plants/Materials/Plain"), typeof(Material)),
 		(Material)Resources.Load (("Plants/Materials/Crags"), typeof(Material)),
 		(Material)Resources.Load (("Plants/Materials/Goal"), typeof(Material)),
 	};

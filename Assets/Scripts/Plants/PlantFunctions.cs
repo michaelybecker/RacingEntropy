@@ -15,31 +15,49 @@ public partial class PlantManager : MonoBehaviour
 	//Finds the best tile option out of the options in the 4 cardinal directions
 	public void flowerTemplate(Tile tile, int type)
 	{
-		List<Tile> tileOptions = new List<Tile> ();
-		
-		for(int i = 0; i < dir4.Length; i++)
+		//Check if the plant is grown, if so spread it
+		if(tile.plant.grown)
 		{
-			int newX = tile.x+dir4[i].x;
-			int newY = tile.y+dir4[i].y;
-			if(inRange(newX,newY))
+			List<Tile> tileOptions = new List<Tile> ();
+			
+			for(int i = 0; i < dir4.Length; i++)
 			{
-				if(manager.getTile[newX,newY].type == type && manager.getTile[newX,newY].plant == null)
+				int newX = tile.x+dir4[i].x;
+				int newY = tile.y+dir4[i].y;
+				if(inRange(newX,newY))
 				{
-					tileOptions.Add(manager.getTile[newX,newY]);
-				}
-				if(manager.getTile[newX,newY].type == (int)TileType.tile.GOAL)
-				{
-					//Goal tile trumps all, cleat all the other options and just grow there
-					tileOptions.Clear();
-					AddPlant(manager.getTile[newX,newY],type);
-					break;
+					if(manager.getTile[newX,newY].type == type && manager.getTile[newX,newY].plant == null)
+					{
+						tileOptions.Add(manager.getTile[newX,newY]);
+					}
+					if(manager.getTile[newX,newY].type == (int)TileType.tile.GOAL)
+					{
+						//Goal tile trumps all, cleat all the other options and just grow there
+						tileOptions.Clear();
+						AddPlant(manager.getTile[newX,newY],type);
+						break;
+					}
 				}
 			}
+			//Add a plant at that point
+			if(tileOptions.Count > 0)
+			{
+				AddPlant(tileOptions[Random.Range(0,tileOptions.Count)],type);
+			}
 		}
-		//Add a plant at that point
-		if(tileOptions.Count > 0)
+		//if it isn't then grow it.
+		else
 		{
-			if(Random.Range(0,4) == 0)AddPlant(tileOptions[Random.Range(0,tileOptions.Count)],type);
+			//set the growth factor to a little bit higher
+			tile.plant.growthValue += tile.growthFactor;
+			//if it gets over 10 it's a fully grown plant
+			if(tile.plant.growthValue > 1) tile.plant.grown = true;
+
+			//Do some graphic fun to make it look pretty and seem like it's growing by scaling the size of the plant
+			float s = tile.plant.growthValue/1;
+			if(s > 1) s = 1;
+			else if(s <= 0) s = 0.1f;
+			tile.plant.instance.transform.localScale = new Vector3(s,s,s);
 		}
 	}
 
