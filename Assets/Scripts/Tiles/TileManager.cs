@@ -60,7 +60,7 @@ public class TileManager : MonoBehaviour
 	public void Add(int tileType, int X, int Y)
 	{
 		//scale to world coordinates
-		Vector3 newLocation = new Vector3(worldScale.x*X,worldScale.y,worldScale.z*Y);
+		Vector3 newLocation = new Vector3(worldScale.x*X,worldScale.y+(0.1f*TileType.elevations[(int)tileType]),worldScale.z*Y);
 		Tile newTile = new Tile (tileType,newLocation,X,Y);
 
 		//add to array
@@ -282,7 +282,12 @@ public class TileManager : MonoBehaviour
 		Transform flair = getFlair [tile].transform;
 		//Set the flair material and mesh
 		flair.GetComponent<MeshRenderer>().material = changedTile.material;
-		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;		
+		flair.GetComponent<MeshFilter>().mesh = changedTile.mesh;	
+
+		//change the tile elevation, no idea what's going on with the y... but that does seem to fix it
+		tile.transform.position = new Vector3 (tile.transform.position.x, 
+		                                       worldScale.y + (0.1f*(TileType.elevations[(int)changedTile.type]-1)), 
+		                                       tile.transform.position.z);
 	}
 
 	//When the mouse is hovering over a tile
@@ -293,9 +298,13 @@ public class TileManager : MonoBehaviour
 			lastHover.GetComponent<MeshRenderer>().material = tileFromObject[lastHover].material;
 			getFlair[lastHover].GetComponent<MeshRenderer> ().material = tileFromObject[lastHover].material;
 		}
-		tile.GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
-		if(getFlair.ContainsKey(tile))getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
-		lastHover = tile;
+		//check that the material being used has a Color component which can be changed
+		if(tile.GetComponent<MeshRenderer> ().material.HasProperty("_Color"))
+		{
+			tile.GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
+			if(getFlair.ContainsKey(tile))getFlair[tile].GetComponent<MeshRenderer> ().material.color += new Color(0.5f,0.5f,0.5f);
+			lastHover = tile;
+		}
 	}
 
 	//Add a plant to a certain tile

@@ -18,7 +18,6 @@ public class CascadeManager {
 	public int width;
 	public int height;
 
-	private int[] elevations = new int[]{1,0,1,-1,3,1,2,1};
 	//private int[] telements = new int[]{3,2,2,2,0,1,0,1};
 
 	private List<Tile> affectedTiles;
@@ -85,7 +84,7 @@ public class CascadeManager {
 	private void OnWater (Tile currentTile) {
 		// Four checks, comparing elevation of each adjacent tile with elevation of this tile.
 		// Can short-circut if this tile is already elevation 1 or less.
-		if (elevations[(int)currentTile.type] == 0)
+		if (TileType.elevations[(int)currentTile.type] == 0)
 			return;
 
 		int coordX = currentTile.x;
@@ -95,7 +94,7 @@ public class CascadeManager {
 
 		if (coordY != 0) {
 			currentCheck = manager.getTile[coordX, coordY-1];
-			if (!affectedTiles.Contains(currentCheck) && (elevations[currentCheck.type] < elevations[currentTile.type])) {
+			if (!affectedTiles.Contains(currentCheck) && (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type])) {
 				affectedTiles.Add(currentCheck);
 				toDo.Enqueue(currentCheck);
 			}
@@ -103,7 +102,7 @@ public class CascadeManager {
 
 		if (coordX != 0) {
 			currentCheck = manager.getTile[coordX-1, coordY];
-			if (!affectedTiles.Contains(currentCheck) && (elevations[currentCheck.type] < elevations[currentTile.type])) {
+			if (!affectedTiles.Contains(currentCheck) && (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type])) {
 				affectedTiles.Add(currentCheck);
 				toDo.Enqueue(currentCheck);
 			}
@@ -111,7 +110,7 @@ public class CascadeManager {
 
 		if (coordX != width-1) { 
 			currentCheck = manager.getTile[coordX+1, coordY];
-			if (!affectedTiles.Contains(currentCheck) && (elevations[currentCheck.type] < elevations[currentTile.type])) {
+			if (!affectedTiles.Contains(currentCheck) && (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type])) {
 				affectedTiles.Add(currentCheck);
 				toDo.Enqueue(currentCheck);
 			}
@@ -119,7 +118,7 @@ public class CascadeManager {
 
 		if (coordY != height-1) { 
 			currentCheck = manager.getTile[coordX, coordY+1];
-			if (!affectedTiles.Contains(currentCheck) && (elevations[currentCheck.type] < elevations[currentTile.type])) {
+			if (!affectedTiles.Contains(currentCheck) && (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type])) {
 				affectedTiles.Add(currentCheck);
 				toDo.Enqueue(currentCheck);
 			}
@@ -189,28 +188,28 @@ public class CascadeManager {
 
 		if (coordY != 0) {
 			currentCheck = manager.getTile[coordX, coordY-1];
-			if (elevations[currentCheck.type] < elevations[currentTile.type]) {
+			if (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type]) {
 				affectedTiles.Add(currentCheck);
 			}
 		}
 
 		if (coordX != 0) {
 			currentCheck = manager.getTile[coordX-1, coordY];
-			if (elevations[currentCheck.type] < elevations[currentTile.type]) {
+			if (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type]) {
 				affectedTiles.Add(currentCheck);
 			}
 		}
 
 		if (coordX != width-1) { 
 			currentCheck = manager.getTile[coordX+1, coordY];
-			if (elevations[currentCheck.type] < elevations[currentTile.type]) {
+			if (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type]) {
 				affectedTiles.Add(currentCheck);
 			}
 		}
 
 		if (coordY != height-1) { 
 			currentCheck = manager.getTile[coordX, coordY+1];
-			if (elevations[currentCheck.type] < elevations[currentTile.type]) {
+			if (TileType.elevations[currentCheck.type] < TileType.elevations[currentTile.type]) {
 				affectedTiles.Add(currentCheck);
 			}
 		}
@@ -372,7 +371,7 @@ public class CascadeManager {
 			// Exclude all but the lowest-elevation candidates
 			List<Tile> secondCut = new List<Tile>();
 			foreach (Tile currentCandidate in candidates) {
-				if (elevations[(int)currentCandidate.type] == bestValue)
+				if (TileType.elevations[(int)currentCandidate.type] == bestValue)
 					secondCut.Add(currentCandidate);
 			}
 
@@ -407,8 +406,8 @@ public class CascadeManager {
 				if (currentCheck.type == (int)TileType.tile.LAKE) {
 					toDo.Enqueue(currentCheck);
 				} else {
-					if (elevations[currentCheck.type] <= bestValue) {
-						bestValue = elevations[currentCheck.type];
+					if (TileType.elevations[currentCheck.type] <= bestValue) {
+						bestValue = TileType.elevations[currentCheck.type];
 						candidates.Add(currentCheck);
 					}
 				}
@@ -422,8 +421,8 @@ public class CascadeManager {
 				if (currentCheck.type == (int)TileType.tile.LAKE) {
 					toDo.Enqueue(currentCheck);
 				} else {
-					if (elevations[currentCheck.type] <= bestValue) {
-						bestValue = elevations[currentCheck.type];
+					if (TileType.elevations[currentCheck.type] <= bestValue) {
+						bestValue = TileType.elevations[currentCheck.type];
 						candidates.Add(currentCheck);
 					}
 				}
@@ -437,8 +436,8 @@ public class CascadeManager {
 				if (currentCheck.type == (int)TileType.tile.LAKE) {
 					toDo.Enqueue(currentCheck);
 				} else {
-					if (elevations[currentCheck.type] <= bestValue) {
-						bestValue = elevations[currentCheck.type];
+					if (TileType.elevations[currentCheck.type] <= bestValue) {
+						bestValue = TileType.elevations[currentCheck.type];
 						candidates.Add(currentCheck);
 					}
 				}
@@ -452,8 +451,8 @@ public class CascadeManager {
 				if (currentCheck.type == (int)TileType.tile.LAKE) {
 					toDo.Enqueue(currentCheck);
 				} else {
-					if (elevations[currentCheck.type] <= bestValue) {
-						bestValue = elevations[currentCheck.type];
+					if (TileType.elevations[currentCheck.type] <= bestValue) {
+						bestValue = TileType.elevations[currentCheck.type];
 						candidates.Add(currentCheck);
 					}
 				}

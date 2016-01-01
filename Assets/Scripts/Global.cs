@@ -16,7 +16,7 @@ public static class Global
 	public static bool lose = false;
 	public static bool pause = false;
 	public static bool playingTheme = true;
-	public static float gameSpeed = 0.5f;
+	public static float gameSpeed = 0.6f;
 
 	//Current level number
 	public static int levelNumber = 0;
