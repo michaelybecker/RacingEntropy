@@ -59,15 +59,22 @@ public class TileManager : MonoBehaviour
 	//Adds a new tile
 	public void Add(int tileType, int X, int Y)
 	{
-		//scale to world coordinates
-		Vector3 newLocation = new Vector3(worldScale.x*X,worldScale.y+(0.1f*TileType.elevations[(int)tileType]),worldScale.z*Y);
-		Tile newTile = new Tile (tileType,newLocation,X,Y);
+		if (tileType != -1) 
+		{
+			//scale to world coordinates
+			Vector3 newLocation = new Vector3 (
+				worldScale.x * X,
+				worldScale.y + (0.1f * TileType.elevations [(int)tileType]),
+				worldScale.z * Y);
+			Tile newTile = new Tile (tileType, newLocation, X, Y);
 
-		//add to array
-		getTile [X, Y] = newTile;
+			//add to array
+			getTile [X, Y] = newTile;
 
-		//create the gameobject
-		Place (newTile,X,Y);
+			//create the gameobject
+			Place (newTile, X, Y);
+		} 
+		else getTile [X, Y] = new Tile (-1, new Vector3 (0, 0, 0), X, Y);
 	}
 
 	//Place a new tile in the scene

@@ -11,10 +11,12 @@ public class Disaster : MonoBehaviour {
 	public TileManager manager;
 
 	//actions to take when a turn is processed
-	public void Turn () {
+	public void Turn () 
+	{
 		if (currentTile == null || type == -1)
 			return;
-		switch (type) {
+		switch (type) 
+		{
 			case 0:
 				manager.cascade.OnThunder(currentTile);
 				break;
@@ -33,6 +35,7 @@ public class Disaster : MonoBehaviour {
 	//Creates a new disaster with a random type
 	public void StartDisaster (Tile t) 
 	{
+		if(t == null) return;
 		type = Random.Range(0, 4);
 		StartDisaster (t, type);
 	}
@@ -40,6 +43,7 @@ public class Disaster : MonoBehaviour {
 	//Start a new disaster with a set type
 	public void StartDisaster (Tile t, int newType) 
 	{
+		if(t == null) return;
 		type = newType;
 		currentTile = t;
 

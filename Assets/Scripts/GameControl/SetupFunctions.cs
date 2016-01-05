@@ -90,5 +90,7 @@ public partial class WinManager : MonoBehaviour
 		}
 		survivalTime = Time.time;
 	} 
+
+	//Fucntions to enable all elements and/or disable specific elements
 }
 

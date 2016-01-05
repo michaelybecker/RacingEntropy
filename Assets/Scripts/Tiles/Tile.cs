@@ -26,13 +26,17 @@ public class Tile
 	//Create a new Tile
 	public Tile(int newType, Vector3 newPosition, int X, int Y)
 	{
-		//Set the tile parameters
-		Global.tileTypes[newType]++;
-		setTile (newType);
-		position = newPosition;
+		if(newType != -1)
+		{
+			//Set the tile parameters
+			Global.tileTypes[newType]++;
+			setTile (newType);
+			position = newPosition;
 
-		x = X;
-		y = Y;
+			x = X;
+			y = Y;
+		}
+		else type = newType;
 	}
 
 	public void Change(int element)
