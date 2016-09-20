@@ -9,7 +9,6 @@
 #####Code by Jade Elizabeth, Eliot Hemingway and Jake Merz
 #####Art by James Lewis & Cameron Stark
 #####Music and Sound Design by Michael Hazani
-#####Project Management and Documentation by Sacha Retif
 
 Latest Alpha: 12/14/15
 
